@@ -8,18 +8,26 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static Stage mainStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
+        mainStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("vue.fxml"));
-        primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setMinHeight(100);
+        primaryStage.setMinHeight(200);
         primaryStage.setMinWidth(300);
         primaryStage.show();
     }
 
+    public static void setMainStageTitle(String title)
+    {
+        mainStage.setTitle(title);
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }

@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,7 @@ public class Controller_Vue
 	@FXML
 	public void createFile()
 	{
-		textArea.clear();
+		closeFile();
 		textArea.setVisible(true);
 	}
 
@@ -35,7 +36,7 @@ public class Controller_Vue
 		fileChooser.setTitle("Open File");
 		File selectedFile=fileChooser.showOpenDialog(stage);
 
-		if (selectedFile != null)
+		if (selectedFile!=null)
 		{
 			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath().toString());
 			BufferedReader bufferedReader=new BufferedReader(fileReader);
@@ -51,14 +52,21 @@ public class Controller_Vue
 
 			textArea.setVisible(true);
 			textArea.setText(stringBuilder.toString());
+			currentFile=selectedFile;
+
+			Main.setMainStageTitle(currentFile.toString());
+
 		}
 	}
 
 	@FXML
 	public void closeFile()
 	{
+		currentFile=null;
+		Main.setMainStageTitle("");
 		textArea.clear();
 		textArea.setVisible(false);
+
 
 	}
 
@@ -68,11 +76,15 @@ public class Controller_Vue
 		if (currentFile!=null)
 		{
 			PrintWriter writer;
-			writer = new PrintWriter(currentFile);
+			writer=new PrintWriter(currentFile);
 			writer.println(textArea.getText());
 			writer.close();
-		}else
+			Main.setMainStageTitle(currentFile.toString());
+		} else
+		{
 			saveFileAs();
+		}
+
 	}
 
 	@FXML
@@ -80,17 +92,21 @@ public class Controller_Vue
 	{
 		if (!textArea.getText().isEmpty())
 		{
-			Stage stage = new Stage();
-			FileChooser fileChooser = new FileChooser();
-			File file = fileChooser.showSaveDialog(stage);
-			if (file != null)
+			Stage stage=new Stage();
+			FileChooser fileChooser=new FileChooser();
+			File file=fileChooser.showSaveDialog(stage);
+			if (file!=null)
 			{
 				PrintWriter writer;
-				writer = new PrintWriter(file);
+				writer=new PrintWriter(file);
 				writer.println(textArea.getText());
 				writer.close();
 				currentFile=file;
 			}
+
+			Main.setMainStageTitle(currentFile.toString());
 		}
+
+
 	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
@@ -9,13 +10,12 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Vue">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
+        <MenuBar style="-fx-background-color: #949c9e;" VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#createFile" text="New" />
                         <MenuItem fx:id="openFile" mnemonicParsing="false" onAction="#openFile" text="Open File…" />
-                        <Menu mnemonicParsing="false" text="Open Recent" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFile" text="Close" />
                         <MenuItem fx:id="saveFile" mnemonicParsing="false" onAction="#saveFile" text="Save" />
@@ -46,14 +46,26 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="307.0" prefWidth="640.0" style="-fx-background-color: #2b333b;" VBox.vgrow="ALWAYS">
             <children>
-                <Label fx:id="motd" alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Create or Open a file.." textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                <Label fx:id="motd" alignment="CENTER" layoutX="155.0" layoutY="177.0" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff42" wrapText="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="22.0" />
                     </font>
                 </Label>
-            <TextArea fx:id="textArea" layoutX="131.0" layoutY="74.0" prefHeight="200.0" prefWidth="341.0" visible="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <TextArea fx:id="textArea" layoutX="131.0" layoutY="74.0" prefHeight="200.0" prefWidth="341.0" style="-fx-control-inner-background: #2b333b; -fx-highlight-fill: white; -fx-highlight-text-fill: #2b333b; -fx-text-fill: #ffffff99; -fx-focus-color: #2b333b; -fx-faint-focus-color: #2b333b; -fx-background-color: #2b333b;" visible="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </AnchorPane>
+        <AnchorPane prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #2b333b;">
+            <children>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6d7678; -fx-background-radius: 7 7 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Slider style="-fx-focus-color: #2b333b; -fx-background-color: #6d7678;" layoutX="250.0" layoutY="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
             </children>
         </AnchorPane>
     </children>
