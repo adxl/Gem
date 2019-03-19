@@ -18,7 +18,7 @@
                         <Menu mnemonicParsing="false" text="Open Recent" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFile" text="Close" />
-                        <MenuItem fx:id="saveFile" mnemonicParsing="false" text="Save" />
+                        <MenuItem fx:id="saveFile" mnemonicParsing="false" onAction="#saveFile" text="Save" />
                         <MenuItem fx:id="saveFileAs" mnemonicParsing="false" onAction="#saveFileAs" text="Save As…" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="preferences" mnemonicParsing="false" text="Preferences…" />

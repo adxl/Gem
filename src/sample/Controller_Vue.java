@@ -12,6 +12,8 @@ import java.io.*;
 
 public class Controller_Vue
 {
+	File currentFile;
+
 	@FXML
 	Label motd;
 
@@ -61,6 +63,19 @@ public class Controller_Vue
 	}
 
 	@FXML
+	public void saveFile() throws IOException
+	{
+		if (currentFile!=null)
+		{
+			PrintWriter writer;
+			writer = new PrintWriter(currentFile);
+			writer.println(textArea.getText());
+			writer.close();
+		}else
+			saveFileAs();
+	}
+
+	@FXML
 	public void saveFileAs() throws IOException
 	{
 		if (!textArea.getText().isEmpty())
@@ -74,6 +89,7 @@ public class Controller_Vue
 				writer = new PrintWriter(file);
 				writer.println(textArea.getText());
 				writer.close();
+				currentFile=file;
 			}
 		}
 	}
