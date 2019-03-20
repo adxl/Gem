@@ -1,25 +1,51 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import javax.print.DocFlavor;
 import java.io.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class Controller_Vue
 {
 	File currentFile;
 
 	@FXML
-	Label motd;
+	private Label motd;
 
 	@FXML
-	TextArea textArea;
+	private TextArea textArea;
+
+	@FXML
+	private Slider fontSizeSlider;
+
+	@FXML
+	public void initialize()
+	{
+		fontSizeSlider.setMin(14);
+		fontSizeSlider.setMax(72);
+		fontSizeSlider.setValue(14);
+
+		fontSizeSlider.valueProperty().addListener(new ChangeListener<Number>()
+		{
+			public void changed(ObservableValue<? extends Number> observableValue, Number previousValue, Number currentValue)
+			{
+				textArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+				textArea.setText(textArea.getText());
+			}
+		});
+	}
 
 	@FXML
 	public void createFile()
@@ -55,7 +81,6 @@ public class Controller_Vue
 			currentFile=selectedFile;
 
 			Main.setMainStageTitle(currentFile.toString());
-
 		}
 	}
 
@@ -66,8 +91,6 @@ public class Controller_Vue
 		Main.setMainStageTitle("");
 		textArea.clear();
 		textArea.setVisible(false);
-
-
 	}
 
 	@FXML
@@ -84,7 +107,6 @@ public class Controller_Vue
 		{
 			saveFileAs();
 		}
-
 	}
 
 	@FXML
@@ -106,7 +128,18 @@ public class Controller_Vue
 
 			Main.setMainStageTitle(currentFile.toString());
 		}
-
-
 	}
+	
+
+
+
+
+
+
+
+
+
+
+
+//
 }

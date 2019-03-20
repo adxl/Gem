@@ -63,7 +63,12 @@
             <children>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #6d7678; -fx-background-radius: 7 7 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Slider style="-fx-focus-color: #2b333b; -fx-background-color: #6d7678;" layoutX="250.0" layoutY="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                        <Slider fx:id="fontSizeSlider" layoutX="250.0" layoutY="7.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                  <Label layoutX="446.0" layoutY="9.0" text="Aa" textFill="#00000062" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
             </children>
