@@ -43,6 +43,7 @@ public class Controller_Vue
 			{
 				textArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 				textArea.setText(textArea.getText());
+				textArea.requestFocus();
 			}
 		});
 	}
@@ -52,6 +53,7 @@ public class Controller_Vue
 	{
 		closeFile();
 		textArea.setVisible(true);
+		textArea.requestFocus();
 	}
 
 	@FXML
@@ -78,6 +80,7 @@ public class Controller_Vue
 
 			textArea.setVisible(true);
 			textArea.setText(stringBuilder.toString());
+			textArea.requestFocus();
 			currentFile=selectedFile;
 
 			Main.setMainStageTitle(currentFile.toString());
@@ -129,16 +132,6 @@ public class Controller_Vue
 			Main.setMainStageTitle(currentFile.toString());
 		}
 	}
-	
-
-
-
-
-
-
-
-
-
 
 
 //

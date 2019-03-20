@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -48,11 +49,31 @@
         </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="307.0" prefWidth="640.0" style="-fx-background-color: #2b333b;" VBox.vgrow="ALWAYS">
             <children>
-                <Label fx:id="motd" alignment="CENTER" layoutX="155.0" layoutY="177.0" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff42" wrapText="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                <Label fx:id="motd" alignment="CENTER" layoutX="155.0" layoutY="177.0" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                     <font>
-                        <Font size="22.0" />
+                        <Font name="FreeSans" size="18.0" />
                     </font>
                 </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createFile" opacity="0.0" prefHeight="25.0" prefWidth="57.0">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openFile" opacity="0.0" prefHeight="25.0" prefWidth="100.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
                 <TextArea fx:id="textArea" layoutX="131.0" layoutY="74.0" prefHeight="200.0" prefWidth="341.0" style="-fx-control-inner-background: #2b333b; -fx-highlight-fill: white; -fx-highlight-text-fill: #2b333b; -fx-text-fill: #ffffff99; -fx-focus-color: #2b333b; -fx-faint-focus-color: #2b333b; -fx-background-color: #2b333b;" visible="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </children>
             <VBox.margin>
