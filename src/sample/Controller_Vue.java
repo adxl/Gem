@@ -3,19 +3,13 @@ package sample;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
-import javax.print.DocFlavor;
 import java.io.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class Controller_Vue
 {
@@ -52,8 +46,11 @@ public class Controller_Vue
 	public void createFile()
 	{
 		closeFile();
+
 		textArea.setVisible(true);
 		textArea.requestFocus();
+
+		Main.setMainStageTitle("Unsaved document");
 	}
 
 	@FXML
@@ -83,7 +80,7 @@ public class Controller_Vue
 			textArea.requestFocus();
 			currentFile=selectedFile;
 
-			Main.setMainStageTitle(currentFile.toString());
+			Main.setMainStageTitle(currentFile.getName());
 		}
 	}
 
@@ -105,7 +102,8 @@ public class Controller_Vue
 			writer=new PrintWriter(currentFile);
 			writer.println(textArea.getText());
 			writer.close();
-			Main.setMainStageTitle(currentFile.toString());
+
+			Main.setMainStageTitle(currentFile.getName());
 		} else
 		{
 			saveFileAs();
@@ -127,12 +125,15 @@ public class Controller_Vue
 				writer.println(textArea.getText());
 				writer.close();
 				currentFile=file;
+				Main.setMainStageTitle(currentFile.getName());
 			}
-
-			Main.setMainStageTitle(currentFile.toString());
 		}
 	}
 
+	public void exitApplication()
+	{
+		System.exit(0);
+	}
 
 //
 }
