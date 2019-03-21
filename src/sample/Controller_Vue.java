@@ -13,16 +13,16 @@ import java.io.*;
 
 public class Controller_Vue
 {
-	File currentFile;
-
-	@FXML
-	private Label motd;
-
 	@FXML
 	private TextArea textArea;
-
+	@FXML
+	private Label filePath;
+	@FXML
+	private Label fileType;
 	@FXML
 	private Slider fontSizeSlider;
+
+	File currentFile;
 
 	@FXML
 	public void initialize()
@@ -78,9 +78,12 @@ public class Controller_Vue
 			textArea.setVisible(true);
 			textArea.setText(stringBuilder.toString());
 			textArea.requestFocus();
+
 			currentFile=selectedFile;
 
 			Main.setMainStageTitle(currentFile.getName());
+			filePath.setText(currentFile.getAbsolutePath());
+			fileType.setText(getType());
 		}
 	}
 
@@ -88,7 +91,11 @@ public class Controller_Vue
 	public void closeFile()
 	{
 		currentFile=null;
-		Main.setMainStageTitle("");
+
+		Main.setMainStageTitle("Gem");
+		filePath.setText("");
+		fileType.setText("");
+
 		textArea.clear();
 		textArea.setVisible(false);
 	}
@@ -104,6 +111,9 @@ public class Controller_Vue
 			writer.close();
 
 			Main.setMainStageTitle(currentFile.getName());
+			filePath.setText(currentFile.getAbsolutePath());
+			fileType.setText(getType());
+
 		} else
 		{
 			saveFileAs();
@@ -124,10 +134,29 @@ public class Controller_Vue
 				writer=new PrintWriter(file);
 				writer.println(textArea.getText());
 				writer.close();
+
 				currentFile=file;
+
 				Main.setMainStageTitle(currentFile.getName());
+				filePath.setText(currentFile.getAbsolutePath());
+				fileType.setText(getType());
 			}
 		}
+	}
+
+	private String getType() {
+		String type = "";
+
+		try {
+			if (currentFile != null && currentFile.exists()) {
+				type = currentFile.getName().substring(currentFile.getName().lastIndexOf(".")+1);
+			}
+		} catch (Exception e) {
+			type = "";
+		}
+
+		return type.toUpperCase();
+
 	}
 
 	public void exitApplication()
