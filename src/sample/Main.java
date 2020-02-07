@@ -14,9 +14,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         mainStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("vue.fxml"));
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setMinHeight(200);
-        primaryStage.setMinWidth(300);
+        primaryStage.setScene(new Scene(root,800,600));
+//        primaryStage.setMinHeight(200);
+//        primaryStage.setMinWidth(400);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
