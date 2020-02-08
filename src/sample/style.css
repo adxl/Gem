@@ -6,10 +6,14 @@
     -fx-text-fill: #cdcdcd;
 }
 
+#menuBar .context-menu{
+    -fx-background-color: #2b333b;
+}
+
 #bottomBar HBox {
     -fx-background-color: #6d7678;
 }
 
 #bottomBar HBox .label {
-    -fx-text-fill: #cdcdcd;
+    -fx-text-fill: #2b333b;
 }
