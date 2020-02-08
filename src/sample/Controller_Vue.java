@@ -3,14 +3,17 @@ package sample;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.sound.midi.SoundbankResource;
 import java.io.*;
 
 public class Controller_Vue {
@@ -45,27 +48,27 @@ public class Controller_Vue {
 				System.out.println(p+": "+c+":");
 				System.out.println("---------->"+c.split("\r\n|\r|\n",-1).length);
 				int lines=c.split("\r\n|\r|\n",-1).length;
-				if(linesCounter>lines)
+				if(linesCounter!=lines)
 				{
 					linesCounter=lines;
 					rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
 					for(int i=1;i<=lines;i++)
 					{
-						rowCounter.getChildren().add(new Label(String.valueOf(i)));
+						Label l = new Label(String.valueOf(i));
+						rowCounter.getChildren().add(l);
 					}
-				} else if(linesCounter<lines)
-				{
-					linesCounter=lines;
-					rowCounter.getChildren().add(new Label(String.valueOf(lines)));
 				}
 			}
 		});
+
+		//TODO QUICK CREATION FOR TEST, REMOVE
 		createFile();
 	}
 
 	@FXML
 	public void createFile() {
 		closeFile();
+		resetLines();
 		rowCounter.setVisible(true);
 		textArea.setVisible(true);
 		textArea.requestFocus();
@@ -88,6 +91,7 @@ public class Controller_Vue {
 			{
 				stringBuilder.append(text+"\n");
 			}
+			resetLines();
 			rowCounter.setVisible(true);
 			textArea.setVisible(true);
 			textArea.setText(stringBuilder.toString());
@@ -105,6 +109,7 @@ public class Controller_Vue {
 		Main.setMainStageTitle("Gem");
 		filePath.setText("");
 		fileType.setText("");
+		resetLines();
 		rowCounter.setVisible(false);
 		textArea.clear();
 		textArea.setVisible(false);
@@ -161,6 +166,12 @@ public class Controller_Vue {
 			type="";
 		}
 		return type.toUpperCase();
+	}
+
+	private void resetLines()
+	{
+		linesCounter=1;
+		rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
 	}
 
 	public void exitApplication() {

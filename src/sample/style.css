@@ -6,7 +6,7 @@
     -fx-text-fill: #cdcdcd;
 }
 
-#menuBar .context-menu{
+#menuBar .context-menu {
     -fx-background-color: #2b333b;
 }
 
@@ -18,6 +18,10 @@
     -fx-text-fill: #2b333b;
 }
 
+#rowCounter {
+    -fx-background-color: #242C32;
+}
+
 #rowCounter .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #878787;
 }

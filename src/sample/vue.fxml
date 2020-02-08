@@ -89,9 +89,9 @@
                 </Label>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox fx:id="rowCounter" prefHeight="541.0" prefWidth="21.0" style="-fx-background-color: red;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox id="rowCounter" fx:id="rowCounter" alignment="TOP_RIGHT" prefHeight="541.0" prefWidth="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="1" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS" />
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="1" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                       <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="341.0" style="-fx-control-inner-background: #2b333b; -fx-highlight-fill: white; -fx-highlight-text-fill: #2b333b; -fx-text-fill: #ffffff99; -fx-focus-color: #2b333b; -fx-faint-focus-color: #2b333b; -fx-background-color: #2b333b;" visible="false" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
