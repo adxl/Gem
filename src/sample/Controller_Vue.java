@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -15,6 +16,9 @@ import java.io.*;
 public class Controller_Vue {
 	@FXML
 	private TextArea textArea;
+	@FXML
+	private VBox rowCounter;
+	private int linesCounter=1;
 	@FXML
 	private Label filePath;
 	@FXML
@@ -26,7 +30,7 @@ public class Controller_Vue {
 
 	@FXML
 	public void initialize() {
-		fontSizeSlider.setMin(14);
+		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(72);
 		fontSizeSlider.setValue(14);
 		fontSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -36,11 +40,33 @@ public class Controller_Vue {
 				textArea.requestFocus();
 			}
 		});
+		textArea.textProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
+				System.out.println(p+": "+c+":");
+				System.out.println("---------->"+c.split("\r\n|\r|\n",-1).length);
+				int lines=c.split("\r\n|\r|\n",-1).length;
+				if(linesCounter>lines)
+				{
+					linesCounter=lines;
+					rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
+					for(int i=1;i<=lines;i++)
+					{
+						rowCounter.getChildren().add(new Label(String.valueOf(i)));
+					}
+				} else if(linesCounter<lines)
+				{
+					linesCounter=lines;
+					rowCounter.getChildren().add(new Label(String.valueOf(lines)));
+				}
+			}
+		});
+		createFile();
 	}
 
 	@FXML
 	public void createFile() {
 		closeFile();
+		rowCounter.setVisible(true);
 		textArea.setVisible(true);
 		textArea.requestFocus();
 		Main.setMainStageTitle("Unsaved document");
@@ -62,6 +88,7 @@ public class Controller_Vue {
 			{
 				stringBuilder.append(text+"\n");
 			}
+			rowCounter.setVisible(true);
 			textArea.setVisible(true);
 			textArea.setText(stringBuilder.toString());
 			textArea.requestFocus();
@@ -78,6 +105,7 @@ public class Controller_Vue {
 		Main.setMainStageTitle("Gem");
 		filePath.setText("");
 		fileType.setText("");
+		rowCounter.setVisible(false);
 		textArea.clear();
 		textArea.setVisible(false);
 	}

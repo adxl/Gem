@@ -17,3 +17,7 @@
 #bottomBar HBox .label {
     -fx-text-fill: #2b333b;
 }
+
+#rowCounter .label {
+    -fx-text-fill: white;
+}

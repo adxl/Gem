@@ -16,7 +16,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("vue.fxml"));
 
         primaryStage.setScene(new Scene(root));
-        primaryStage.setMaximized(true);
+//        primaryStage.setMaximized(true);
         primaryStage.setMinHeight(200);
         primaryStage.setMinWidth(400);
         primaryStage.show();
