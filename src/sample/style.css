@@ -1,0 +1,15 @@
+#menuBar {
+    -fx-background-color: #2b333b;
+}
+
+#menuBar .label {
+    -fx-text-fill: #cdcdcd;
+}
+
+#bottomBar HBox {
+    -fx-background-color: #6d7678;
+}
+
+#bottomBar HBox .label {
+    -fx-text-fill: #cdcdcd;
+}
