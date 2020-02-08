@@ -2,8 +2,10 @@ package sample;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
 
 import javax.sound.midi.SoundbankResource;
 import java.io.*;
+import java.util.List;
 
 public class Controller_Vue {
 	@FXML
@@ -22,6 +25,7 @@ public class Controller_Vue {
 	@FXML
 	private VBox rowCounter;
 	private int linesCounter=1;
+	private Label tempLabel;
 	@FXML
 	private Label filePath;
 	@FXML
@@ -34,19 +38,19 @@ public class Controller_Vue {
 	@FXML
 	public void initialize() {
 		fontSizeSlider.setMin(10);
-		fontSizeSlider.setMax(72);
-		fontSizeSlider.setValue(14);
+		fontSizeSlider.setMax(20);
+		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
 				textArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 				textArea.setText(textArea.getText());
 				textArea.requestFocus();
+				for(Label l : (Label[])rowCounter.getChildren().toArray(new Label[rowCounter.getChildren().size()]))
+					l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 			}
 		});
 		textArea.textProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
-				System.out.println(p+": "+c+":");
-				System.out.println("---------->"+c.split("\r\n|\r|\n",-1).length);
 				int lines=c.split("\r\n|\r|\n",-1).length;
 				if(linesCounter!=lines)
 				{
@@ -54,14 +58,14 @@ public class Controller_Vue {
 					rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
 					for(int i=1;i<=lines;i++)
 					{
-						Label l = new Label(String.valueOf(i));
-						rowCounter.getChildren().add(l);
+						tempLabel=new Label(String.valueOf(i));
+						tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
+						rowCounter.getChildren().add(tempLabel);
 					}
 				}
 			}
 		});
-
-		//TODO QUICK CREATION FOR TEST, REMOVE
+		//TODO QUICK CREATION FOR TEST, REMOVE AFTER
 		createFile();
 	}
 
@@ -89,7 +93,7 @@ public class Controller_Vue {
 			String text="";
 			while((text=bufferedReader.readLine())!=null)
 			{
-				stringBuilder.append(text+"\n");
+				stringBuilder.append(text).append("\n");
 			}
 			resetLines();
 			rowCounter.setVisible(true);
@@ -168,8 +172,7 @@ public class Controller_Vue {
 		return type.toUpperCase();
 	}
 
-	private void resetLines()
-	{
+	private void resetLines() {
 		linesCounter=1;
 		rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
 	}
