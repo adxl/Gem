@@ -21,15 +21,11 @@ import java.util.Map;
 
 public class Controller_Vue implements Cloneable {
 	@FXML
-	private SplitPane mainPane;
-	@FXML
-	private TabPane tabPane;
-	private List<Tab> tabList;
+	private TabPane tabPane; //tabs container
 	private TextArea currentTextArea;
-	private boolean isTextAreaActive;
 	private VBox currentRowCounter;
+	private int linesCounter;
 
-	private int linesCounter=1;
 	private Label tempLabel;
 	@FXML
 	private Label filePath;
@@ -40,58 +36,51 @@ public class Controller_Vue implements Cloneable {
 
 	File currentFile;
 	Map<String,File> openFiles=new HashMap<>();
+	ChangeListener<String> changeListener;
 
 	@FXML
 	public void initialize() {
-		isTextAreaActive=false;
+		linesCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
-				//				textArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-				//				textArea.setText(textArea.getText());
-				//				textArea.requestFocus();
-				//				for(Label l : (Label[])rowCounter.getChildren().toArray(new Label[rowCounter.getChildren().size()]))
-				//					l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 				currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 				currentTextArea.setText(currentTextArea.getText());
 				currentTextArea.requestFocus();
-				for(Label l : (Label[])currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
+				for(Label l : currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
 					l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 			}
 		});
-		//		try {
-		//			createFile();
-		//		}catch(Exception e)
-		//		{
-		//
-		//		}
+		changeListener=this::textAreaChanged;
 	}
 
 	private void currentTextAreaListener() {
-		if(!tabPane.getTabs().isEmpty())
+		currentRowCounter=(VBox)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+		currentTextArea.textProperty().removeListener(changeListener);
+		currentTextArea.textProperty().addListener(changeListener);
+		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+		for(Label l : currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
+			l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+	}
+
+	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
+		int lines=c.split("\r\n|\r|\n",-1).length;
+		if(linesCounter!=lines)
 		{
-			currentRowCounter=(VBox)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
-			currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
-			currentTextArea.textProperty().addListener(new ChangeListener<String>() {
-				public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
-					int lines=c.split("\r\n|\r|\n",-1).length;
-					if(linesCounter!=lines)
-					{
-						linesCounter=lines;
-						currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
-						for(int i=1;i<=lines;i++)
-						{
-							tempLabel=new Label(String.valueOf(i));
-							tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
-							currentRowCounter.getChildren().add(tempLabel);
-						}
-					}
-				}
-			});
+			linesCounter=lines;
+			currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
+			for(int i=1;i<=lines;i++)
+			{
+				tempLabel=new Label(String.valueOf(i));
+				tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
+				currentRowCounter.getChildren().add(tempLabel);
+			}
 		}
 	}
+
 
 	@FXML
 	public void createFile() throws IOException {
@@ -100,7 +89,10 @@ public class Controller_Vue implements Cloneable {
 			@Override
 			public void handle(Event event) {
 				if(tab.isSelected())
+				{
 					currentTextAreaListener();
+					System.out.println("called1");
+				}
 			}
 		});
 		tabPane.getTabs().add(tab);
@@ -164,14 +156,6 @@ public class Controller_Vue implements Cloneable {
 
 	@FXML
 	public void closeFile() {
-		currentFile=null;
-		Main.setMainStageTitle("Gem");
-		filePath.setText("");
-		fileType.setText("");
-		resetLines();
-		currentRowCounter.setVisible(false);
-		currentTextArea.clear();
-		currentTextArea.setVisible(false);
 	}
 
 	@FXML
