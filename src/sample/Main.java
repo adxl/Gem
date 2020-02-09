@@ -17,6 +17,7 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(root));
 //        primaryStage.setMaximized(true);
+        primaryStage.setAlwaysOnTop(true);
         primaryStage.setMinHeight(200);
         primaryStage.setMinWidth(400);
         primaryStage.show();

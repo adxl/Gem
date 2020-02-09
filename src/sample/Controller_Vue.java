@@ -2,6 +2,8 @@ package sample;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -23,11 +25,8 @@ public class Controller_Vue implements Cloneable {
 	@FXML
 	private TabPane tabPane;
 	private List<Tab> tabList;
-	//	@FXML
-	//	private TextArea textArea;
-	//	@FXML
-	//	private VBox rowCounter;
 	private TextArea currentTextArea;
+	private boolean isTextAreaActive;
 	private VBox currentRowCounter;
 
 	private int linesCounter=1;
@@ -44,13 +43,7 @@ public class Controller_Vue implements Cloneable {
 
 	@FXML
 	public void initialize() {
-//		System.out.println(">"+tabPane.getTabs().size()); // 2
-//		System.out.println(">>"+tabPane.getTabs());
-//		System.out.println(">"+tabPane.getTabs().size()); // 2
-//		System.out.println(">>"+tabPane.getTabs());
-//		AnchorPane anchor=(AnchorPane)tabList.get(0).getContent();
-//		currentTextArea=(TextArea)anchor.getChildren().get(1);
-//		currentRowCounter=(VBox)anchor.getChildren().get(0);
+		isTextAreaActive=false;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
@@ -68,63 +61,49 @@ public class Controller_Vue implements Cloneable {
 					l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 			}
 		});
-		//		textArea.textProperty().addListener(new ChangeListener<String>() {
-		//			public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
-		//				int lines=c.split("\r\n|\r|\n",-1).length;
-		//				if(linesCounter!=lines)
-		//				{
-		//					linesCounter=lines;
-		//					rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
-		//					for(int i=1;i<=lines;i++)
-		//					{
-		//						tempLabel=new Label(String.valueOf(i));
-		//						tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
-		//						rowCounter.getChildren().add(tempLabel);
-		//					}
-		//				}
-		//			}
+		//		try {
+		//			createFile();
+		//		}catch(Exception e)
+		//		{
+		//
 		//		}
-		/*currentTextArea.textProperty().addListener(new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
-				int lines=c.split("\r\n|\r|\n",-1).length;
-				if(linesCounter!=lines)
-				{
-					linesCounter=lines;
-					currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
-					for(int i=1;i<=lines;i++)
+	}
+
+	private void currentTextAreaListener() {
+		if(!tabPane.getTabs().isEmpty())
+		{
+			currentRowCounter=(VBox)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+			currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+			currentTextArea.textProperty().addListener(new ChangeListener<String>() {
+				public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
+					int lines=c.split("\r\n|\r|\n",-1).length;
+					if(linesCounter!=lines)
 					{
-						tempLabel=new Label(String.valueOf(i));
-						tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
-						currentRowCounter.getChildren().add(tempLabel);
+						linesCounter=lines;
+						currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
+						for(int i=1;i<=lines;i++)
+						{
+							tempLabel=new Label(String.valueOf(i));
+							tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
+							currentRowCounter.getChildren().add(tempLabel);
+						}
 					}
 				}
-			}
-		});*/
-//		try {
-//			createFile();
-//		}catch(Exception e)
-//		{
-//
-//		}
-
+			});
+		}
 	}
 
 	@FXML
-	public void createFile() throws IOException{
-
+	public void createFile() throws IOException {
 		Tab tab=new Tab("New Tab",FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
-
+		tab.setOnSelectionChanged(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				if(tab.isSelected())
+					currentTextAreaListener();
+			}
+		});
 		tabPane.getTabs().add(tab);
-//		System.out.println(tabPane.getTabs().size());
-
-//		AnchorPane anchor=(AnchorPane)tab.getContent();
-//		currentRowCounter=(VBox)anchor.getChildren().get(0);
-//		currentTextArea=(TextArea)anchor.getChildren().get(1);
-		//		mainPane.setVisible(true);
-		//		rowCounter.setVisible(true);
-		//		textArea.setVisible(true);
-//		currentTextArea.requestFocus();
-//		Main.setMainStageTitle("Unsaved document");
 	}
 
 	@FXML
