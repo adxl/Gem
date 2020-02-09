@@ -2,28 +2,34 @@ package sample;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import org.apache.commons.lang3.SerializationUtils;
 
-import javax.sound.midi.SoundbankResource;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Controller_Vue {
+public class Controller_Vue implements Cloneable {
 	@FXML
-	private TextArea textArea;
+	private SplitPane mainPane;
 	@FXML
-	private VBox rowCounter;
+	private TabPane tabPane;
+	private List<Tab> tabList;
+	//	@FXML
+	//	private TextArea textArea;
+	//	@FXML
+	//	private VBox rowCounter;
+	private TextArea currentTextArea;
+	private VBox currentRowCounter;
+
 	private int linesCounter=1;
 	private Label tempLabel;
 	@FXML
@@ -34,77 +40,147 @@ public class Controller_Vue {
 	private Slider fontSizeSlider;
 
 	File currentFile;
+	Map<String,File> openFiles=new HashMap<>();
 
 	@FXML
 	public void initialize() {
+//		System.out.println(">"+tabPane.getTabs().size()); // 2
+//		System.out.println(">>"+tabPane.getTabs());
+//		System.out.println(">"+tabPane.getTabs().size()); // 2
+//		System.out.println(">>"+tabPane.getTabs());
+//		AnchorPane anchor=(AnchorPane)tabList.get(0).getContent();
+//		currentTextArea=(TextArea)anchor.getChildren().get(1);
+//		currentRowCounter=(VBox)anchor.getChildren().get(0);
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
-				textArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-				textArea.setText(textArea.getText());
-				textArea.requestFocus();
-				for(Label l : (Label[])rowCounter.getChildren().toArray(new Label[rowCounter.getChildren().size()]))
+				//				textArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+				//				textArea.setText(textArea.getText());
+				//				textArea.requestFocus();
+				//				for(Label l : (Label[])rowCounter.getChildren().toArray(new Label[rowCounter.getChildren().size()]))
+				//					l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+				currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+				currentTextArea.setText(currentTextArea.getText());
+				currentTextArea.requestFocus();
+				for(Label l : (Label[])currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
 					l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 			}
 		});
-		textArea.textProperty().addListener(new ChangeListener<String>() {
+		//		textArea.textProperty().addListener(new ChangeListener<String>() {
+		//			public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
+		//				int lines=c.split("\r\n|\r|\n",-1).length;
+		//				if(linesCounter!=lines)
+		//				{
+		//					linesCounter=lines;
+		//					rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
+		//					for(int i=1;i<=lines;i++)
+		//					{
+		//						tempLabel=new Label(String.valueOf(i));
+		//						tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
+		//						rowCounter.getChildren().add(tempLabel);
+		//					}
+		//				}
+		//			}
+		//		}
+		/*currentTextArea.textProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observableValue,String p,String c) {
 				int lines=c.split("\r\n|\r|\n",-1).length;
 				if(linesCounter!=lines)
 				{
 					linesCounter=lines;
-					rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
+					currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
 					for(int i=1;i<=lines;i++)
 					{
 						tempLabel=new Label(String.valueOf(i));
 						tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
-						rowCounter.getChildren().add(tempLabel);
+						currentRowCounter.getChildren().add(tempLabel);
 					}
 				}
 			}
-		});
-		//TODO QUICK CREATION FOR TEST, REMOVE AFTER
-		createFile();
+		});*/
+//		try {
+//			createFile();
+//		}catch(Exception e)
+//		{
+//
+//		}
+
 	}
 
 	@FXML
-	public void createFile() {
-		closeFile();
-		resetLines();
-		rowCounter.setVisible(true);
-		textArea.setVisible(true);
-		textArea.requestFocus();
-		Main.setMainStageTitle("Unsaved document");
+	public void createFile() throws IOException{
+
+		Tab tab=new Tab("New Tab",FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+
+		tabPane.getTabs().add(tab);
+//		System.out.println(tabPane.getTabs().size());
+
+//		AnchorPane anchor=(AnchorPane)tab.getContent();
+//		currentRowCounter=(VBox)anchor.getChildren().get(0);
+//		currentTextArea=(TextArea)anchor.getChildren().get(1);
+		//		mainPane.setVisible(true);
+		//		rowCounter.setVisible(true);
+		//		textArea.setVisible(true);
+//		currentTextArea.requestFocus();
+//		Main.setMainStageTitle("Unsaved document");
 	}
 
 	@FXML
 	public void openFile() throws IOException {
-		Stage stage=new Stage();
-		FileChooser fileChooser=new FileChooser();
-		fileChooser.setTitle("Open File");
-		File selectedFile=fileChooser.showOpenDialog(stage);
-		if(selectedFile!=null)
-		{
-			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath().toString());
-			BufferedReader bufferedReader=new BufferedReader(fileReader);
-			StringBuilder stringBuilder=new StringBuilder();
-			String text="";
-			while((text=bufferedReader.readLine())!=null)
-			{
-				stringBuilder.append(text).append("\n");
-			}
-			resetLines();
-			rowCounter.setVisible(true);
-			textArea.setVisible(true);
-			textArea.setText(stringBuilder.toString());
-			textArea.requestFocus();
-			currentFile=selectedFile;
-			Main.setMainStageTitle(currentFile.getName());
-			filePath.setText(currentFile.getAbsolutePath());
-			fileType.setText(getType());
-		}
+		//		Stage stage=new Stage();
+		//		FileChooser fileChooser=new FileChooser();
+		//		fileChooser.setTitle("Open File");
+		//		File selectedFile=fileChooser.showOpenDialog(stage);
+		//		if(selectedFile!=null)
+		//		{
+		//			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath().toString());
+		//			BufferedReader bufferedReader=new BufferedReader(fileReader);
+		//			StringBuilder stringBuilder=new StringBuilder();
+		//			String text="";
+		//			while((text=bufferedReader.readLine())!=null)
+		//			{
+		//				stringBuilder.append(text).append("\n");
+		//			}
+		//			resetLines();
+		//			rowCounter.setVisible(true);
+		//			textArea.setVisible(true);
+		//			textArea.setText(stringBuilder.toString());
+		//			textArea.requestFocus();
+		//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
+		//			Main.setMainStageTitle(selectedFile.getName());
+		//			filePath.setText(selectedFile.getAbsolutePath());
+		//			fileType.setText(getType(selectedFile));
+		//		}
+		//		Stage stage=new Stage();
+		//		FileChooser fileChooser=new FileChooser();
+		//		fileChooser.setTitle("Open File");
+		//		File selectedFile=fileChooser.showOpenDialog(stage);
+		//		if(selectedFile!=null)
+		//		{
+		//			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
+		//			BufferedReader bufferedReader=new BufferedReader(fileReader);
+		//			StringBuilder stringBuilder=new StringBuilder();
+		//			String text="";
+		//			while((text=bufferedReader.readLine())!=null)
+		//			{
+		//				stringBuilder.append(text).append("\n");
+		//			}
+		//			tabs.add(tabs.get(0));
+		////			resetLines();
+		//			AnchorPane anchor = (AnchorPane)tabs.get(tabs.size()-1).getContent();
+		//			currentTextArea=(TextArea)anchor.getChildren().get(1);
+		//			currentRowCounter=(VBox)anchor.getChildren().get(0);
+		//			currentRowCounter.setVisible(true);
+		//			currentTextArea.setVisible(true);
+		//			currentTextArea.setText(stringBuilder.toString());
+		//			currentTextArea.requestFocus();
+		//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
+		//			Main.setMainStageTitle(selectedFile.getName());
+		//			filePath.setText(selectedFile.getAbsolutePath());
+		//			fileType.setText(getType(selectedFile));
+		//		}
 	}
 
 	@FXML
@@ -114,56 +190,56 @@ public class Controller_Vue {
 		filePath.setText("");
 		fileType.setText("");
 		resetLines();
-		rowCounter.setVisible(false);
-		textArea.clear();
-		textArea.setVisible(false);
+		currentRowCounter.setVisible(false);
+		currentTextArea.clear();
+		currentTextArea.setVisible(false);
 	}
 
 	@FXML
 	public void saveFile() throws IOException {
-		if(currentFile!=null)
-		{
-			PrintWriter writer;
-			writer=new PrintWriter(currentFile);
-			writer.println(textArea.getText());
-			writer.close();
-			Main.setMainStageTitle(currentFile.getName());
-			filePath.setText(currentFile.getAbsolutePath());
-			fileType.setText(getType());
-		} else
-		{
-			saveFileAs();
-		}
+		//		if(openFiles!=null)
+		//		{
+		//			PrintWriter writer;
+		//			writer=new PrintWriter(openFiles);
+		//			writer.println(textArea.getText());
+		//			writer.close();
+		//			Main.setMainStageTitle(openFiles.getName());
+		//			filePath.setText(openFiles.getAbsolutePath());
+		//			fileType.setText(getType());
+		//		} else
+		//		{
+		//			saveFileAs();
+		//		}
 	}
 
 	@FXML
 	public void saveFileAs() throws IOException {
-		if(!textArea.getText().isEmpty())
-		{
-			Stage stage=new Stage();
-			FileChooser fileChooser=new FileChooser();
-			File file=fileChooser.showSaveDialog(stage);
-			if(file!=null)
-			{
-				PrintWriter writer;
-				writer=new PrintWriter(file);
-				writer.println(textArea.getText());
-				writer.close();
-				currentFile=file;
-				Main.setMainStageTitle(currentFile.getName());
-				filePath.setText(currentFile.getAbsolutePath());
-				fileType.setText(getType());
-			}
-		}
+		//		if(!textArea.getText().isEmpty())
+		//		{
+		//			Stage stage=new Stage();
+		//			FileChooser fileChooser=new FileChooser();
+		//			File file=fileChooser.showSaveDialog(stage);
+		//			if(file!=null)
+		//			{
+		//				PrintWriter writer;
+		//				writer=new PrintWriter(file);
+		//				writer.println(textArea.getText());
+		//				writer.close();
+		//				openFiles=file;
+		//				Main.setMainStageTitle(openFiles.getName());
+		//				filePath.setText(openFiles.getAbsolutePath());
+		//				fileType.setText(getType());
+		//			}
+		//		}
 	}
 
-	private String getType() {
+	private String getType(File f) {
 		String type="";
 		try
 		{
-			if(currentFile!=null && currentFile.exists())
+			if(f!=null && f.exists())
 			{
-				type=currentFile.getName().substring(currentFile.getName().lastIndexOf(".")+1);
+				type=f.getName().substring(f.getName().lastIndexOf(".")+1);
 			}
 		} catch(Exception e)
 		{
@@ -174,7 +250,7 @@ public class Controller_Vue {
 
 	private void resetLines() {
 		linesCounter=1;
-		rowCounter.getChildren().remove(0,rowCounter.getChildren().size());
+		currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
 	}
 
 	public void exitApplication() {

@@ -18,10 +18,3 @@
     -fx-text-fill: #2b333b;
 }
 
-#rowCounter {
-    -fx-background-color: #242C32;
-}
-
-#rowCounter .label {
-    -fx-text-fill: #878787;
-}

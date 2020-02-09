@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@tabStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Tab">
+    <children>
+        <VBox fx:id="rowCounter" alignment="TOP_RIGHT" prefHeight="541.0" prefWidth="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
+            <children>
+                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="1" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Label>
+                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="2" textAlignment="CENTER" textFill="WHITE" />
+                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="25.0" maxWidth="1.7976931348623157E308" text="3" textAlignment="CENTER" textFill="WHITE" />
+            </children>
+        </VBox>
+        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="341.0" text="Lorem&#10; ipsum dolor sit amet, consectetur adipis&#10;cing elit, sed do eiusmod tempor incididunt ut labore et d&#10;olore magna aliqua. Ut enim ad minim veniam, quis nostrud exerc&#10;itatm" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    </children>
+</AnchorPane>

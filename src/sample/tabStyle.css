@@ -1,0 +1,23 @@
+AnchorPane {
+    -fx-background-color: red;
+}
+
+AnchorPane VBox {
+    -fx-background-color: /*#242C32*/ blue;
+}
+AnchorPane VBox .label
+{
+    -fx-text-fill: /*#878787*/ red;
+}
+
+AnchorPane .text-area{
+    -fx-control-inner-background: #2b333b;
+    -fx-highlight-fill:white;
+    -fx-highlight-text-fill: #2b333b;
+    -fx-text-fill: #ffffff99;
+    -fx-focus-color: #2b333b;
+    -fx-faint-focus-color: #2b333b;
+    -fx-background-color: #2b333b;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}

@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Vue">
+<VBox prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Vue">
     <children>
         <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" VBox.vgrow="NEVER">
             <menus>
@@ -87,21 +87,31 @@
                         <Font name="FreeSans" size="20.0" />
                     </font>
                 </Label>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <VBox id="rowCounter" fx:id="rowCounter" alignment="TOP_RIGHT" prefHeight="541.0" prefWidth="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
+            <SplitPane fx:id="mainPane" dividerPositions="0.2" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #242C32;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #242C32;">
                      <children>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="1" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin></Label>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" text="2" textAlignment="CENTER" textFill="WHITE" />
-                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="25.0" maxWidth="1.7976931348623157E308" text="3" textAlignment="CENTER" textFill="WHITE" />
+                        <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <Label text="OPEN FILES" textFill="#d0c0c0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                 <children>
+                                    <Label text="FILE.txt" textFill="#bcb2b2" />
+                                    <Label layoutX="10.0" layoutY="10.0" text="FILE.txt" textFill="#bcb2b2" />
+                                    <Label layoutX="10.0" layoutY="25.0" text="FILE.txt" textFill="#bcb2b2" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
                      </children>
-                  </VBox>
-                      <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="341.0" style="-fx-control-inner-background: #2b333b; -fx-highlight-fill: white; -fx-highlight-text-fill: #2b333b; -fx-text-fill: #ffffff99; -fx-focus-color: #2b333b; -fx-faint-focus-color: #2b333b; -fx-background-color: #2b333b;" text="Lorem&#10; ipsum dolor sit amet, consectetur adipis&#10;cing elit, sed do eiusmod tempor incididunt ut labore et d&#10;olore magna aliqua. Ut enim ad minim veniam, quis nostrud exerc&#10;itation ullamco laboris nis&#10;i ut aliquip ex ea commodo consequat. Duis aute irure dolor in re&#10;prehenderit in voluptate velit&#10; esse cillum dolore eu&#10; fugiat nulla pari&#10;atur. Excep&#10;teur sint occaecat&#10; cupidatat non proident, s&#10;unt in culpa qui offic&#10;ia deserunt mollit anim id est laborum" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
+                  </AnchorPane>
+                  <TabPane id="tabPane" fx:id="tabPane" />
+              </items>
+            </SplitPane>
             </children>
             <VBox.margin>
                 <Insets />
@@ -143,7 +153,4 @@
             </children>
         </AnchorPane>
     </children>
-    <stylesheets>
-        <URL value="@style.css" />
-    </stylesheets>
 </VBox>
