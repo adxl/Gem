@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -22,11 +24,14 @@ import java.util.Map;
 public class Controller_Vue implements Cloneable {
 	@FXML
 	private TabPane tabPane; //tabs container
+	private int newTabsCounter;
 	private TextArea currentTextArea;
 	private VBox currentRowCounter;
 	private int linesCounter;
 
-	private Label tempLabel;
+	@FXML
+	private VBox openFilesList;
+
 	@FXML
 	private Label filePath;
 	@FXML
@@ -34,13 +39,14 @@ public class Controller_Vue implements Cloneable {
 	@FXML
 	private Slider fontSizeSlider;
 
-	File currentFile;
-	Map<String,File> openFiles=new HashMap<>();
+	//	File currentFile;
+	//	Map<String,File> openFiles=new HashMap<>();
 	ChangeListener<String> changeListener;
 
 	@FXML
 	public void initialize() {
 		linesCounter=1;
+		newTabsCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
@@ -74,28 +80,39 @@ public class Controller_Vue implements Cloneable {
 			currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
 			for(int i=1;i<=lines;i++)
 			{
-				tempLabel=new Label(String.valueOf(i));
+				Label tempLabel=new Label(String.valueOf(i));
 				tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
 				currentRowCounter.getChildren().add(tempLabel);
 			}
 		}
 	}
 
+	private void addFileToOpenFilesList(String title) {
+		openFilesList.getChildren().add(new Label(title));
+	}
+
+	private void removeFileFromOpenFilesList(String title) {
+		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
+		{
+			if(l.getText().equals(title))
+			{
+				openFilesList.getChildren().remove(l);
+				break;
+			}
+		}
+	}
 
 	@FXML
 	public void createFile() throws IOException {
-		Tab tab=new Tab("New Tab",FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
-		tab.setOnSelectionChanged(new EventHandler<Event>() {
-			@Override
-			public void handle(Event event) {
-				if(tab.isSelected())
-				{
-					currentTextAreaListener();
-					System.out.println("called1");
-				}
-			}
+		Tab tab=new Tab("Untitled "+newTabsCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		tab.setOnSelectionChanged(event->
+		{
+			if(tab.isSelected())
+				currentTextAreaListener();
 		});
+		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
+		addFileToOpenFilesList(tab.getText());
 	}
 
 	@FXML
@@ -155,7 +172,8 @@ public class Controller_Vue implements Cloneable {
 	}
 
 	@FXML
-	public void closeFile() {
+	public void closeFile(String title) {
+		removeFileFromOpenFilesList(title);
 	}
 
 	@FXML

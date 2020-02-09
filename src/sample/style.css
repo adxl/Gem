@@ -18,3 +18,7 @@
     -fx-text-fill: #2b333b;
 }
 
+#openFilesList .label {
+    -fx-text-fill: #cdcdcd;
+}
+

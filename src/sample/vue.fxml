@@ -43,7 +43,7 @@
                             </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFile" text="Close">
+                        <MenuItem fx:id="closeFile" mnemonicParsing="false" text="Close">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
@@ -93,18 +93,12 @@
                      <children>
                         <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <Label text="OPEN FILES" textFill="#d0c0c0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label text="OPEN FILES" textFill="#cdcdcd" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                 <children>
-                                    <Label text="FILE.txt" textFill="#bcb2b2" />
-                                    <Label layoutX="10.0" layoutY="10.0" text="FILE.txt" textFill="#bcb2b2" />
-                                    <Label layoutX="10.0" layoutY="25.0" text="FILE.txt" textFill="#bcb2b2" />
-                                 </children>
-                              </VBox>
+                              <VBox id="openFilesList" fx:id="openFilesList" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                            </children>
                         </AnchorPane>
                      </children>
