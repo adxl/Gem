@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.*;
@@ -31,16 +33,16 @@ public class Controller_Vue implements Cloneable {
 
 	@FXML
 	private VBox openFilesList;
+	//	@FXML
+	//	private Label filePath;
+	//	@FXML
+	//	private Label fileType;
 
-	@FXML
-	private Label filePath;
-	@FXML
-	private Label fileType;
 	@FXML
 	private Slider fontSizeSlider;
 
-	//	File currentFile;
-	//	Map<String,File> openFiles=new HashMap<>();
+	File currentFile;
+	Map<String,File> openFiles=new HashMap<>();
 	ChangeListener<String> changeListener;
 
 	@FXML
@@ -115,60 +117,41 @@ public class Controller_Vue implements Cloneable {
 		addFileToOpenFilesList(tab.getText());
 	}
 
+	public void createPrefFile(String title,String text) throws IOException {
+		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		tab.setOnSelectionChanged(event->
+		{
+			if(tab.isSelected())
+				currentTextAreaListener();
+		});
+		tab.setOnClosed(event->closeFile(tab.getText()));
+		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
+		tabPane.getTabs().add(tab);
+		addFileToOpenFilesList(tab.getText());
+	}
+
 	@FXML //TODO OPENFILE
 	public void openFile() throws IOException {
-		//		Stage stage=new Stage();
-		//		FileChooser fileChooser=new FileChooser();
-		//		fileChooser.setTitle("Open File");
-		//		File selectedFile=fileChooser.showOpenDialog(stage);
-		//		if(selectedFile!=null)
-		//		{
-		//			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath().toString());
-		//			BufferedReader bufferedReader=new BufferedReader(fileReader);
-		//			StringBuilder stringBuilder=new StringBuilder();
-		//			String text="";
-		//			while((text=bufferedReader.readLine())!=null)
-		//			{
-		//				stringBuilder.append(text).append("\n");
-		//			}
-		//			resetLines();
-		//			rowCounter.setVisible(true);
-		//			textArea.setVisible(true);
-		//			textArea.setText(stringBuilder.toString());
-		//			textArea.requestFocus();
-		//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
-		//			Main.setMainStageTitle(selectedFile.getName());
-		//			filePath.setText(selectedFile.getAbsolutePath());
-		//			fileType.setText(getType(selectedFile));
-		//		}
-		//		Stage stage=new Stage();
-		//		FileChooser fileChooser=new FileChooser();
-		//		fileChooser.setTitle("Open File");
-		//		File selectedFile=fileChooser.showOpenDialog(stage);
-		//		if(selectedFile!=null)
-		//		{
-		//			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
-		//			BufferedReader bufferedReader=new BufferedReader(fileReader);
-		//			StringBuilder stringBuilder=new StringBuilder();
-		//			String text="";
-		//			while((text=bufferedReader.readLine())!=null)
-		//			{
-		//				stringBuilder.append(text).append("\n");
-		//			}
-		//			tabs.add(tabs.get(0));
-		////			resetLines();
-		//			AnchorPane anchor = (AnchorPane)tabs.get(tabs.size()-1).getContent();
-		//			currentTextArea=(TextArea)anchor.getChildren().get(1);
-		//			currentRowCounter=(VBox)anchor.getChildren().get(0);
-		//			currentRowCounter.setVisible(true);
-		//			currentTextArea.setVisible(true);
-		//			currentTextArea.setText(stringBuilder.toString());
-		//			currentTextArea.requestFocus();
-		//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
-		//			Main.setMainStageTitle(selectedFile.getName());
-		//			filePath.setText(selectedFile.getAbsolutePath());
-		//			fileType.setText(getType(selectedFile));
-		//		}
+		Stage stage=new Stage();
+		FileChooser fileChooser=new FileChooser();
+		fileChooser.setTitle("Open File");
+		File selectedFile=fileChooser.showOpenDialog(stage);
+		if(selectedFile!=null)
+		{
+			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
+			BufferedReader bufferedReader=new BufferedReader(fileReader);
+			StringBuilder stringBuilder=new StringBuilder();
+			String text;
+			while((text=bufferedReader.readLine())!=null)
+			{
+				stringBuilder.append(text).append("\n");
+			}
+			createPrefFile(selectedFile.getName(),stringBuilder.toString());
+			//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
+			//			Main.setMainStageTitle(selectedFile.getName());
+			//			filePath.setText(selectedFile.getAbsolutePath());
+			//			fileType.setText(getType(selectedFile));
+		}
 	}
 
 	@FXML //DONE
