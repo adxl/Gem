@@ -172,6 +172,14 @@ public class Controller_Vue implements Cloneable {
 	}
 
 	@FXML
+	public void closeFileRequest() {
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		String title=tab.getText();
+		tabPane.getTabs().remove(tab);
+		closeFile(title);
+	}
+
+	@FXML
 	public void closeFile(String title) {
 		removeFileFromOpenFilesList(title);
 	}

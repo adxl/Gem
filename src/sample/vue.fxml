@@ -43,7 +43,7 @@
                             </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="closeFile" mnemonicParsing="false" text="Close">
+                        <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFileRequest" text="Close">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
