@@ -19,7 +19,7 @@
 }
 
 #openFilesList .label {
-    -fx-text-fill: #6D7678;
+    -fx-text-fill: #cdcdcd;/*#6D7678;*/
     -fx-cursor: hand;
     -fx-padding: 5 0 5 0;
 }

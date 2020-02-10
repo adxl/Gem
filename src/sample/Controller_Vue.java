@@ -97,6 +97,7 @@ public class Controller_Vue implements Cloneable {
 		{
 			if(t.getText().equals(title))
 			{
+				System.out.println("found equal for "+title);
 				tab=t;
 				break;
 			}
@@ -107,25 +108,29 @@ public class Controller_Vue implements Cloneable {
 	}
 
 	private void removeFileFromOpenFilesList(String title) {
+		System.out.println("Labes : "+openFilesList.getChildren().size());
+		System.out.println("Pane size : "+tabPane.getTabs().size());
 		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
 		{
 			if(l.getText().equals(title))
 			{
+				System.out.println("find and will delete : "+title);
 				openFilesList.getChildren().remove(l);
 				break;
 			}
 		}
+		tabPane.getSelectionModel().selectLast();
 	}
 
 	@FXML //DONE
 	public void createFile() throws IOException {
 		Tab tab=new Tab("Untitled "+newTabsCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		addFileToOpenFilesList(tab.getText());
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
-		addFileToOpenFilesList(tab.getText());
 	}
 
 	public void createPrefFile(String title,String text) throws IOException {
@@ -142,15 +147,19 @@ public class Controller_Vue implements Cloneable {
 		{
 			if(tab.isSelected())
 			{
+				//				System.out.println(">"+tab.getText());
 				currentTextAreaListener();
-				int index=tabPane.getSelectionModel().getSelectedIndex();
-				if((openFilesList.getChildren().size())>index)
-				{
+				int index=tabPane.getTabs().indexOf(tab);
+				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
+					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:#cdcdcd");
+				else
 					for(Node l : openFilesList.getChildren())
+					{
 						l.setStyle("-fx-text-fill:#6D7678");
-					(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
-				}
+					}
+				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
 				fileType.setText(getType(tab.getText()));
+				Main.setMainStageTitle(tab.getText());
 			}
 		});
 	}
@@ -173,7 +182,6 @@ public class Controller_Vue implements Cloneable {
 			}
 			createPrefFile(selectedFile.getName(),stringBuilder.toString());
 			//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
-			//			Main.setMainStageTitle(selectedFile.getName());
 			//			filePath.setText(selectedFile.getAbsolutePath());
 		}
 	}
