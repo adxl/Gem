@@ -11,7 +11,10 @@
 
 <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@tabStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Tab">
     <children>
-        <VBox fx:id="rowCounter" alignment="TOP_RIGHT" prefHeight="541.0" prefWidth="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0" />
+        <VBox fx:id="rowCounter" alignment="TOP_RIGHT" prefHeight="541.0" prefWidth="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label text="1" />
+         </children></VBox>
         <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="341.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>

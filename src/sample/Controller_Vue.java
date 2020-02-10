@@ -1,11 +1,7 @@
 package sample;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,22 +11,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Controller_Vue implements Cloneable {
 	@FXML
 	private TabPane tabPane; //tabs container
-	private int newTabsCounter;
+	private int untitledIdCounter;
 	private TextArea currentTextArea;
 	private VBox currentRowCounter;
-	private int linesCounter;
 
 	@FXML
 	private VBox openFilesList;
@@ -48,8 +37,7 @@ public class Controller_Vue implements Cloneable {
 
 	@FXML
 	public void initialize() {
-		linesCounter=1;
-		newTabsCounter=1;
+		untitledIdCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
@@ -77,9 +65,8 @@ public class Controller_Vue implements Cloneable {
 
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
 		int lines=c.split("\r\n|\r|\n",-1).length;
-		if(linesCounter!=lines)
+		if(currentRowCounter.getChildren().size()!=lines)
 		{
-			linesCounter=lines;
 			currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
 			for(int i=1;i<=lines;i++)
 			{
@@ -102,7 +89,7 @@ public class Controller_Vue implements Cloneable {
 				break;
 			}
 		}
-		final Tab finalTab=tab;
+		Tab finalTab=tab;
 		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(finalTab));
 		openFilesList.getChildren().add(label);
 	}
@@ -121,7 +108,7 @@ public class Controller_Vue implements Cloneable {
 
 	@FXML //DONE
 	public void createFile() throws IOException {
-		Tab tab=new Tab("Untitled "+newTabsCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
 		addFileToOpenFilesList(tab.getText());
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
@@ -242,11 +229,6 @@ public class Controller_Vue implements Cloneable {
 			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		}
 		return "";
-	}
-
-	private void resetLines() {
-		linesCounter=1;
-		currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
 	}
 
 	public void exitApplication() {
