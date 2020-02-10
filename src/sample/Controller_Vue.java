@@ -50,16 +50,16 @@ public class Controller_Vue implements Cloneable {
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
-		fontSizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
-				currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-				currentTextArea.setText(currentTextArea.getText());
-				currentTextArea.requestFocus();
-				for(Label l : currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
-					l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-			}
-		});
+		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 		changeListener=this::textAreaChanged;
+	}
+
+	private void fontSizeSliderListener(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
+		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+		currentTextArea.setText(currentTextArea.getText());
+		currentTextArea.requestFocus();
+		for(Label l : currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
+			l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 	}
 
 	private void currentTextAreaListener() {
@@ -102,7 +102,7 @@ public class Controller_Vue implements Cloneable {
 		}
 	}
 
-	@FXML
+	@FXML //DONE
 	public void createFile() throws IOException {
 		Tab tab=new Tab("Untitled "+newTabsCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
 		tab.setOnSelectionChanged(event->
@@ -115,7 +115,7 @@ public class Controller_Vue implements Cloneable {
 		addFileToOpenFilesList(tab.getText());
 	}
 
-	@FXML
+	@FXML //TODO OPENFILE
 	public void openFile() throws IOException {
 		//		Stage stage=new Stage();
 		//		FileChooser fileChooser=new FileChooser();
@@ -171,7 +171,7 @@ public class Controller_Vue implements Cloneable {
 		//		}
 	}
 
-	@FXML
+	@FXML //DONE
 	public void closeFileRequest() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		String title=tab.getText();
@@ -179,12 +179,12 @@ public class Controller_Vue implements Cloneable {
 		closeFile(title);
 	}
 
-	@FXML
+	@FXML //DONE
 	public void closeFile(String title) {
 		removeFileFromOpenFilesList(title);
 	}
 
-	@FXML
+	@FXML //TODO SAVE1
 	public void saveFile() throws IOException {
 		//		if(openFiles!=null)
 		//		{
@@ -201,7 +201,7 @@ public class Controller_Vue implements Cloneable {
 		//		}
 	}
 
-	@FXML
+	@FXML //TODO SAVE2
 	public void saveFileAs() throws IOException {
 		//		if(!textArea.getText().isEmpty())
 		//		{
