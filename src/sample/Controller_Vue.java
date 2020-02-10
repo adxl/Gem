@@ -91,20 +91,19 @@ public class Controller_Vue implements Cloneable {
 	}
 
 	private void addFileToOpenFilesList(String title) {
-		Label label = new Label(title);
-		Tab tab =null;
+		Label label=new Label(title);
+		Tab tab=null;
 		for(Tab t : tabPane.getTabs())
 		{
 			if(t.getText().equals(title))
 			{
-				tab = t;
+				tab=t;
 				break;
 			}
 		}
-		Tab finalTab=tab;
-//		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(finalTab));
-		label.setOnMouseClicked(event->System.out.println("CLICK"));
-		openFilesList.getChildren().add(new Label(title));
+		final Tab finalTab=tab;
+		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(finalTab));
+		openFilesList.getChildren().add(label);
 	}
 
 	private void removeFileFromOpenFilesList(String title) {
@@ -126,6 +125,13 @@ public class Controller_Vue implements Cloneable {
 			if(tab.isSelected())
 			{
 				currentTextAreaListener();
+				int index=tabPane.getSelectionModel().getSelectedIndex();
+				if((openFilesList.getChildren().size())>index)
+				{
+					for(Node l : openFilesList.getChildren())
+						l.setStyle("-fx-text-fill:#6D7678");
+					(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
+				}
 			}
 		});
 		tab.setOnClosed(event->closeFile(tab.getText()));
@@ -136,16 +142,25 @@ public class Controller_Vue implements Cloneable {
 	}
 
 	public void createPrefFile(String title,String text) throws IOException {
-				Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
-				tab.setOnSelectionChanged(event->
+		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		tab.setOnSelectionChanged(event->
+		{
+			if(tab.isSelected())
+			{
+				currentTextAreaListener();
+				int index=tabPane.getSelectionModel().getSelectedIndex();
+				if((openFilesList.getChildren().size())>index)
 				{
-					if(tab.isSelected())
-						currentTextAreaListener();
-				});
-				tab.setOnClosed(event->closeFile(tab.getText()));
-				((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
-				tabPane.getTabs().add(tab);
-				addFileToOpenFilesList(tab.getText());
+					for(Node l : openFilesList.getChildren())
+						l.setStyle("-fx-text-fill:#6D7678");
+					(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
+				}
+			}
+		});
+		tab.setOnClosed(event->closeFile(tab.getText()));
+		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
+		tabPane.getTabs().add(tab);
+		addFileToOpenFilesList(tab.getText());
 	}
 
 	@FXML //TODO OPENFILE
