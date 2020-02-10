@@ -108,13 +108,10 @@ public class Controller_Vue implements Cloneable {
 	}
 
 	private void removeFileFromOpenFilesList(String title) {
-		System.out.println("Labes : "+openFilesList.getChildren().size());
-		System.out.println("Pane size : "+tabPane.getTabs().size());
 		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
 		{
 			if(l.getText().equals(title))
 			{
-				System.out.println("find and will delete : "+title);
 				openFilesList.getChildren().remove(l);
 				break;
 			}
@@ -133,13 +130,15 @@ public class Controller_Vue implements Cloneable {
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 	}
 
-	public void createPrefFile(String title,String text) throws IOException {
+	private void createPrefFile(String title,String text) throws IOException {
 		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		addFileToOpenFilesList(tab.getText());
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
 		tabPane.getTabs().add(tab);
-		addFileToOpenFilesList(tab.getText());
+		tabPane.getSelectionModel().select(tab);
+		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 	}
 
 	private void tabSwitchListener(Tab tab) {
