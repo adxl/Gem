@@ -36,14 +36,14 @@ public class Controller_Vue implements Cloneable {
 	private VBox openFilesList;
 	//	@FXML
 	//	private Label filePath;
-	//	@FXML
-	//	private Label fileType;
+	@FXML
+	private Label fileType;
 
 	@FXML
 	private Slider fontSizeSlider;
 
-	File currentFile;
-	Map<String,File> openFiles=new HashMap<>();
+	//	File currentFile;
+	//	Map<String,File> openFiles=new HashMap<>();
 	ChangeListener<String> changeListener;
 
 	@FXML
@@ -120,20 +120,7 @@ public class Controller_Vue implements Cloneable {
 	@FXML //DONE
 	public void createFile() throws IOException {
 		Tab tab=new Tab("Untitled "+newTabsCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
-		tab.setOnSelectionChanged(event->
-		{
-			if(tab.isSelected())
-			{
-				currentTextAreaListener();
-				int index=tabPane.getSelectionModel().getSelectedIndex();
-				if((openFilesList.getChildren().size())>index)
-				{
-					for(Node l : openFilesList.getChildren())
-						l.setStyle("-fx-text-fill:#6D7678");
-					(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
-				}
-			}
-		});
+		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
@@ -143,6 +130,14 @@ public class Controller_Vue implements Cloneable {
 
 	public void createPrefFile(String title,String text) throws IOException {
 		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		tabSwitchListener(tab);
+		tab.setOnClosed(event->closeFile(tab.getText()));
+		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
+		tabPane.getTabs().add(tab);
+		addFileToOpenFilesList(tab.getText());
+	}
+
+	private void tabSwitchListener(Tab tab) {
 		tab.setOnSelectionChanged(event->
 		{
 			if(tab.isSelected())
@@ -155,15 +150,12 @@ public class Controller_Vue implements Cloneable {
 						l.setStyle("-fx-text-fill:#6D7678");
 					(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
 				}
+				fileType.setText(getType(tab.getText()));
 			}
 		});
-		tab.setOnClosed(event->closeFile(tab.getText()));
-		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
-		tabPane.getTabs().add(tab);
-		addFileToOpenFilesList(tab.getText());
 	}
 
-	@FXML //TODO OPENFILE
+	@FXML ///DONE
 	public void openFile() throws IOException {
 		Stage stage=new Stage();
 		FileChooser fileChooser=new FileChooser();
@@ -183,7 +175,6 @@ public class Controller_Vue implements Cloneable {
 			//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
 			//			Main.setMainStageTitle(selectedFile.getName());
 			//			filePath.setText(selectedFile.getAbsolutePath());
-			//			fileType.setText(getType(selectedFile));
 		}
 	}
 
@@ -238,19 +229,12 @@ public class Controller_Vue implements Cloneable {
 		//		}
 	}
 
-	private String getType(File f) {
-		String type="";
-		try
+	private String getType(String name) {
+		if(name.matches(".*[.].*"))
 		{
-			if(f!=null && f.exists())
-			{
-				type=f.getName().substring(f.getName().lastIndexOf(".")+1);
-			}
-		} catch(Exception e)
-		{
-			type="";
+			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		}
-		return type.toUpperCase();
+		return "";
 	}
 
 	private void resetLines() {
