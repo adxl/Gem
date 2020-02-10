@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -90,6 +91,19 @@ public class Controller_Vue implements Cloneable {
 	}
 
 	private void addFileToOpenFilesList(String title) {
+		Label label = new Label(title);
+		Tab tab =null;
+		for(Tab t : tabPane.getTabs())
+		{
+			if(t.getText().equals(title))
+			{
+				tab = t;
+				break;
+			}
+		}
+		Tab finalTab=tab;
+//		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(finalTab));
+		label.setOnMouseClicked(event->System.out.println("CLICK"));
 		openFilesList.getChildren().add(new Label(title));
 	}
 
@@ -110,24 +124,28 @@ public class Controller_Vue implements Cloneable {
 		tab.setOnSelectionChanged(event->
 		{
 			if(tab.isSelected())
+			{
 				currentTextAreaListener();
+			}
 		});
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
+		tabPane.getSelectionModel().select(tab);
+		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 		addFileToOpenFilesList(tab.getText());
 	}
 
 	public void createPrefFile(String title,String text) throws IOException {
-		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
-		tab.setOnSelectionChanged(event->
-		{
-			if(tab.isSelected())
-				currentTextAreaListener();
-		});
-		tab.setOnClosed(event->closeFile(tab.getText()));
-		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
-		tabPane.getTabs().add(tab);
-		addFileToOpenFilesList(tab.getText());
+				Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+				tab.setOnSelectionChanged(event->
+				{
+					if(tab.isSelected())
+						currentTextAreaListener();
+				});
+				tab.setOnClosed(event->closeFile(tab.getText()));
+				((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
+				tabPane.getTabs().add(tab);
+				addFileToOpenFilesList(tab.getText());
 	}
 
 	@FXML //TODO OPENFILE
