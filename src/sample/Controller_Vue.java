@@ -34,8 +34,8 @@ public class Controller_Vue {
 
 	@FXML
 	private Label fileType;
-	//	@FXML
-	//	private Label filePath;
+	@FXML
+	private Label filePath;
 
 	ChangeListener<String> changeListener;
 
@@ -65,6 +65,10 @@ public class Controller_Vue {
 					}
 				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
 				fileType.setText(getType(tab.getText()));
+				if(openFiles.get(tab.getText())!=null)
+					filePath.setText(String.valueOf(openFiles.get(tab.getText())));
+				else
+					filePath.setText("");
 				Main.setMainStageTitle(tab.getText());
 			}
 		});
