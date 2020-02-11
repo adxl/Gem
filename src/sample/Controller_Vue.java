@@ -16,35 +16,58 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Controller_Vue implements Cloneable {
+public class Controller_Vue {
+
 	@FXML
-	private TabPane tabPane; //tabs container
+	private TabPane tabPane;
+
 	private int untitledIdCounter;
 	private TextArea currentTextArea;
 	private VBox currentRowCounter;
 
 	@FXML
-	private VBox openFilesList;
-	//	@FXML
-	//	private Label filePath;
-	@FXML
-	private Label fileType;
-
-	@FXML
 	private Slider fontSizeSlider;
 
-	//	File currentFile;
+	@FXML
+	private VBox openFilesList;
 	Map<String,File> openFiles=new HashMap<>();
+
+	@FXML
+	private Label fileType;
+	//	@FXML
+	//	private Label filePath;
+
 	ChangeListener<String> changeListener;
 
 	@FXML
-	public void initialize() {
+	private void initialize() {
 		untitledIdCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 		changeListener=this::textAreaChanged;
+	}
+
+	private void tabSwitchListener(Tab tab) {
+		tab.setOnSelectionChanged(event->
+		{
+			if(tab.isSelected())
+			{
+				currentTextAreaListener();
+				int index=tabPane.getTabs().indexOf(tab);
+				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
+					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:#cdcdcd");
+				else
+					for(Node l : openFilesList.getChildren())
+					{
+						l.setStyle("-fx-text-fill:#6D7678");
+					}
+				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
+				fileType.setText(getType(tab.getText()));
+				Main.setMainStageTitle(tab.getText());
+			}
+		});
 	}
 
 	private void fontSizeSliderListener(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
@@ -79,26 +102,8 @@ public class Controller_Vue implements Cloneable {
 		}
 	}
 
-	private void addFileToOpenFilesList(Tab tab) {
-		Label label=new Label(tab.getText());
-		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(tab));
-		openFilesList.getChildren().add(label);
-	}
-
-	private void removeFileFromOpenFilesList(String title) {
-		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
-		{
-			if(l.getText().equals(title))
-			{
-				openFilesList.getChildren().remove(l);
-				break;
-			}
-		}
-		tabPane.getSelectionModel().selectLast();
-	}
-
-	@FXML //DONE
-	public void createFile() throws IOException {
+	@FXML
+	private void createFile() throws IOException {
 		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
 		addFileToOpenFilesList(tab);
 		openFiles.put(tab.getText(),null);
@@ -120,29 +125,8 @@ public class Controller_Vue implements Cloneable {
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 	}
 
-	private void tabSwitchListener(Tab tab) {
-		tab.setOnSelectionChanged(event->
-		{
-			if(tab.isSelected())
-			{
-				currentTextAreaListener();
-				int index=tabPane.getTabs().indexOf(tab);
-				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
-					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:#cdcdcd");
-				else
-					for(Node l : openFilesList.getChildren())
-					{
-						l.setStyle("-fx-text-fill:#6D7678");
-					}
-				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
-				fileType.setText(getType(tab.getText()));
-				Main.setMainStageTitle(tab.getText());
-			}
-		});
-	}
-
-	@FXML ///DONE
-	public void openFile() throws IOException {
+	@FXML
+	private void openFile() throws IOException {
 		Stage stage=new Stage();
 		FileChooser fileChooser=new FileChooser();
 		fileChooser.setTitle("Open File");
@@ -186,22 +170,39 @@ public class Controller_Vue implements Cloneable {
 		createPrefFile(file.getName(),stringBuilder.toString());
 	}
 
-	@FXML //DONE
-	public void closeFileRequest() {
+	private void closeFile(String title) {
+		openFiles.remove(title);
+		removeFileFromOpenFilesList(title);
+	}
+
+	@FXML
+	private void closeFileRequest() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		String title=tab.getText();
 		tabPane.getTabs().remove(tab);
 		closeFile(title);
 	}
 
-	@FXML //DONE
-	public void closeFile(String title) {
-		openFiles.remove(title);
-		removeFileFromOpenFilesList(title);
+	private void addFileToOpenFilesList(Tab tab) {
+		Label label=new Label(tab.getText());
+		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(tab));
+		openFilesList.getChildren().add(label);
 	}
 
-	@FXML //TODO SAVE1
-	public void saveFile() throws IOException {
+	private void removeFileFromOpenFilesList(String title) {
+		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
+		{
+			if(l.getText().equals(title))
+			{
+				openFilesList.getChildren().remove(l);
+				break;
+			}
+		}
+		tabPane.getSelectionModel().selectLast();
+	}
+
+	@FXML
+	private void saveFile() throws IOException {
 		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(openFiles.get(fileName)==null) //saving an untitled file
 		{
@@ -215,8 +216,8 @@ public class Controller_Vue implements Cloneable {
 		}
 	}
 
-	@FXML //TODO SAVE2
-	public void saveFileAs() throws IOException {
+	@FXML
+	private void saveFileAs() throws IOException {
 		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(!currentTextArea.getText().isEmpty())
 		{
@@ -242,7 +243,8 @@ public class Controller_Vue implements Cloneable {
 		return "";
 	}
 
-	public void exitApplication() {
+	@FXML
+	private void exitApplication() {
 		System.exit(0);
 	}
 	//
