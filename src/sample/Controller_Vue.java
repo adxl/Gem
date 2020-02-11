@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Controller_Vue implements Cloneable {
 	@FXML
@@ -32,7 +34,7 @@ public class Controller_Vue implements Cloneable {
 	private Slider fontSizeSlider;
 
 	//	File currentFile;
-	//	Map<String,File> openFiles=new HashMap<>();
+	Map<String,File> openFiles=new HashMap<>();
 	ChangeListener<String> changeListener;
 
 	@FXML
@@ -147,17 +149,26 @@ public class Controller_Vue implements Cloneable {
 		File selectedFile=fileChooser.showOpenDialog(stage);
 		if(selectedFile!=null)
 		{
-			FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
-			BufferedReader bufferedReader=new BufferedReader(fileReader);
-			StringBuilder stringBuilder=new StringBuilder();
-			String text;
-			while((text=bufferedReader.readLine())!=null)
+			if(!openFiles.containsKey(selectedFile.getName()))
 			{
-				stringBuilder.append(text).append("\n");
-			}
-			createPrefFile(selectedFile.getName(),stringBuilder.toString());
-			//			openFiles.put(selectedFile.getAbsolutePath(),selectedFile);
-			//			filePath.setText(selectedFile.getAbsolutePath());
+				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
+				BufferedReader bufferedReader=new BufferedReader(fileReader);
+				StringBuilder stringBuilder=new StringBuilder();
+				String text;
+				while((text=bufferedReader.readLine())!=null)
+				{
+					stringBuilder.append(text).append("\n");
+				}
+				createPrefFile(selectedFile.getName(),stringBuilder.toString());
+				openFiles.put(selectedFile.getName(),selectedFile);
+				//			filePath.setText(selectedFile.getAbsolutePath());
+			} else
+				for(Tab t : tabPane.getTabs())
+					if(t.getText().equals(selectedFile.getName()))
+					{
+						tabPane.getSelectionModel().select(t);
+						return;
+					}
 		}
 	}
 

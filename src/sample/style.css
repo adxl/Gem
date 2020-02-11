@@ -10,6 +10,11 @@
     -fx-background-color: #2b333b;
 }
 
+.split-pane > .split-pane-divider {
+    -fx-background-color: #2b333b; /*transparent?*/
+    -fx-padding: 0 1px 0 1px;
+}
+
 #bottomBar HBox {
     -fx-background-color: #6d7678;
 }
@@ -19,8 +24,19 @@
 }
 
 #openFilesList .label {
-    -fx-text-fill: #cdcdcd;/*#6D7678;*/
+    -fx-text-fill: #cdcdcd; /*#6D7678;*/
     -fx-cursor: hand;
     -fx-padding: 5 0 5 0;
 }
 
+#tabPane .tab {
+    -fx-background-color: #2b333b;
+}
+
+#tabPane .tab .tab-label {
+    -fx-text-fill: #cdcdcd;
+}
+
+#tabPane .tab-header-area .tab-header-background {
+    -fx-background-color: #242C32;
+}
