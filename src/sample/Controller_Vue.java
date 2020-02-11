@@ -101,6 +101,7 @@ public class Controller_Vue implements Cloneable {
 	public void createFile() throws IOException {
 		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
 		addFileToOpenFilesList(tab);
+		openFiles.put(tab.getText(),null);
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
@@ -124,7 +125,9 @@ public class Controller_Vue implements Cloneable {
 		{
 			if(tab.isSelected())
 			{
-				//				System.out.println(">"+tab.getText());
+				System.out.println("''''''''''''''''''''''''''''''''''''''''''");
+				System.out.println(openFiles);
+
 				currentTextAreaListener();
 				int index=tabPane.getTabs().indexOf(tab);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
@@ -159,8 +162,8 @@ public class Controller_Vue implements Cloneable {
 				{
 					stringBuilder.append(text).append("\n");
 				}
-				createPrefFile(selectedFile.getName(),stringBuilder.toString());
 				openFiles.put(selectedFile.getName(),selectedFile);
+				createPrefFile(selectedFile.getName(),stringBuilder.toString());
 				//			filePath.setText(selectedFile.getAbsolutePath());
 			} else
 				for(Tab t : tabPane.getTabs())
@@ -182,6 +185,7 @@ public class Controller_Vue implements Cloneable {
 
 	@FXML //DONE
 	public void closeFile(String title) {
+		openFiles.remove(title);
 		removeFileFromOpenFilesList(title);
 	}
 
