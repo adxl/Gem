@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Controller_Vue {
-
 	@FXML
 	private TabPane tabPane;
 
@@ -30,23 +29,27 @@ public class Controller_Vue {
 
 	@FXML
 	private VBox openFilesList;
-	Map<String,File> openFiles=new HashMap<>();
+	private Map<String,File> openFiles=new HashMap<>();
 
 	@FXML
 	private Label fileType;
 	@FXML
 	private Label filePath;
 
-	ChangeListener<String> changeListener;
+	private ChangeListener<String> changeListener;
 
 	@FXML
-	private void initialize() {
+	private void initialize() throws IOException {
 		untitledIdCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 		changeListener=this::textAreaChanged;
+		if(Main.getPassedFile()!=null)
+		{
+			openExistingFile(Main.getPassedFile().getAbsolutePath());
+		}
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -67,9 +70,15 @@ public class Controller_Vue {
 					filePath.setText(String.valueOf(openFiles.get(tab.getText())));
 				else
 					filePath.setText("");
-				Main.setMainStageTitle(tab.getText());
-			}else{
-				Main.setMainStageTitle("GEM");
+				try
+				{
+					Main.setMainStageTitle(tab.getText());
+				} catch(NullPointerException ignored)
+				{
+				}
+			} else
+			{
+				Main.setMainStageTitle("Gem");
 				fileType.setText("");
 				filePath.setText("");
 			}
@@ -218,7 +227,6 @@ public class Controller_Vue {
 			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
 			writer.println(currentTextArea.getText());
 			writer.close();
-			System.out.println("Saved : "+fileName);
 		}
 	}
 

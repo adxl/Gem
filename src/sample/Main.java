@@ -6,31 +6,52 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Main extends Application {
 
-    private static Stage mainStage;
+	private static String pathArg;
+	private static Stage mainStage;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        mainStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("vue.fxml"));
+	public static void main(String[] args) {
+		if(args.length!=0)
+			pathArg=args[0];
+		launch(args);
+	}
 
-        primaryStage.setScene(new Scene(root));
-//        primaryStage.setMaximized(true);
-        primaryStage.setAlwaysOnTop(true);
-        primaryStage.setMinHeight(200);
-        primaryStage.setMinWidth(400);
-        primaryStage.show();
-    }
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Parent root=FXMLLoader.load(getClass().getResource("vue.fxml"));
+		mainStage=primaryStage;
+		mainStage.setScene(new Scene(root));
+		mainStage.setTitle("Gem");
+		//		mainStage.setMaximized(true);
+		mainStage.setAlwaysOnTop(true);
+		mainStage.setMinHeight(200);
+		mainStage.setMinWidth(400);
+		mainStage.show();
+		checkPassedArg();
+	}
 
-    public static void setMainStageTitle(String title)
-    {
-        mainStage.setTitle(title);
-    }
+	private void checkPassedArg() {
+		if(getPassedFile()!=null)
+		{
+			File file = new File(pathArg);
+			setMainStageTitle(file.getName());
+		}
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void setMainStageTitle(String title) {
+		mainStage.setTitle(title);
+	}
 
-
+	public static File getPassedFile() {
+		try
+		{
+			return new File(pathArg);
+		} catch(Exception e)
+		{
+			return null;
+		}
+	}
 }

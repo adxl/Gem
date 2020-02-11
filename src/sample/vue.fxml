@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -7,8 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Vue">
+<VBox prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller_Vue">
     <children>
         <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" VBox.vgrow="NEVER">
             <menus>
@@ -16,145 +16,112 @@
                     <items>
                         <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#createFile" text="New">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                         <MenuItem fx:id="openFile" mnemonicParsing="false" onAction="#openFile" text="Open File…">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFileRequest" text="Close">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                         <MenuItem fx:id="saveFile" mnemonicParsing="false" onAction="#saveFile" text="Save">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                         <MenuItem fx:id="saveFileAs" mnemonicParsing="false" onAction="#saveFileAs" text="Save As…">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitApplication" text="Quit">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
+                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit"/>
-                <Menu mnemonicParsing="false" text="Help"/>
+                <Menu mnemonicParsing="false" text="Edit" />
+                <Menu mnemonicParsing="false" text="Help" />
             </menus>
         </MenuBar>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="307.0" prefWidth="640.0"
-                    style="-fx-background-color: #242C32;" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="307.0" prefWidth="640.0" style="-fx-background-color: #242C32;" VBox.vgrow="ALWAYS">
             <children>
-                <Button alignment="CENTER" disable="true" maxHeight="1.7976931348623157E308"
-                        maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openFile" opacity="0.69"
-                        pickOnBounds="false" prefHeight="25.0" prefWidth="108.0" style="-fx-background-color: green;"
-                        visible="false" AnchorPane.rightAnchor="0.0">
+                <Button alignment="CENTER" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openFile" opacity="0.69" pickOnBounds="false" prefHeight="25.0" prefWidth="108.0" style="-fx-background-color: green;" visible="false" AnchorPane.rightAnchor="0.0">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button id="buttonCreate" disable="true" maxHeight="1.7976931348623157E308"
-                        maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createFile" opacity="0.44"
-                        prefHeight="29.0" prefWidth="68.0" style="-fx-background-color: red;" visible="false"
-                        AnchorPane.leftAnchor="0.0">
+                <Button id="buttonCreate" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createFile" opacity="0.44" prefHeight="29.0" prefWidth="68.0" style="-fx-background-color: red;" visible="false" AnchorPane.leftAnchor="0.0">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Label id="motd" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
-                       maxWidth="1.7976931348623157E308" mouseTransparent="true" pickOnBounds="false"
-                       text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33"
-                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                       AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
+                <Label id="motd" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" pickOnBounds="false" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
                     <font>
-                        <Font name="FreeSans" size="20.0"/>
+                        <Font name="FreeSans" size="20.0" />
                     </font>
                 </Label>
-                <SplitPane fx:id="mainPane" dividerPositions="0.2" prefHeight="160.0" prefWidth="200.0"
-                           style="-fx-background-color: #242C32;" AnchorPane.bottomAnchor="0.0"
-                           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane fx:id="mainPane" dividerPositions="0.2" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #242C32;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"
-                                    style="-fx-background-color: #242C32;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #242C32;">
                             <children>
-                                <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0"
-                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                                <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                     <children>
-                                        <Label text="OPEN FILES" textFill="#cdcdcd" AnchorPane.bottomAnchor="0.0"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                               AnchorPane.topAnchor="0.0"/>
+                                        <Label text="OPEN FILES" textFill="#cdcdcd" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0"
-                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                                <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                                     <children>
-                                        <VBox id="openFilesList" fx:id="openFilesList" prefHeight="200.0"
-                                              prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
-                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0"
-                                              AnchorPane.topAnchor="10.0"/>
+                                        <VBox id="openFilesList" fx:id="openFilesList" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                     </children>
                                 </AnchorPane>
                             </children>
                         </AnchorPane>
-                        <TabPane id="tabPane" fx:id="tabPane"/>
+                        <TabPane id="tabPane" fx:id="tabPane" />
                     </items>
                 </SplitPane>
             </children>
             <VBox.margin>
-                <Insets/>
+                <Insets />
             </VBox.margin>
         </AnchorPane>
         <AnchorPane id="bottomBar" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #2b333b;">
             <children>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 7 7 0 0;"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                      AnchorPane.topAnchor="0.0">
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 7 7 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label fx:id="filePath" alignment="CENTER">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                             <HBox.margin>
-                                <Insets left="5.0"/>
+                                <Insets left="5.0" />
                             </HBox.margin>
                         </Label>
-                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                        <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0"
-                               prefWidth="21.0" text="Aa">
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="21.0" text="Aa">
                             <font>
-                                <Font size="16.0"/>
+                                <Font size="16.0" />
                             </font>
                             <HBox.margin>
-                                <Insets right="3.0"/>
+                                <Insets right="3.0" />
                             </HBox.margin>
                         </Label>
-                        <Slider fx:id="fontSizeSlider" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0"
-                                prefWidth="140.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;"
-                                HBox.hgrow="NEVER">
+                        <Slider fx:id="fontSizeSlider" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="140.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;" HBox.hgrow="NEVER">
                             <HBox.margin>
-                                <Insets/>
+                                <Insets />
                             </HBox.margin>
                         </Slider>
-                        <Label fx:id="fileType" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="16.0" prefWidth="45.0" text="" textAlignment="CENTER">
+                        <Label fx:id="fileType" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="45.0" text="" textAlignment="CENTER">
                             <HBox.margin>
-                                <Insets/>
+                                <Insets />
                             </HBox.margin>
                         </Label>
                     </children>
