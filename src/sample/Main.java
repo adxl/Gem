@@ -21,7 +21,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root=FXMLLoader.load(getClass().getResource("vue.fxml"));
+		Parent root=FXMLLoader.load(getClass().getResource("views/vue.fxml"));
 		mainStage=primaryStage;
 		mainStage.setScene(new Scene(root));
 		mainStage.setTitle("Gem");

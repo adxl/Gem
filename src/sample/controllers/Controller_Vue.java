@@ -1,4 +1,4 @@
-package sample;
+package sample.controllers;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sample.Main;
 
 import java.io.*;
 import java.util.HashMap;
