@@ -125,9 +125,6 @@ public class Controller_Vue implements Cloneable {
 		{
 			if(tab.isSelected())
 			{
-				System.out.println("''''''''''''''''''''''''''''''''''''''''''");
-				System.out.println(openFiles);
-
 				currentTextAreaListener();
 				int index=tabPane.getTabs().indexOf(tab);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
@@ -175,6 +172,20 @@ public class Controller_Vue implements Cloneable {
 		}
 	}
 
+	private void openExistingFile(String path) throws IOException {
+		File file=new File(path);
+		FileReader fileReader=new FileReader(path);
+		BufferedReader bufferedReader=new BufferedReader(fileReader);
+		StringBuilder stringBuilder=new StringBuilder();
+		String text;
+		while((text=bufferedReader.readLine())!=null)
+		{
+			stringBuilder.append(text).append("\n");
+		}
+		openFiles.put(file.getName(),file);
+		createPrefFile(file.getName(),stringBuilder.toString());
+	}
+
 	@FXML //DONE
 	public void closeFileRequest() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
@@ -191,40 +202,36 @@ public class Controller_Vue implements Cloneable {
 
 	@FXML //TODO SAVE1
 	public void saveFile() throws IOException {
-		//		if(openFiles!=null)
-		//		{
-		//			PrintWriter writer;
-		//			writer=new PrintWriter(openFiles);
-		//			writer.println(textArea.getText());
-		//			writer.close();
-		//			Main.setMainStageTitle(openFiles.getName());
-		//			filePath.setText(openFiles.getAbsolutePath());
-		//			fileType.setText(getType());
-		//		} else
-		//		{
-		//			saveFileAs();
-		//		}
+		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
+		if(openFiles.get(fileName)==null) //saving an untitled file
+		{
+			saveFileAs();
+		} else //saving an existing file
+		{
+			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
+			writer.println(currentTextArea.getText());
+			writer.close();
+			System.out.println("Saved : "+fileName);
+		}
 	}
 
 	@FXML //TODO SAVE2
 	public void saveFileAs() throws IOException {
-		//		if(!textArea.getText().isEmpty())
-		//		{
-		//			Stage stage=new Stage();
-		//			FileChooser fileChooser=new FileChooser();
-		//			File file=fileChooser.showSaveDialog(stage);
-		//			if(file!=null)
-		//			{
-		//				PrintWriter writer;
-		//				writer=new PrintWriter(file);
-		//				writer.println(textArea.getText());
-		//				writer.close();
-		//				openFiles=file;
-		//				Main.setMainStageTitle(openFiles.getName());
-		//				filePath.setText(openFiles.getAbsolutePath());
-		//				fileType.setText(getType());
-		//			}
-		//		}
+		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
+		if(!currentTextArea.getText().isEmpty())
+		{
+			Stage stage=new Stage();
+			FileChooser fileChooser=new FileChooser();
+			File file=fileChooser.showSaveDialog(stage);
+			if(file!=null)
+			{
+				PrintWriter writer=new PrintWriter(file);
+				writer.println(currentTextArea.getText());
+				writer.close();
+				closeFileRequest();
+				openExistingFile(file.getAbsolutePath());
+			}
+		}
 	}
 
 	private String getType(String name) {
