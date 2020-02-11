@@ -60,9 +60,7 @@ public class Controller_Vue {
 					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:#cdcdcd");
 				else
 					for(Node l : openFilesList.getChildren())
-					{
 						l.setStyle("-fx-text-fill:#6D7678");
-					}
 				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
 				fileType.setText(getType(tab.getText()));
 				if(openFiles.get(tab.getText())!=null)
@@ -70,6 +68,10 @@ public class Controller_Vue {
 				else
 					filePath.setText("");
 				Main.setMainStageTitle(tab.getText());
+			}else{
+				Main.setMainStageTitle("GEM");
+				fileType.setText("");
+				filePath.setText("");
 			}
 		});
 	}

@@ -152,7 +152,7 @@
                             </HBox.margin>
                         </Slider>
                         <Label fx:id="fileType" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity"
-                               prefHeight="16.0" prefWidth="45.0" text="TXTT" textAlignment="CENTER">
+                               prefHeight="16.0" prefWidth="45.0" text="" textAlignment="CENTER">
                             <HBox.margin>
                                 <Insets/>
                             </HBox.margin>
