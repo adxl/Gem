@@ -17,3 +17,7 @@ AnchorPane .text-area {
     -fx-background-radius: 0;
     -fx-border-radius: 0;
 }
+
+AnchorPane .text-area > .scroll-pane{
+    -fx-vbar-policy: always;
+}

@@ -1,5 +1,7 @@
 package sample.controllers;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -23,7 +25,10 @@ public class Controller_Vue {
 
 	private int untitledIdCounter;
 	private TextArea currentTextArea;
+	private ScrollPane currentScrollPane;
 	private VBox currentRowCounter;
+	private ScrollBar currentTextScrollBar;
+	private DoubleProperty currentScrollBarVProperty=new SimpleDoubleProperty();
 
 	@FXML
 	private Slider fontSizeSlider;
@@ -37,7 +42,8 @@ public class Controller_Vue {
 	@FXML
 	private Label filePath;
 
-	private ChangeListener<String> changeListener;
+	private ChangeListener<String> textChangeListener;
+	private ChangeListener<Object> scrollBarChangeListener;
 
 	@FXML
 	private void initialize() throws IOException {
@@ -46,7 +52,8 @@ public class Controller_Vue {
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
-		changeListener=this::textAreaChanged;
+		textChangeListener=this::textAreaChanged;
+		scrollBarChangeListener=this::textScrollBarChanged;
 		if(Main.getPassedFile()!=null)
 		{
 			openExistingFile(Main.getPassedFile().getAbsolutePath());
@@ -95,10 +102,11 @@ public class Controller_Vue {
 	}
 
 	private void currentTextAreaListener() {
-		currentRowCounter=(VBox)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+		currentScrollPane=((ScrollPane)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0));
+		currentRowCounter=(VBox)((ScrollPane)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0)).getContent();
 		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
-		currentTextArea.textProperty().removeListener(changeListener);
-		currentTextArea.textProperty().addListener(changeListener);
+		currentTextArea.textProperty().removeListener(textChangeListener);
+		currentTextArea.textProperty().addListener(textChangeListener);
 		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		for(Label l : currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
 			l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
@@ -116,11 +124,20 @@ public class Controller_Vue {
 				currentRowCounter.getChildren().add(tempLabel);
 			}
 		}
+		currentTextScrollBar=(ScrollBar)currentTextArea.lookup(".scroll-bar:vertical");
+		currentScrollBarVProperty.bind(currentTextScrollBar.valueProperty());
+		currentScrollBarVProperty.removeListener(scrollBarChangeListener);
+		currentScrollBarVProperty.addListener(scrollBarChangeListener);
+	}
+
+	private void textScrollBarChanged(ObservableValue observableValue,Object p,Object c) {
+		currentScrollPane.setVvalue((double)c);
+		//		System.out.println(currentTextScrollBar.getValue()==currentScrollPane.getVvalue());
 	}
 
 	@FXML
 	private void createFile() throws IOException {
-		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("../views/newEditorTab.fxml")));
 		addFileToOpenFilesList(tab);
 		openFiles.put(tab.getText(),null);
 		tabSwitchListener(tab);
@@ -131,7 +148,7 @@ public class Controller_Vue {
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
-		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("newEditorTab.fxml")));
+		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("../views/newEditorTab.fxml")));
 		addFileToOpenFilesList(tab);
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
