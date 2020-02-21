@@ -103,12 +103,15 @@ public class Controller_Vue {
 	}
 
 	private void currentTextAreaListener() {
+		isListened=false;
 		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
 		currentTextArea.textProperty().removeListener(textChangeListener);
 		currentTextArea.textProperty().addListener(textChangeListener);
 		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+		countLines();
+
 	}
 
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
@@ -142,7 +145,7 @@ public class Controller_Vue {
 			isListened=true;
 			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
 		}
-//		System.out.println("'''''''''''''''''''''''''''''");
+		//		System.out.println("'''''''''''''''''''''''''''''");
 	}
 
 	private void textScrollBarChanged(ObservableValue<? extends Object> observableValue,Object p,Object c) {
@@ -169,10 +172,10 @@ public class Controller_Vue {
 		addFileToOpenFilesList(tab);
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
-		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
+		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(0)).setText(text);
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
-		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
+		((AnchorPane)tab.getContent()).getChildren().get(0).requestFocus();
 	}
 
 	@FXML
@@ -290,6 +293,21 @@ public class Controller_Vue {
 			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		}
 		return "";
+	}
+
+	private void countLines() {
+		int textLines=currentTextArea.getText().split("\r\n|\r|\n",-1).length;
+		int counterLines=currentLinesCounter.getText().split("\n").length;
+		if(textLines!=counterLines)
+		{
+			StringBuilder lines=new StringBuilder();
+			lines.append(1);
+			for(int i=2;i<=textLines;i++)
+			{
+				lines.append("\n").append(i);
+			}
+			currentLinesCounter.setText(lines.toString());
+		}
 	}
 
 	@FXML
