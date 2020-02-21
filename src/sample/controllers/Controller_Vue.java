@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
 
+import javax.sound.midi.SoundbankResource;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class Controller_Vue {
 	private DoubleProperty currentScrollBarVProperty=new SimpleDoubleProperty();
 
 	private boolean isListened=false;
+	private boolean isReady=false;
 
 	@FXML
 	private Slider fontSizeSlider;
@@ -104,17 +106,18 @@ public class Controller_Vue {
 
 	private void currentTextAreaListener() {
 		isListened=false;
-		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
-		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+		isReady=false;
+		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 		currentTextArea.textProperty().removeListener(textChangeListener);
 		currentTextArea.textProperty().addListener(textChangeListener);
 		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		countLines();
-
 	}
 
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
+		currentTextArea.setOnScroll(null);
 		int textLines=c.split("\r\n|\r|\n",-1).length;
 		int counterLines=currentLinesCounter.getText().split("\n").length;
 		if(counterLines<textLines) //add row(s)
@@ -142,8 +145,8 @@ public class Controller_Vue {
 		currentLinesCounterScrollBar=(ScrollBar)currentLinesCounter.lookup(".scroll-bar:vertical");
 		if(!isListened)
 		{
-			isListened=true;
 			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
+			isListened=true;
 		}
 		//		System.out.println("'''''''''''''''''''''''''''''");
 	}
@@ -155,27 +158,36 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void createFile() throws IOException {
-		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("../views/newEditorTab.fxml")));
+	private void createFile() throws IOException, InterruptedException {
+		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("../views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		openFiles.put(tab.getText(),null);
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
-		//		((TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1)).setText("1\n");
-		((AnchorPane)tab.getContent()).getChildren().get(0).requestFocus();
+		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
-		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("../views/newEditorTab.fxml")));
+		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("../views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		tabSwitchListener(tab);
 		tab.setOnClosed(event->closeFile(tab.getText()));
-		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(0)).setText(text);
+		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
-		((AnchorPane)tab.getContent()).getChildren().get(0).requestFocus();
+		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
+		if(!isReady)
+		{
+			currentTextArea.setOnScroll(event->{
+				int length = currentTextArea.getLength();
+				currentTextArea.appendText(" ");
+				currentTextArea.deleteText(length-1,length);
+				System.out.println("switched");
+			});
+			isReady=true;
+		}
 	}
 
 	@FXML
@@ -219,6 +231,7 @@ public class Controller_Vue {
 		{
 			stringBuilder.append(text).append("\n");
 		}
+		System.out.println("passed and got text"+file.getAbsolutePath());
 		openFiles.put(file.getName(),file);
 		createPrefFile(file.getName(),stringBuilder.toString());
 	}

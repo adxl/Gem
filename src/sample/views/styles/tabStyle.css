@@ -21,3 +21,6 @@ AnchorPane .text-area {
 AnchorPane .text-area > .scroll-pane{
     -fx-vbar-policy: always;
 }
+#lines > .scroll-pane > .scroll-bar {
+    -fx-opacity: 0;
+}
