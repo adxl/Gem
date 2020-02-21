@@ -26,9 +26,12 @@ public class Controller_Vue {
 	private int untitledIdCounter;
 	private TextArea currentTextArea;
 	private ScrollPane currentScrollPane;
-	private VBox currentRowCounter;
+	private TextArea currentLinesCounter;
 	private ScrollBar currentTextScrollBar;
+	private ScrollBar currentLinesCounterScrollBar;
 	private DoubleProperty currentScrollBarVProperty=new SimpleDoubleProperty();
+
+	private boolean isListened=false;
 
 	@FXML
 	private Slider fontSizeSlider;
@@ -95,44 +98,57 @@ public class Controller_Vue {
 
 	private void fontSizeSliderListener(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
 		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-		currentTextArea.setText(currentTextArea.getText());
+		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		currentTextArea.requestFocus();
-		for(Label l : currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
-			l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 	}
 
 	private void currentTextAreaListener() {
-		currentScrollPane=((ScrollPane)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0));
-		currentRowCounter=(VBox)((ScrollPane)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0)).getContent();
-		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
 		currentTextArea.textProperty().removeListener(textChangeListener);
 		currentTextArea.textProperty().addListener(textChangeListener);
 		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-		for(Label l : currentRowCounter.getChildren().toArray(new Label[currentRowCounter.getChildren().size()]))
-			l.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 	}
 
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
-		int lines=c.split("\r\n|\r|\n",-1).length;
-		if(currentRowCounter.getChildren().size()!=lines)
+		int textLines=c.split("\r\n|\r|\n",-1).length;
+		int counterLines=currentLinesCounter.getText().split("\n").length;
+		if(counterLines<textLines) //add row(s)
 		{
-			currentRowCounter.getChildren().remove(0,currentRowCounter.getChildren().size());
-			for(int i=1;i<=lines;i++)
+			int linesDiff=textLines-counterLines;
+			for(int i=0;i<linesDiff;i++)
+				currentLinesCounter.appendText("\n"+(++counterLines));
+		} else if(counterLines>textLines) //remove row(s)
+		{
+			char[] chars=currentLinesCounter.getText().toCharArray();
+			int linesDiff=counterLines-textLines;
+			int diffCounter=0;
+			int deleteStartIndex=-1;
+			for(int i=currentLinesCounter.getLength()-1;i >= 0;i--)
 			{
-				Label tempLabel=new Label(String.valueOf(i));
-				tempLabel.setFont(Font.font(fontSizeSlider.getValue()));
-				currentRowCounter.getChildren().add(tempLabel);
+				deleteStartIndex=i;
+				if(chars[i]=='\n')
+					diffCounter++;
+				if(diffCounter==linesDiff)
+					break;
 			}
+			currentLinesCounter.deleteText(deleteStartIndex,currentLinesCounter.getLength());
 		}
 		currentTextScrollBar=(ScrollBar)currentTextArea.lookup(".scroll-bar:vertical");
-		currentScrollBarVProperty.bind(currentTextScrollBar.valueProperty());
-		currentScrollBarVProperty.removeListener(scrollBarChangeListener);
-		currentScrollBarVProperty.addListener(scrollBarChangeListener);
+		currentLinesCounterScrollBar=(ScrollBar)currentLinesCounter.lookup(".scroll-bar:vertical");
+		if(!isListened)
+		{
+			isListened=true;
+			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
+		}
+//		System.out.println("'''''''''''''''''''''''''''''");
 	}
 
-	private void textScrollBarChanged(ObservableValue observableValue,Object p,Object c) {
-		currentScrollPane.setVvalue((double)c);
-		//		System.out.println(currentTextScrollBar.getValue()==currentScrollPane.getVvalue());
+	private void textScrollBarChanged(ObservableValue<? extends Object> observableValue,Object p,Object c) {
+		System.out.println("changing"+p+">>"+c);
+		currentLinesCounterScrollBar.setValue(currentTextScrollBar.getValue());
+		System.out.println(currentLinesCounterScrollBar.getValue());
 	}
 
 	@FXML
@@ -144,7 +160,8 @@ public class Controller_Vue {
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
-		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
+		//		((TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1)).setText("1\n");
+		((AnchorPane)tab.getContent()).getChildren().get(0).requestFocus();
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
@@ -281,3 +298,4 @@ public class Controller_Vue {
 	}
 	//
 }
+
