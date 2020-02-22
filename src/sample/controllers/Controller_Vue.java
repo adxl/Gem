@@ -52,6 +52,9 @@ public class Controller_Vue {
 	private ChangeListener<String> textChangeListener;
 	private ChangeListener<Object> scrollBarChangeListener;
 
+	private String defaultSVGPathProperty = "shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z\";";
+	private String circleSVGPathProperty = "shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
+
 	@FXML
 	private void initialize() throws IOException {
 		untitledIdCounter=1;
@@ -113,11 +116,11 @@ public class Controller_Vue {
 		if(!currentFiles.containsKey(currentTextArea))
 		{
 			currentFiles.put(currentTextArea,false);
-			tabPane.setStyle("selected-tab-color: -fx-mark-color;");
+			tabPane.setStyle(defaultSVGPathProperty);
 		}else {
 			if(currentFiles.get(currentTextArea))
-				tabPane.setStyle("selected-tab-color: blue ;");
-			else tabPane.setStyle("selected-tab-color: -fx-mark-color;");
+				tabPane.setStyle(circleSVGPathProperty);
+			else tabPane.setStyle(defaultSVGPathProperty);
 		}
 		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 		currentTextArea.textProperty().removeListener(textChangeListener);
@@ -159,18 +162,8 @@ public class Controller_Vue {
 			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
 			isListened=true;
 		}
-		//		Label activeFileLabel = ((Label)openFilesList.getChildren().get(currentTabIndex));
-		//		int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
-		//		StackPane cbs = ((Tab)tabPane.getSelectionModel().getSelectedItem()).getContent();
-		//		((Label)openFilesList.getChildren().get(currentTabIndex)).setText(activeFileLabel.getText()+"*");
-		//		tabPane.getSelectionModel().getSelectedItem();
-		//		tabPane.lookup(".tab:selected:top").lookup(".tab-container").lookup(".tab-close-button").setStyle("-fx-background-color: red");
-		tabPane.setStyle("selected-tab-color: blue ;");
+		tabPane.setStyle(circleSVGPathProperty);
 		currentFiles.put(currentTextArea, true);
-		//		System.out.println(tabPane.getSelectionModel().getSelectedItem());
-		//		System.out.println(tabPane.lookup(".tab:selected:top").lookup(".tab-container").lookup(".tab-close-button"));
-		//		System.out.println(((StackPane)tabPane.lookup(".tab:selected:top")).lookup(".tab-close-button"));
-		//		System.out.println("'''''''''''''''''''''''''''''");
 	}
 
 	private void textScrollBarChanged(ObservableValue<? extends Object> observableValue,Object p,Object c) {

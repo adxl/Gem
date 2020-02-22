@@ -46,8 +46,20 @@
 }
 
 .tab-pane {
-    selected-tab-color: white ;
+    shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
+    /*shape: "M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z";*/   /*circle*/
+
 }
+
+.tab > .tab-container > .tab-close-button {
+    -fx-background-color: white;
+
+}
+
 .tab:selected > .tab-container > .tab-close-button {
-    -fx-background-color: selected-tab-color ;
+    -fx-shape: shape;
+    -fx-scale-shape: true;
+    -fx-scale-x: 50%;
+    -fx-scale-y: 50%;
+    -fx-background-color: white;
 }
