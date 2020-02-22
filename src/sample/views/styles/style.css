@@ -44,3 +44,10 @@
 #tabPane .tab-header-area .tab-header-background {
     -fx-background-color: #242C32;
 }
+
+.tab-pane {
+    selected-tab-color: white ;
+}
+.tab:selected > .tab-container > .tab-close-button {
+    -fx-background-color: selected-tab-color ;
+}

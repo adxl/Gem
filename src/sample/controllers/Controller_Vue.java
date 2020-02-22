@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -19,6 +20,8 @@ import javax.sound.midi.SoundbankResource;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.Stack;
 
 public class Controller_Vue {
 	@FXML
@@ -33,6 +36,7 @@ public class Controller_Vue {
 	private DoubleProperty currentScrollBarVProperty=new SimpleDoubleProperty();
 
 	private boolean isListened=false;
+	private boolean hasChanged=false;
 	private boolean isReady=false;
 
 	@FXML
@@ -107,6 +111,8 @@ public class Controller_Vue {
 	private void currentTextAreaListener() {
 		isListened=false;
 		isReady=false;
+		if(!hasChanged)
+			tabPane.setStyle("selected-tab-color:-fx-mark-color;");
 		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
 		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 		currentTextArea.textProperty().removeListener(textChangeListener);
@@ -148,6 +154,17 @@ public class Controller_Vue {
 			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
 			isListened=true;
 		}
+		//		Label activeFileLabel = ((Label)openFilesList.getChildren().get(currentTabIndex));
+		//		int currentTabIndex = tabPane.getSelectionModel().getSelectedIndex();
+		//		StackPane cbs = ((Tab)tabPane.getSelectionModel().getSelectedItem()).getContent();
+		//		((Label)openFilesList.getChildren().get(currentTabIndex)).setText(activeFileLabel.getText()+"*");
+		//		tabPane.getSelectionModel().getSelectedItem();
+		//		tabPane.lookup(".tab:selected:top").lookup(".tab-container").lookup(".tab-close-button").setStyle("-fx-background-color: red");
+		hasChanged=true;
+		tabPane.setStyle("selected-tab-color: blue ;");
+		//		System.out.println(tabPane.getSelectionModel().getSelectedItem());
+		//		System.out.println(tabPane.lookup(".tab:selected:top").lookup(".tab-container").lookup(".tab-close-button"));
+		//		System.out.println(((StackPane)tabPane.lookup(".tab:selected:top")).lookup(".tab-close-button"));
 		//		System.out.println("'''''''''''''''''''''''''''''");
 	}
 
@@ -180,8 +197,9 @@ public class Controller_Vue {
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 		if(!isReady)
 		{
-			currentTextArea.setOnScroll(event->{
-				int length = currentTextArea.getLength();
+			currentTextArea.setOnScroll(event->
+			{
+				int length=currentTextArea.getLength();
 				currentTextArea.appendText(" ");
 				currentTextArea.deleteText(length-1,length);
 				System.out.println("switched");

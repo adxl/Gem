@@ -100,7 +100,7 @@
                                 </AnchorPane>
                             </children>
                         </AnchorPane>
-                        <TabPane id="tabPane" fx:id="tabPane" prefHeight="539.0" prefWidth="637.0" SplitPane.resizableWithParent="false" />
+                        <TabPane id="tabPane" fx:id="tabPane" prefHeight="539.0" prefWidth="637.0" tabClosingPolicy="ALL_TABS" SplitPane.resizableWithParent="false" />
                     </items>
                 </SplitPane>
             </children>
