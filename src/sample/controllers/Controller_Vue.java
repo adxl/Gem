@@ -18,10 +18,7 @@ import sample.Main;
 
 import javax.sound.midi.SoundbankResource;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 public class Controller_Vue {
 	@FXML
@@ -44,7 +41,8 @@ public class Controller_Vue {
 
 	@FXML
 	private VBox openFilesList;
-	private Map<String,File> openFiles=new HashMap<>();
+	private HashMap<String,File> openFiles=new HashMap<>();
+	private HashMap<TextArea,Boolean> currentFiles= new HashMap<>();
 
 	@FXML
 	private Label fileType;
@@ -111,9 +109,16 @@ public class Controller_Vue {
 	private void currentTextAreaListener() {
 		isListened=false;
 		isReady=false;
-		if(!hasChanged)
-			tabPane.setStyle("selected-tab-color:-fx-mark-color;");
 		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+		if(!currentFiles.containsKey(currentTextArea))
+		{
+			currentFiles.put(currentTextArea,false);
+			tabPane.setStyle("selected-tab-color: -fx-mark-color;");
+		}else {
+			if(currentFiles.get(currentTextArea))
+				tabPane.setStyle("selected-tab-color: blue ;");
+			else tabPane.setStyle("selected-tab-color: -fx-mark-color;");
+		}
 		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 		currentTextArea.textProperty().removeListener(textChangeListener);
 		currentTextArea.textProperty().addListener(textChangeListener);
@@ -160,8 +165,8 @@ public class Controller_Vue {
 		//		((Label)openFilesList.getChildren().get(currentTabIndex)).setText(activeFileLabel.getText()+"*");
 		//		tabPane.getSelectionModel().getSelectedItem();
 		//		tabPane.lookup(".tab:selected:top").lookup(".tab-container").lookup(".tab-close-button").setStyle("-fx-background-color: red");
-		hasChanged=true;
 		tabPane.setStyle("selected-tab-color: blue ;");
+		currentFiles.put(currentTextArea, true);
 		//		System.out.println(tabPane.getSelectionModel().getSelectedItem());
 		//		System.out.println(tabPane.lookup(".tab:selected:top").lookup(".tab-container").lookup(".tab-close-button"));
 		//		System.out.println(((StackPane)tabPane.lookup(".tab:selected:top")).lookup(".tab-close-button"));
@@ -183,6 +188,8 @@ public class Controller_Vue {
 		tab.setOnClosed(event->closeFile(tab.getText()));
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
+		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 	}
 
@@ -296,12 +303,13 @@ public class Controller_Vue {
 			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
 			writer.println(currentTextArea.getText());
 			writer.close();
+			currentFiles.put(currentTextArea, false);
 		}
 	}
 
 	@FXML
 	private void saveFileAs() throws IOException {
-		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
+//		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(!currentTextArea.getText().isEmpty())
 		{
 			Stage stage=new Stage();
@@ -314,6 +322,7 @@ public class Controller_Vue {
 				writer.close();
 				closeFileRequest();
 				openExistingFile(file.getAbsolutePath());
+				currentFiles.put(currentTextArea, false);
 			}
 		}
 	}
