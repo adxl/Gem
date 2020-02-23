@@ -108,14 +108,13 @@ public class Controller_Vue {
 		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
 		if(!currentFiles.containsKey(currentTextArea))
 		{
-			currentFiles.put(currentTextArea,false);
-			tabPane.setStyle(defaultSVGPathProperty);
+			setModified(false);
 		} else
 		{
 			if(currentFiles.get(currentTextArea))
-				tabPane.setStyle(circleSVGPathProperty);
+				setModified(true);
 			else
-				tabPane.setStyle(defaultSVGPathProperty);
+				setModified(false);
 		}
 		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 		currentTextArea.textProperty().removeListener(textChangeListener);
@@ -157,8 +156,7 @@ public class Controller_Vue {
 			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
 			isListened=true;
 		}
-		tabPane.setStyle(circleSVGPathProperty);
-		currentFiles.put(currentTextArea,true);
+		setModified(true);
 	}
 
 	@FXML
@@ -283,7 +281,7 @@ public class Controller_Vue {
 			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
 			writer.println(currentTextArea.getText());
 			writer.close();
-			currentFiles.put(currentTextArea,false);
+			setModified(false);
 		}
 	}
 
@@ -302,7 +300,7 @@ public class Controller_Vue {
 				writer.close();
 				closeFileRequest();
 				openExistingFile(file.getAbsolutePath());
-				currentFiles.put(currentTextArea,false);
+				setModified(false);
 			}
 		}
 	}
@@ -327,6 +325,21 @@ public class Controller_Vue {
 				lines.append("\n").append(i);
 			}
 			currentLinesCounter.setText(lines.toString());
+		}
+	}
+
+	private void setModified(boolean b) {
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		if(b)
+		{
+			tabPane.setStyle(circleSVGPathProperty);
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:italic;");
+			currentFiles.put(currentTextArea,true);
+		} else
+		{
+			tabPane.setStyle(defaultSVGPathProperty);
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:normal;");
+			currentFiles.put(currentTextArea,false);
 		}
 	}
 
