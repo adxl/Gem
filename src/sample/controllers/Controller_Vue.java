@@ -9,14 +9,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
 
-import javax.sound.midi.SoundbankResource;
 import java.io.*;
 import java.util.*;
 
@@ -26,14 +24,11 @@ public class Controller_Vue {
 
 	private int untitledIdCounter;
 	private TextArea currentTextArea;
-	private ScrollPane currentScrollPane;
 	private TextArea currentLinesCounter;
 	private ScrollBar currentTextScrollBar;
 	private ScrollBar currentLinesCounterScrollBar;
-	private DoubleProperty currentScrollBarVProperty=new SimpleDoubleProperty();
 
 	private boolean isListened=false;
-	private boolean hasChanged=false;
 	private boolean isReady=false;
 
 	@FXML
@@ -42,7 +37,7 @@ public class Controller_Vue {
 	@FXML
 	private VBox openFilesList;
 	private HashMap<String,File> openFiles=new HashMap<>();
-	private HashMap<TextArea,Boolean> currentFiles= new HashMap<>();
+	private HashMap<TextArea,Boolean> currentFiles=new HashMap<>();
 
 	@FXML
 	private Label fileType;
@@ -50,10 +45,9 @@ public class Controller_Vue {
 	private Label filePath;
 
 	private ChangeListener<String> textChangeListener;
-	private ChangeListener<Object> scrollBarChangeListener;
 
-	private String defaultSVGPathProperty = "shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z\";";
-	private String circleSVGPathProperty = "shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
+	private String defaultSVGPathProperty="shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z\";";
+	private String circleSVGPathProperty="shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
 
 	@FXML
 	private void initialize() throws IOException {
@@ -63,7 +57,6 @@ public class Controller_Vue {
 		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 		textChangeListener=this::textAreaChanged;
-		scrollBarChangeListener=this::textScrollBarChanged;
 		if(Main.getPassedFile()!=null)
 		{
 			openExistingFile(Main.getPassedFile().getAbsolutePath());
@@ -117,10 +110,12 @@ public class Controller_Vue {
 		{
 			currentFiles.put(currentTextArea,false);
 			tabPane.setStyle(defaultSVGPathProperty);
-		}else {
+		} else
+		{
 			if(currentFiles.get(currentTextArea))
 				tabPane.setStyle(circleSVGPathProperty);
-			else tabPane.setStyle(defaultSVGPathProperty);
+			else
+				tabPane.setStyle(defaultSVGPathProperty);
 		}
 		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 		currentTextArea.textProperty().removeListener(textChangeListener);
@@ -163,13 +158,7 @@ public class Controller_Vue {
 			isListened=true;
 		}
 		tabPane.setStyle(circleSVGPathProperty);
-		currentFiles.put(currentTextArea, true);
-	}
-
-	private void textScrollBarChanged(ObservableValue<? extends Object> observableValue,Object p,Object c) {
-		System.out.println("changing"+p+">>"+c);
-		currentLinesCounterScrollBar.setValue(currentTextScrollBar.getValue());
-		System.out.println(currentLinesCounterScrollBar.getValue());
+		currentFiles.put(currentTextArea,true);
 	}
 
 	@FXML
@@ -182,7 +171,6 @@ public class Controller_Vue {
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
 		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
-
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 	}
 
@@ -228,7 +216,6 @@ public class Controller_Vue {
 				}
 				openFiles.put(selectedFile.getName(),selectedFile);
 				createPrefFile(selectedFile.getName(),stringBuilder.toString());
-				//			filePath.setText(selectedFile.getAbsolutePath());
 			} else
 				for(Tab t : tabPane.getTabs())
 					if(t.getText().equals(selectedFile.getName()))
@@ -296,13 +283,13 @@ public class Controller_Vue {
 			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
 			writer.println(currentTextArea.getText());
 			writer.close();
-			currentFiles.put(currentTextArea, false);
+			currentFiles.put(currentTextArea,false);
 		}
 	}
 
 	@FXML
 	private void saveFileAs() throws IOException {
-//		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
+		//		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(!currentTextArea.getText().isEmpty())
 		{
 			Stage stage=new Stage();
@@ -315,7 +302,7 @@ public class Controller_Vue {
 				writer.close();
 				closeFileRequest();
 				openExistingFile(file.getAbsolutePath());
-				currentFiles.put(currentTextArea, false);
+				currentFiles.put(currentTextArea,false);
 			}
 		}
 	}
