@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -14,7 +12,6 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -65,25 +62,6 @@
         </MenuBar>
         <AnchorPane prefHeight="381.0" prefWidth="802.0" style="-fx-background-color: #242C32; -fx-background-color: red;" VBox.vgrow="ALWAYS">
             <children>
-            <Pane visible="false">
-               <children>
-                      <Button alignment="CENTER" disable="true" layoutX="694.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openFile" opacity="0.69" pickOnBounds="false" prefHeight="25.0" prefWidth="108.0" style="-fx-background-color: green;" visible="false">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Button>
-                      <Button id="buttonCreate" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createFile" opacity="0.44" prefHeight="29.0" prefWidth="68.0" style="-fx-background-color: red;" visible="false">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </Button>
-                      <Label id="motd" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" pickOnBounds="false" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33">
-                          <font>
-                              <Font name="FreeSans" size="20.0" />
-                          </font>
-                      </Label>
-               </children>
-            </Pane>
                 <SplitPane fx:id="mainPane" dividerPositions="0.2" prefHeight="414.0" prefWidth="802.0" style="-fx-background-color: #242C32;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #242C32;">
@@ -103,6 +81,15 @@
                         <TabPane id="tabPane" fx:id="tabPane" prefHeight="539.0" prefWidth="637.0" SplitPane.resizableWithParent="false" />
                     </items>
                 </SplitPane>
+            <AnchorPane id="prompt" fx:id="promptAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                      <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" pickOnBounds="false" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <font>
+                              <Font name="FreeSans" size="20.0" />
+                          </font>
+                      </Label>
+               </children>
+            </AnchorPane>
             </children>
             <VBox.margin>
                 <Insets />
@@ -121,7 +108,7 @@
                             </HBox.margin>
                         </Label>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="21.0" text="Aa">
+                        <Label fx:id="fontSizeSliderIcon" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="21.0" text="Aa">
                             <font>
                                 <Font size="16.0" />
                             </font>

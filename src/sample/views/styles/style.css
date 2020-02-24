@@ -10,6 +10,10 @@
     -fx-background-color: #2b333b;
 }
 
+#prompt {
+    -fx-background-color: #2b333b;
+}
+
 .split-pane > .split-pane-divider {
     -fx-background-color: #2b333b; /*transparent?*/
     -fx-padding: 0 1px 0 1px;
@@ -47,7 +51,7 @@
 
 .tab-pane {
     shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
-    /*shape: "M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z";*/   /*circle*/
+    /*shape: "M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z";*/ /*circle*/
 
 }
 

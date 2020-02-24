@@ -1,7 +1,11 @@
 package sample.controllers;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -20,6 +24,8 @@ import java.util.*;
 
 public class Controller_Vue {
 	@FXML
+	private AnchorPane promptAnchorPane;
+	@FXML
 	private TabPane tabPane;
 
 	private int untitledIdCounter;
@@ -33,6 +39,8 @@ public class Controller_Vue {
 
 	@FXML
 	private Slider fontSizeSlider;
+	@FXML
+	private Label fontSizeSliderIcon;
 
 	@FXML
 	private VBox openFilesList;
@@ -45,6 +53,8 @@ public class Controller_Vue {
 	private Label filePath;
 
 	private ChangeListener<String> textChangeListener;
+
+	private IntegerProperty tabPaneSizeProperty=new SimpleIntegerProperty();
 
 	private String defaultSVGPathProperty="shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z\";";
 	private String circleSVGPathProperty="shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
@@ -61,6 +71,11 @@ public class Controller_Vue {
 		{
 			openExistingFile(Main.getPassedFile().getAbsolutePath());
 		}
+		final BooleanBinding isTabPaneEmpty=Bindings.isEmpty(tabPane.getTabs());
+		Button someButton=new Button();
+		promptAnchorPane.visibleProperty().bind(isTabPaneEmpty);
+		fontSizeSlider.visibleProperty().bind(isTabPaneEmpty.not());
+		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -251,7 +266,7 @@ public class Controller_Vue {
 
 	private void closeFile(String title) {
 		System.out.println("closed:"+tabPane.getSelectionModel().getSelectedItem().getText());
-		Tab tab = tabPane.getSelectionModel().getSelectedItem();
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		boolean wasModified=isModified();
 		currentFiles.remove(currentTextArea);
 		tabPane.getTabs().remove(tab);
