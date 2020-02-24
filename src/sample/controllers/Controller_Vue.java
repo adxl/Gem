@@ -286,7 +286,6 @@ public class Controller_Vue {
 	private void closeFileRequest() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		String title=tab.getText();
-		tabPane.getTabs().remove(tab);
 		closeFile(title);
 	}
 
