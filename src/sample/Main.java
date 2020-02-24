@@ -25,7 +25,7 @@ public class Main extends Application {
 		mainStage=primaryStage;
 		mainStage.setScene(new Scene(root));
 		mainStage.setTitle("Gem");
-		//		mainStage.setMaximized(true);
+		mainStage.setMaximized(true);
 		mainStage.setAlwaysOnTop(true);
 		mainStage.setMinHeight(200);
 		mainStage.setMinWidth(400);

@@ -2,10 +2,6 @@ package sample.controllers;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -54,8 +50,6 @@ public class Controller_Vue {
 
 	private ChangeListener<String> textChangeListener;
 
-	private IntegerProperty tabPaneSizeProperty=new SimpleIntegerProperty();
-
 	private String defaultSVGPathProperty="shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z\";";
 	private String circleSVGPathProperty="shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
 
@@ -72,7 +66,6 @@ public class Controller_Vue {
 			openExistingFile(Main.getPassedFile().getAbsolutePath());
 		}
 		final BooleanBinding isTabPaneEmpty=Bindings.isEmpty(tabPane.getTabs());
-		Button someButton=new Button();
 		promptAnchorPane.visibleProperty().bind(isTabPaneEmpty);
 		fontSizeSlider.visibleProperty().bind(isTabPaneEmpty.not());
 		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());
@@ -85,15 +78,11 @@ public class Controller_Vue {
 			{
 				currentTextAreaListener();
 				int index=tabPane.getTabs().indexOf(tab);
-				for(Tab t : tabPane.getTabs())
-					System.out.print(t.getText()+" - ");
-				System.out.println("\ntabs -> "+tab.getText()+" :: "+index);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
 					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:#cdcdcd");
 				else
 					for(Node l : openFilesList.getChildren())
 						l.setStyle("-fx-text-fill:#6D7678");
-				System.out.println(openFilesList.getChildren());
 				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
 				fileType.setText(getType(tab.getText()));
 				if(openFiles.get(tab.getText())!=null)
@@ -112,7 +101,6 @@ public class Controller_Vue {
 				fileType.setText("");
 				filePath.setText("");
 			}
-			System.out.println("-------------------------");
 		});
 	}
 
@@ -214,7 +202,6 @@ public class Controller_Vue {
 				int length=currentTextArea.getLength();
 				currentTextArea.appendText(" ");
 				currentTextArea.deleteText(length-1,length);
-				System.out.println("switched");
 			});
 			isReady=true;
 		}
@@ -265,7 +252,6 @@ public class Controller_Vue {
 	}
 
 	private void closeFile(String title) {
-		System.out.println("closed:"+tabPane.getSelectionModel().getSelectedItem().getText());
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		boolean wasModified=isModified();
 		currentFiles.remove(currentTextArea);
@@ -275,11 +261,6 @@ public class Controller_Vue {
 		else
 			removeFileFromOpenFilesList(title);
 		openFiles.remove(title);
-		//		System.out.println("check if closed?:"+tabPane.getSelectionModel().getSelectedItem().getText());
-		System.out.print("check if closed?: ");
-		for(Tab t : tabPane.getTabs())
-			System.out.print(t.getText()+" - ");
-		System.out.println();
 	}
 
 	@FXML
@@ -298,7 +279,6 @@ public class Controller_Vue {
 	private void removeFileFromOpenFilesList(String title) {
 		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
 		{
-			//			System.out.println(l);
 			if(l.getText().equals(title))
 			{
 				openFilesList.getChildren().remove(l);
