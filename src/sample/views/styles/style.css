@@ -1,3 +1,21 @@
+.menu {
+    -fx-padding: 1 5 1 5;
+}
+
+.menu-item {
+    -fx-padding: 1 5 1 5;
+}
+
+.menu .context-menu {
+    -fx-padding: 1 1 1 1;
+}
+
+.menu-bar {
+    -fx-padding: 0 1 0 1;
+    -fx-spacing: 1;
+}
+
+
 #menuBar {
     -fx-background-color: #2b333b;
 }
