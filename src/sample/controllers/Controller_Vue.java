@@ -304,6 +304,7 @@ public class Controller_Vue {
 			writer.println(currentTextArea.getText());
 			writer.close();
 			setModified(false);
+			setLabelModified(false);
 		}
 	}
 
@@ -377,14 +378,20 @@ public class Controller_Vue {
 			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
 			{
 				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='*')
+				{
 					l.setText(tabName+"*");
+					return;
+				}
 			}
 		} else
 		{
 			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
 			{
-				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)=='*')
-					l.setText(tabName.substring(tabName.length()-1));
+				if(l.getText().equals(tabName+"*"))
+				{
+					l.setText(tabName);
+					return;
+				}
 			}
 		}
 	}
