@@ -73,6 +73,7 @@ public class Controller_Vue {
 		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());
 		SplitPane.setResizableWithParent(splitPane,false);
 		SplitPane.setResizableWithParent(splitPane.getItems().get(0),false);
+		openExistingFile("Gem.iml");
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -199,16 +200,18 @@ public class Controller_Vue {
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
-		if(!isReady)
+		currentTextArea.setOnMouseEntered(event->
 		{
-			currentTextArea.setOnScroll(event->
+			if(!isReady)
 			{
-				int length=currentTextArea.getLength();
 				currentTextArea.appendText(" ");
-				currentTextArea.deleteText(length-1,length);
-			});
-			isReady=true;
-		}
+				currentTextArea.deleteText(currentTextArea.getLength()-1,currentTextArea.getLength());
+				currentTextArea.positionCaret(0);
+				setModified(false);
+				setLabelModified(false);
+				isReady=true;
+			}
+		});
 	}
 
 	@FXML
