@@ -1,5 +1,6 @@
 package sample.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
@@ -140,6 +141,7 @@ public class Controller_Vue {
 		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		countLines();
+		Platform.runLater(currentTextArea::requestFocus);
 	}
 
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {

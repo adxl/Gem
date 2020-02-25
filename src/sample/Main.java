@@ -32,6 +32,17 @@ public class Main extends Application {
 		checkPassedArg();
 	}
 
+	//TEST
+//	@Override
+//	public void start(Stage primaryStage) throws Exception {
+//		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/test.fxml"));
+//		mainStage=primaryStage;
+//		mainStage.setScene(new Scene(loader.load()));
+//		//		mainStage.setMaximized(true);
+//		mainStage.setAlwaysOnTop(true);
+//		mainStage.show();
+//	}
+
 
 	private void checkPassedArg() {
 		if(getPassedFile()!=null)
