@@ -2,7 +2,6 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -21,9 +20,9 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root=FXMLLoader.load(getClass().getResource("views/vue.fxml"));
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/vue.fxml"));
 		mainStage=primaryStage;
-		mainStage.setScene(new Scene(root));
+		mainStage.setScene(new Scene(loader.load()));
 		mainStage.setTitle("Gem");
 		mainStage.setMaximized(true);
 		mainStage.setAlwaysOnTop(true);
@@ -32,6 +31,7 @@ public class Main extends Application {
 		mainStage.show();
 		checkPassedArg();
 	}
+
 
 	private void checkPassedArg() {
 		if(getPassedFile()!=null)

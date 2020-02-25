@@ -23,6 +23,8 @@ public class Controller_Vue {
 	private AnchorPane promptAnchorPane;
 	@FXML
 	private TabPane tabPane;
+	@FXML
+	public SplitPane splitPane;
 
 	private int untitledIdCounter;
 	private TextArea currentTextArea;
@@ -69,6 +71,8 @@ public class Controller_Vue {
 		promptAnchorPane.visibleProperty().bind(isTabPaneEmpty);
 		fontSizeSlider.visibleProperty().bind(isTabPaneEmpty.not());
 		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());
+		SplitPane.setResizableWithParent(splitPane,false);
+		SplitPane.setResizableWithParent(splitPane.getItems().get(0),false);
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -174,7 +178,7 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void createFile() throws IOException, InterruptedException {
+	private void createFile() throws IOException {
 		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("../views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		openFiles.put(tab.getText(),null);

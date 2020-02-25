@@ -62,7 +62,7 @@
         </MenuBar>
         <AnchorPane prefHeight="381.0" prefWidth="802.0" style="-fx-background-color: #242C32; -fx-background-color: red;" VBox.vgrow="ALWAYS">
             <children>
-                <SplitPane fx:id="mainPane" dividerPositions="0.2" prefHeight="414.0" prefWidth="802.0" style="-fx-background-color: #242C32;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane fx:id="splitPane" dividerPositions="0.2" prefHeight="414.0" prefWidth="802.0" style="-fx-background-color: #242C32;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #242C32;">
                             <children>
