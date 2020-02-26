@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
@@ -73,7 +74,11 @@
                                 </AnchorPane>
                                 <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                                     <children>
-                                        <VBox id="openFilesList" fx:id="openFilesList" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              <ScrollPane id="openFilesPane" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                 <content>
+                                              <VBox id="openFilesList" fx:id="openFilesList" prefHeight="383.0" prefWidth="127.0" />
+                                 </content>
+                              </ScrollPane>
                                     </children>
                                 </AnchorPane>
                             </children>

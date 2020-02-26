@@ -45,6 +45,13 @@
     -fx-text-fill: #2b333b;
 }
 
+#openFilesPane, #openFilesPane .viewport {
+    -fx-background-color: #242C32;
+}
+
+#openFilesList{
+    -fx-background-color: transparent;
+}
 #openFilesList .label {
     -fx-text-fill: #cdcdcd; /*#6D7678;*/
     -fx-cursor: hand;
