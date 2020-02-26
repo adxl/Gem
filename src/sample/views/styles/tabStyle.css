@@ -23,9 +23,7 @@ AnchorPane .text-area > .scroll-pane{
 }
 
 AnchorPane .text-area > .scroll-pane {
-
     -fx-vbar-policy: always;
-
 }
 
 AnchorPane .text-area > .scroll-pane > .scroll-bar {

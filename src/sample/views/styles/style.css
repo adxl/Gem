@@ -49,9 +49,49 @@
     -fx-background-color: #242C32;
 }
 
-#openFilesList{
+
+#openFilesPane > .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-opacity: 30%;
+}
+
+#openFilesPane > .corner {
+    -fx-opacity: 0;
+}
+
+#openFilesPane > .scroll-bar > .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius: 2em;
+}
+
+#openFilesPane > .scroll-bar > .thumb {
+    -fx-background-color: #878787;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+#openFilesPane > .scroll-bar > .increment-button,
+#openFilesPane > .scroll-bar > .decrement-button {
+
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 10 10 0;
+}
+
+#openFilesPane > .scroll-bar > .increment-button > .increment-arrow,
+#openFilesPane > .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+
+#openFilesList {
     -fx-background-color: transparent;
 }
+
 #openFilesList .label {
     -fx-text-fill: #cdcdcd; /*#6D7678;*/
     -fx-cursor: hand;
