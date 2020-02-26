@@ -21,6 +21,49 @@ AnchorPane .text-area {
 AnchorPane .text-area > .scroll-pane{
     -fx-vbar-policy: always;
 }
+
+AnchorPane .text-area > .scroll-pane {
+
+    -fx-vbar-policy: always;
+
+}
+
+AnchorPane .text-area > .scroll-pane > .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-opacity: 30%;
+}
+
+AnchorPane .text-area > .scroll-pane > .scroll-bar > .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius: 2em;
+}
+
+AnchorPane .text-area > .scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #878787;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+AnchorPane .text-area > .scroll-pane > .scroll-bar > .increment-button,
+AnchorPane .text-area > .scroll-pane > .scroll-bar > .decrement-button {
+
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 10 0 0;
+}
+
+
+AnchorPane .text-area > .scroll-pane > .scroll-bar > .increment-button > .increment-arrow,
+AnchorPane .text-area > .scroll-pane > .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+
+
 #lines > .scroll-pane > .scroll-bar {
     -fx-opacity: 0;
 }
