@@ -61,7 +61,7 @@ public class Controller_Vue {
 		untitledIdCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
-		fontSizeSlider.setValue(13);
+		fontSizeSlider.setValue(12);
 		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 		textChangeListener=this::textAreaChanged;
 		if(Main.getPassedFile()!=null)
@@ -70,11 +70,13 @@ public class Controller_Vue {
 		}
 		final BooleanBinding isTabPaneEmpty=Bindings.isEmpty(tabPane.getTabs());
 		promptAnchorPane.visibleProperty().bind(isTabPaneEmpty);
-		fontSizeSlider.visibleProperty().bind(isTabPaneEmpty.not());
-		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());
+		//TODO : disabled font size modifications for a moment
+		fontSizeSlider.setVisible(false);
+		fontSizeSliderIcon.setVisible(false);
+		/*fontSizeSlider.visibleProperty().bind(isTabPaneEmpty.not());
+		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());*/
 		SplitPane.setResizableWithParent(splitPane,false);
 		SplitPane.setResizableWithParent(splitPane.getItems().get(0),false);
-		openExistingFile("Gem.iml");
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -182,7 +184,7 @@ public class Controller_Vue {
 
 	@FXML
 	private void createFile() throws IOException {
-		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("../views/tab.fxml")));
+		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		openFiles.put(tab.getText(),null);
 		tabSwitchListener(tab);
@@ -194,7 +196,7 @@ public class Controller_Vue {
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
-		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("../views/tab.fxml")));
+		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		tabSwitchListener(tab);
 		tab.setOnCloseRequest(event->closeFile(tab.getText()));
@@ -335,7 +337,7 @@ public class Controller_Vue {
 	}
 
 	private String getType(String name) {
-		if(name.matches(".*[.].*"))
+		if(name.matches(".+[.].*"))
 		{
 			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		}

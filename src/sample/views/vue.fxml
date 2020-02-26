@@ -102,7 +102,7 @@
         </AnchorPane>
         <AnchorPane id="bottomBar" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #2b333b;" VBox.vgrow="NEVER">
             <children>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 7 7 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 7 7 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label fx:id="filePath" alignment="CENTER">
                             <font>
@@ -112,8 +112,8 @@
                                 <Insets left="5.0" />
                             </HBox.margin>
                         </Label>
-                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="fontSizeSliderIcon" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="21.0" text="Aa">
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="fontSizeSliderIcon" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" opacity="0.16" prefHeight="20.0" prefWidth="21.0" text="Aa">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -121,14 +121,14 @@
                                 <Insets right="3.0" />
                             </HBox.margin>
                         </Label>
-                        <Slider fx:id="fontSizeSlider" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="140.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;" HBox.hgrow="NEVER">
+                        <Slider fx:id="fontSizeSlider" minHeight="-Infinity" minWidth="-Infinity" opacity="0.16" prefHeight="16.0" prefWidth="140.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;" HBox.hgrow="NEVER">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
                         </Slider>
-                        <Label fx:id="fileType" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="45.0" text="" textAlignment="CENTER">
+                        <Label fx:id="fileType" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="96.0" text="TXTTTTT" HBox.hgrow="ALWAYS">
                             <HBox.margin>
-                                <Insets />
+                                <Insets right="10.0" />
                             </HBox.margin>
                         </Label>
                     </children>
