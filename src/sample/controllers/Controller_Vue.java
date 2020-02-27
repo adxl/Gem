@@ -85,7 +85,7 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
-//		setLightMode();
+		//		setLightMode();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -309,20 +309,6 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void setLightMode() {
-		String style="_PRIMARY:#f2f2f2;"+"_SECONDARY:#DBDBDB;"+"_TEXT:#2b2b2b;"+"_DETAILS:#575757;";
-		appRoot.setStyle(style);
-	}
-
-	@FXML
-	private void setDarkMode() {
-		String style="_PRIMARY:black;"+"_SECONDARY:black;"+"_TEXT:white;"+"_DETAILS:black;";
-		appRoot.setStyle(style);
-	}
-
-
-
-	@FXML
 	private void saveFile() throws IOException {
 		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(openFiles.get(fileName)==null) //saving an untitled file
@@ -381,6 +367,19 @@ public class Controller_Vue {
 			currentLinesCounter.setText(lines.toString());
 		}
 	}
+
+	@FXML
+	private void setLightMode() {
+		String style="_PRIMARY:#f2f2f2;"+"_SECONDARY:#DBDBDB;"+"_TEXT:#343a40;"+"_DETAILS:#575757;";
+		appRoot.setStyle(style);
+	}
+
+	@FXML
+	private void setDarkMode() {
+		String style="_PRIMARY:black;"+"_SECONDARY:black;"+"_TEXT:white;"+"_DETAILS:black;";
+		appRoot.setStyle(style);
+	}
+
 
 	private boolean isModified() {
 		return currentFiles.get(currentTextArea);
