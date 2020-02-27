@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="473.0" prefWidth="802.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller_Vue">
+<VBox fx:id="appRoot" prefHeight="473.0" prefWidth="802.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller_Vue">
     <children>
       <AnchorPane id="menuBarContainer" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
          <children>
