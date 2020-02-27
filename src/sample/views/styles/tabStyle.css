@@ -1,32 +1,35 @@
-.root {
-    _GREEN : #2A363B;
-    _BLUE : #242C32;
-    _WHITE : #CDCDCD;
-    _GRAY : #878787;
-}
+/*INHERITED FROM style.css*/
+
+/*.root {*/
+/*    _PRIMARY : #2A363B;*/
+/*    _SECONDARY : #242C32;*/
+/*    _TEXT : #CDCDCD;*/
+/*    _DETAILS : #878787;*/
+/*}*/
 
 AnchorPane VBox .label {
-    -fx-text-fill: _GRAY;
+    -fx-text-fill: _DETAILS;
 }
 
 AnchorPane .text-area {
-    -fx-control-inner-background: _GREEN;
+    -fx-control-inner-background: _PRIMARY;
     -fx-highlight-fill: #214283;
     -fx-highlight-text-fill: #FFFFFF;
-    -fx-text-fill: _WHITE;
+    -fx-text-fill: _TEXT;
     -fx-faint-focus-color: transparent;
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
     -fx-background-radius: 0;
 }
 
 .text-area .viewport {
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
 }
-.text-area .viewport .content{
+
+.text-area .viewport .content {
     -fx-background-radius: 0;
 }
 
-AnchorPane .text-area > .scroll-pane{
+AnchorPane .text-area > .scroll-pane {
     -fx-vbar-policy: always;
 }
 
@@ -47,7 +50,7 @@ AnchorPane .text-area > .scroll-pane > .scroll-bar > .track {
 }
 
 AnchorPane .text-area > .scroll-pane > .scroll-bar > .thumb {
-    -fx-background-color: _GRAY;
+    -fx-background-color: _DETAILS;
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius: 2em;
 
@@ -67,7 +70,6 @@ AnchorPane .text-area > .scroll-pane > .scroll-bar > .decrement-button > .decrem
     -fx-shape: " ";
     -fx-padding: 0;
 }
-
 
 
 #lines > .scroll-pane > .scroll-bar {

@@ -1,12 +1,12 @@
 .root {
-    _GREEN : #2A363B;
-    _BLUE : #242C32;
-    _WHITE : #CDCDCD;
-    _GRAY : #878787;
+    _PRIMARY : #2A363B;
+    _SECONDARY : #242C32;
+    _TEXT : #CDCDCD;
+    _DETAILS : #878787;
 }
 
 #menuBarDivider {
-    -fx-background-color: _BLUE;
+    -fx-background-color: _SECONDARY;
 }
 
 .menu {
@@ -27,20 +27,20 @@
 }
 
 #menuBarContainer{
-    -fx-background-color: _BLUE;
+    -fx-background-color: _SECONDARY;
 }
 
 .menu-bar {
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
     -fx-background-radius: 0 0 0 10;
 }
 
 .menu-bar .label {
-    -fx-text-fill: _WHITE;
+    -fx-text-fill: _TEXT;
 }
 
 .menu-bar .context-menu {
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
 }
 
 #themeMenuBar
@@ -55,35 +55,35 @@
 #themeSwitcher{
     -fx-padding: 0;
     -fx-border-radius: 0;
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
     -fx-background-radius: 0 0 15 0;
-    -fx-text-fill: _WHITE;
+    -fx-text-fill: _TEXT;
 }
 
 #prompt {
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
 }
 
 .split-pane {
-    -fx-background-color: _BLUE;
+    -fx-background-color: _SECONDARY;
 }
 
 .split-pane AnchorPane {
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
     -fx-background-radius: 0 20 0 0;
 }
 
 .split-pane > .split-pane-divider {
-    -fx-background-color: _BLUE; /*transparent?*/
+    -fx-background-color: _SECONDARY; /*transparent?*/
     -fx-padding: 0 0 0 6px;
 }
 
 #bottomBar HBox {
-    -fx-background-color: _GRAY;
+    -fx-background-color: _DETAILS;
 }
 
 #bottomBar HBox .label {
-    -fx-text-fill: _GREEN;
+    -fx-text-fill: _PRIMARY;
 }
 
 #openFilesPane, #openFilesPane .viewport {
@@ -108,7 +108,7 @@
 }
 
 #openFilesPane > .scroll-bar > .thumb {
-    -fx-background-color: _GRAY;
+    -fx-background-color: _DETAILS;
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius: 2em;
 
@@ -134,17 +134,17 @@
 }
 
 #openFilesList .label {
-    -fx-text-fill: _WHITE;
+    -fx-text-fill: _TEXT;
     -fx-cursor: hand;
     -fx-padding: 5 0 5 0;
 }
 
 #tabPane .tab {
-    -fx-background-color: _GREEN;
+    -fx-background-color: _PRIMARY;
 }
 
 #tabPane .tab .tab-label {
-    -fx-text-fill: _WHITE;
+    -fx-text-fill: _TEXT;
 }
 
 #tabPane .tab-header-area {
@@ -152,7 +152,7 @@
 }
 
 #tabPane .tab-header-area .tab-header-background {
-    -fx-background-color: _BLUE;
+    -fx-background-color: _SECONDARY;
 }
 
 .tab-pane {
@@ -163,7 +163,7 @@
 
 
 .tab > .tab-container > .tab-close-button {
-    -fx-background-color: _WHITE;
+    -fx-background-color: _TEXT;
 
 }
 

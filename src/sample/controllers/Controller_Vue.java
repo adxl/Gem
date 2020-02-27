@@ -22,8 +22,6 @@ import java.util.*;
 public class Controller_Vue {
 	@FXML
 	private VBox appRoot;
-	@FXML
-	private AnchorPane tabRoot;
 
 	@FXML
 	private AnchorPane promptAnchorPane;
@@ -311,16 +309,16 @@ public class Controller_Vue {
 
 	@FXML
 	private void setLightMode() {
-		String style="_GREEN:white;"+"_BLUE:white;"+"_WHITE:white;"+"_GRAY:white;";
+		String style="_PRIMARY:white;"+"_SECONDARY:white;"+"_TEXT:black;"+"_DETAILS:white;";
 		appRoot.setStyle(style);
-//		tabRoot.setStyle(style);
+		//		tabRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setDarkMode() {
-		String style="_GREEN:black;"+"_BLUE:black;"+"_WHITE:black;"+"_GRAY:black;";
+		String style="_PRIMARY:black;"+"_SECONDARY:black;"+"_TEXT:white;"+"_DETAILS:black;";
 		appRoot.setStyle(style);
-//		tabRoot.setStyle(style);
+		//		tabRoot.setStyle(style);
 	}
 
 	@FXML
