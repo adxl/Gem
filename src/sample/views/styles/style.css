@@ -1,4 +1,5 @@
 .root {
+    -fx-font-family: "DejaVu Sans";
     _PRIMARY : #2A363B;
     _SECONDARY : #242C32;
     _TEXT : #CDCDCD;
@@ -22,7 +23,7 @@
 }
 
 .menu-bar {
-    -fx-padding: 0 1 0 1;
+    -fx-padding: 2 1 2 5;
     -fx-spacing: 1;
 }
 
@@ -68,9 +69,9 @@
     -fx-background-color: _SECONDARY;
 }
 
-.split-pane AnchorPane {
+#openFilesAnchor {
     -fx-background-color: _PRIMARY;
-    -fx-background-radius: 0 20 0 0;
+    -fx-background-radius: 0 20 20 0;
 }
 
 .split-pane > .split-pane-divider {
@@ -78,12 +79,17 @@
     -fx-padding: 0 0 0 6px;
 }
 
+#bottomBar {
+    -fx-background-color: _PRIMARY;
+}
+
 #bottomBar HBox {
-    -fx-background-color: _DETAILS;
+    -fx-background-color: _SECONDARY;
+    -fx-border-radius: 0;
 }
 
 #bottomBar HBox .label {
-    -fx-text-fill: _PRIMARY;
+    -fx-text-fill: _TEXT;
 }
 
 #openFilesPane, #openFilesPane .viewport {
@@ -128,6 +134,9 @@
     -fx-padding: 0;
 }
 
+.split-pane .label {
+    -fx-text-fill: _TEXT;
+}
 
 #openFilesList {
     -fx-background-color: transparent;
@@ -139,8 +148,13 @@
     -fx-padding: 5 0 5 0;
 }
 
+#tabPane {
+    -fx-background-radius: 0 0 0 20;
+}
+
 #tabPane .tab {
     -fx-background-color: _PRIMARY;
+    -fx-background-radius: 10 10 0 0;
 }
 
 #tabPane .tab .tab-label {
@@ -158,6 +172,7 @@
 .tab-pane {
     shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
     /*shape: "M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z";*/ /*circle*/
+    /*-fx-background-radius: 0 0 0 20;*/
 }
 
 
@@ -172,5 +187,5 @@
     -fx-scale-shape: true;
     -fx-scale-x: 50%;
     -fx-scale-y: 50%;
-    -fx-background-color: white;
+    -fx-background-color: _TEXT;
 }

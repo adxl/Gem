@@ -85,6 +85,7 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
+//		setLightMode();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -95,11 +96,11 @@ public class Controller_Vue {
 				currentTextAreaListener();
 				int index=tabPane.getTabs().indexOf(tab);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
-					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:#cdcdcd");
+					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
 				else
 					for(Node l : openFilesList.getChildren())
-						l.setStyle("-fx-text-fill:#6D7678");
-				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:#cdcdcd"); //#39ea49 green
+						l.setStyle("-fx-text-fill:_TEXT");
+				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:_TEXT"); //#39ea49 green
 				fileType.setText(getType(tab.getText()));
 				if(openFiles.get(tab.getText())!=null)
 					filePath.setText(String.valueOf(openFiles.get(tab.getText())));
@@ -192,7 +193,7 @@ public class Controller_Vue {
 
 	@FXML
 	private void createFile() throws IOException {
-		Tab tab=new Tab("Untitled"+untitledIdCounter+++"    ",FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
+		Tab tab=new Tab("Untitled"+untitledIdCounter++,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		openFiles.put(tab.getText(),null);
 		tabSwitchListener(tab);
@@ -204,7 +205,7 @@ public class Controller_Vue {
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
-		Tab tab=new Tab(title+"    ",FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
+		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		tabSwitchListener(tab);
 		tab.setOnCloseRequest(event->closeFile(tab.getText()));
@@ -309,17 +310,17 @@ public class Controller_Vue {
 
 	@FXML
 	private void setLightMode() {
-		String style="_PRIMARY:white;"+"_SECONDARY:white;"+"_TEXT:black;"+"_DETAILS:white;";
+		String style="_PRIMARY:#f2f2f2;"+"_SECONDARY:#DBDBDB;"+"_TEXT:#2b2b2b;"+"_DETAILS:#575757;";
 		appRoot.setStyle(style);
-		//		tabRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setDarkMode() {
 		String style="_PRIMARY:black;"+"_SECONDARY:black;"+"_TEXT:white;"+"_DETAILS:black;";
 		appRoot.setStyle(style);
-		//		tabRoot.setStyle(style);
 	}
+
+
 
 	@FXML
 	private void saveFile() throws IOException {

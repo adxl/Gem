@@ -1,16 +1,16 @@
 /*INHERITED FROM style.css*/
 
-/*.root {*/
-/*    _PRIMARY : #2A363B;*/
-/*    _SECONDARY : #242C32;*/
-/*    _TEXT : #CDCDCD;*/
-/*    _DETAILS : #878787;*/
-/*}*/
-
-AnchorPane VBox .label {
-    -fx-text-fill: _DETAILS;
+.root {
+    _PRIMARY : #2A363B;
+    _SECONDARY : #242C32;
+    _TEXT : #CDCDCD;
+    _DETAILS : #878787;
 }
 
+AnchorPane{
+    -fx-background-radius: 0 0 0 20;
+    -fx-background-color: rgba(255, 0, 0, 0.17);
+}
 AnchorPane .text-area {
     -fx-control-inner-background: _PRIMARY;
     -fx-highlight-fill: #214283;
@@ -18,15 +18,12 @@ AnchorPane .text-area {
     -fx-text-fill: _TEXT;
     -fx-faint-focus-color: transparent;
     -fx-background-color: _PRIMARY;
-    -fx-background-radius: 0;
+    /*-fx-background-radius: 0 0 0 20;*/
 }
 
-.text-area .viewport {
-    -fx-background-color: _PRIMARY;
-}
-
-.text-area .viewport .content {
-    -fx-background-radius: 0;
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
 }
 
 AnchorPane .text-area > .scroll-pane {
@@ -71,6 +68,14 @@ AnchorPane .text-area > .scroll-pane > .scroll-bar > .decrement-button > .decrem
     -fx-padding: 0;
 }
 
+.text-area .viewport, .text-area .viewport .content{
+    -fx-border-color: transparent;
+    -fx-background-color: _PRIMARY;
+}
+
+#lines, #lines .viewport, #lines .viewport .content{
+    -fx-background-radius: 0 0 0 20;
+}
 
 #lines > .scroll-pane > .scroll-bar {
     -fx-opacity: 0;

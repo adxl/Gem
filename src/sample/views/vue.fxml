@@ -61,7 +61,6 @@
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edit" />
                       <Menu mnemonicParsing="false" text="Help" />
-                  <Menu mnemonicParsing="false" text="D" />
                   </menus>
               </MenuBar>
             <AnchorPane layoutX="752.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -86,11 +85,11 @@
             <children>
                 <SplitPane fx:id="splitPane" dividerPositions="0.2" prefHeight="414.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <AnchorPane id="openFilesAnchor" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                             <children>
                                 <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                     <children>
-                                        <Label text="OPEN FILES" textFill="#cdcdcd" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <Label text="OPEN FILES" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
@@ -121,9 +120,9 @@
                 <Insets />
             </VBox.margin>
         </AnchorPane>
-        <AnchorPane id="bottomBar" prefHeight="30.0" prefWidth="640.0" style="-fx-background-color: #2b333b;" VBox.vgrow="NEVER">
+        <AnchorPane id="bottomBar" prefHeight="30.0" prefWidth="640.0" VBox.vgrow="NEVER">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 7 7 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label fx:id="filePath" alignment="CENTER">
                             <font>
