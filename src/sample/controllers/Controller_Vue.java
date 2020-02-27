@@ -305,6 +305,14 @@ public class Controller_Vue {
 	}
 
 	@FXML
+	private void setDarkMode() {
+	}
+
+	@FXML
+	private void setLightMode() {
+	}
+
+	@FXML
 	private void saveFile() throws IOException {
 		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(openFiles.get(fileName)==null) //saving an untitled file

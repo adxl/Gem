@@ -21,7 +21,7 @@
     <children>
       <AnchorPane id="menuBarContainer" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
          <children>
-              <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
                   <menus>
                       <Menu mnemonicParsing="false" text="File">
                           <items>
@@ -61,8 +61,24 @@
                       </Menu>
                       <Menu mnemonicParsing="false" text="Edit" />
                       <Menu mnemonicParsing="false" text="Help" />
+                  <Menu mnemonicParsing="false" text="D" />
                   </menus>
               </MenuBar>
+            <AnchorPane layoutX="752.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <MenuBar id="themeMenuBar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="O">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#setLightMode" text="Light theme" />
+                              <MenuItem mnemonicParsing="false" onAction="#setDarkMode" text="Dark theme" />
+                              <MenuItem disable="true" mnemonicParsing="false" text="Custom theme" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <Region id="menuBarDivider" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="10.0" prefWidth="200.0" />

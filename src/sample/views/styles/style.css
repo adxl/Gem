@@ -30,17 +30,34 @@
     -fx-background-color: _BLUE;
 }
 
-#menuBar {
+.menu-bar {
     -fx-background-color: _GREEN;
-    -fx-background-radius: 0 0 10 10;
+    -fx-background-radius: 0 0 0 10;
 }
 
-#menuBar .label {
+.menu-bar .label {
     -fx-text-fill: _WHITE;
 }
 
-#menuBar .context-menu {
+.menu-bar .context-menu {
     -fx-background-color: _GREEN;
+}
+
+#themeMenuBar
+{
+    -fx-background-radius: 0 0 15 0;
+}
+
+#themeMenuBar .container {
+    -fx-alignment: center;
+}
+
+#themeSwitcher{
+    -fx-padding: 0;
+    -fx-border-radius: 0;
+    -fx-background-color: _GREEN;
+    -fx-background-radius: 0 0 15 0;
+    -fx-text-fill: _WHITE;
 }
 
 #prompt {
