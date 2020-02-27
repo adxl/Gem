@@ -19,53 +19,58 @@
 
 <VBox prefHeight="473.0" prefWidth="802.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller_Vue">
     <children>
-        <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#createFile" text="New">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <MenuItem fx:id="openFile" mnemonicParsing="false" onAction="#openFile" text="Open File…">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFileRequest" text="Close">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <MenuItem fx:id="saveFile" mnemonicParsing="false" onAction="#saveFile" text="Save">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <MenuItem fx:id="saveFileAs" mnemonicParsing="false" onAction="#saveFileAs" text="Save As…">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitApplication" text="Quit">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                            </accelerator>
-                        </MenuItem>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit" />
-                <Menu mnemonicParsing="false" text="Help" />
-            </menus>
-        </MenuBar>
+      <AnchorPane id="menuBarContainer" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
+         <children>
+              <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                          <items>
+                              <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#createFile" text="New">
+                                  <accelerator>
+                                      <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                  </accelerator>
+                              </MenuItem>
+                              <MenuItem fx:id="openFile" mnemonicParsing="false" onAction="#openFile" text="Open File…">
+                                  <accelerator>
+                                      <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                  </accelerator>
+                              </MenuItem>
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFileRequest" text="Close">
+                                  <accelerator>
+                                      <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                  </accelerator>
+                              </MenuItem>
+                              <MenuItem fx:id="saveFile" mnemonicParsing="false" onAction="#saveFile" text="Save">
+                                  <accelerator>
+                                      <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                  </accelerator>
+                              </MenuItem>
+                              <MenuItem fx:id="saveFileAs" mnemonicParsing="false" onAction="#saveFileAs" text="Save As…">
+                                  <accelerator>
+                                      <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                                  </accelerator>
+                              </MenuItem>
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitApplication" text="Quit">
+                                  <accelerator>
+                                      <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                  </accelerator>
+                              </MenuItem>
+                          </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit" />
+                      <Menu mnemonicParsing="false" text="Help" />
+                  </menus>
+              </MenuBar>
+         </children>
+      </AnchorPane>
+      <Region id="menuBarDivider" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="10.0" prefWidth="200.0" />
         <AnchorPane prefHeight="381.0" prefWidth="802.0" style="-fx-background-color: #242C32; -fx-background-color: red;" VBox.vgrow="ALWAYS">
             <children>
-                <SplitPane fx:id="splitPane" dividerPositions="0.2" prefHeight="414.0" prefWidth="802.0" style="-fx-background-color: #242C32;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane fx:id="splitPane" dividerPositions="0.2" prefHeight="414.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #242C32;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                             <children>
                                 <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                     <children>
@@ -74,9 +79,9 @@
                                 </AnchorPane>
                                 <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                                     <children>
-                              <ScrollPane id="openFilesPane" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                              <ScrollPane id="openFilesPane" layoutY="10.0" prefHeight="385.0" prefWidth="137.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                                  <content>
-                                              <VBox id="openFilesList" fx:id="openFilesList" prefHeight="383.0" prefWidth="127.0" />
+                                              <VBox id="openFilesList" fx:id="openFilesList" />
                                  </content>
                               </ScrollPane>
                                     </children>
@@ -113,7 +118,7 @@
                             </HBox.margin>
                         </Label>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="fontSizeSliderIcon" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" opacity="0.16" prefHeight="20.0" prefWidth="21.0" text="Aa">
+                        <Label fx:id="fontSizeSliderIcon" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="21.0" text="Aa" visible="false">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -121,12 +126,12 @@
                                 <Insets right="3.0" />
                             </HBox.margin>
                         </Label>
-                        <Slider fx:id="fontSizeSlider" minHeight="-Infinity" minWidth="-Infinity" opacity="0.16" prefHeight="16.0" prefWidth="140.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;" HBox.hgrow="NEVER">
+                        <Slider fx:id="fontSizeSlider" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="140.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;" visible="false" HBox.hgrow="NEVER">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
                         </Slider>
-                        <Label fx:id="fileType" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="96.0" text="TXTTTTT" HBox.hgrow="ALWAYS">
+                        <Label fx:id="fileType" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="96.0" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets right="10.0" />
                             </HBox.margin>

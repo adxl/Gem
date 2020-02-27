@@ -1,3 +1,14 @@
+.root {
+    _GREEN : #2A363B;
+    _BLUE : #242C32;
+    _WHITE : #CDCDCD;
+    _GRAY : #878787;
+}
+
+#menuBarDivider {
+    -fx-background-color: _BLUE;
+}
+
 .menu {
     -fx-padding: 1 5 1 5;
 }
@@ -15,38 +26,51 @@
     -fx-spacing: 1;
 }
 
+#menuBarContainer{
+    -fx-background-color: _BLUE;
+}
 
 #menuBar {
-    -fx-background-color: #2b333b;
+    -fx-background-color: _GREEN;
+    -fx-background-radius: 0 0 10 10;
 }
 
 #menuBar .label {
-    -fx-text-fill: #cdcdcd;
+    -fx-text-fill: _WHITE;
 }
 
 #menuBar .context-menu {
-    -fx-background-color: #2b333b;
+    -fx-background-color: _GREEN;
 }
 
 #prompt {
-    -fx-background-color: #2b333b;
+    -fx-background-color: _GREEN;
+}
+
+.split-pane {
+    -fx-background-color: _BLUE;
+}
+
+.split-pane AnchorPane {
+    -fx-background-color: _GREEN;
+    -fx-background-radius: 0 20 0 0;
 }
 
 .split-pane > .split-pane-divider {
-    -fx-background-color: #2b333b; /*transparent?*/
-    -fx-padding: 0 1px 0 1px;
+    -fx-background-color: _BLUE; /*transparent?*/
+    -fx-padding: 0 0 0 6px;
 }
 
 #bottomBar HBox {
-    -fx-background-color: #6d7678;
+    -fx-background-color: _GRAY;
 }
 
 #bottomBar HBox .label {
-    -fx-text-fill: #2b333b;
+    -fx-text-fill: _GREEN;
 }
 
 #openFilesPane, #openFilesPane .viewport {
-    -fx-background-color: #242C32;
+    -fx-background-color: transparent;
 }
 
 
@@ -67,7 +91,7 @@
 }
 
 #openFilesPane > .scroll-bar > .thumb {
-    -fx-background-color: #878787;
+    -fx-background-color: _GRAY;
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius: 2em;
 
@@ -93,35 +117,36 @@
 }
 
 #openFilesList .label {
-    -fx-text-fill: #cdcdcd; /*#6D7678;*/
+    -fx-text-fill: _WHITE;
     -fx-cursor: hand;
     -fx-padding: 5 0 5 0;
 }
 
-#tabPane {
-    -fx-background-color: #242C32;
-}
-
 #tabPane .tab {
-    -fx-background-color: #2b333b;
+    -fx-background-color: _GREEN;
 }
 
 #tabPane .tab .tab-label {
-    -fx-text-fill: #cdcdcd;
+    -fx-text-fill: _WHITE;
+}
+
+#tabPane .tab-header-area {
+    -fx-padding: 0;
 }
 
 #tabPane .tab-header-area .tab-header-background {
-    -fx-background-color: #242C32;
+    -fx-background-color: _BLUE;
 }
 
 .tab-pane {
     shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
     /*shape: "M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z";*/ /*circle*/
-
 }
 
+
+
 .tab > .tab-container > .tab-close-button {
-    -fx-background-color: white;
+    -fx-background-color: _WHITE;
 
 }
 

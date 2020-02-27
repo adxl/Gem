@@ -77,6 +77,11 @@ public class Controller_Vue {
 		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());*/
 		SplitPane.setResizableWithParent(splitPane,false);
 		SplitPane.setResizableWithParent(splitPane.getItems().get(0),false);
+		openExistingFile("Gem.iml");
+		openExistingFile("README.md");
+		openExistingFile("todo.md");
+		createFile();
+		tabPane.getSelectionModel().select(0);
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -184,7 +189,7 @@ public class Controller_Vue {
 
 	@FXML
 	private void createFile() throws IOException {
-		Tab tab=new Tab("Untitled "+untitledIdCounter++,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
+		Tab tab=new Tab("Untitled"+untitledIdCounter+++"    ",FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		openFiles.put(tab.getText(),null);
 		tabSwitchListener(tab);
@@ -196,7 +201,7 @@ public class Controller_Vue {
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
-		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
+		Tab tab=new Tab(title+"    ",FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		addFileToOpenFilesList(tab);
 		tabSwitchListener(tab);
 		tab.setOnCloseRequest(event->closeFile(tab.getText()));
