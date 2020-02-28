@@ -89,7 +89,6 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
-		setDarkTheme();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -386,7 +385,8 @@ public class Controller_Vue {
 
 	@FXML
 	private void setDefaultTheme(){
-
+		String style="_PRIMARY:#2A363B;"+"_SECONDARY:#242C32;"+"_TEXT:#CDCDCD;"+"_DETAILS:#878787;";
+		appRoot.setStyle(style);
 	}
 
 

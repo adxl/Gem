@@ -70,7 +70,7 @@
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#setLightTheme" text="Light theme" />
                       <MenuItem mnemonicParsing="false" onAction="#setDarkTheme" text="Dark theme" />
-                        <MenuItem mnemonicParsing="false" text="Default theme (Gem)" />
+                        <MenuItem mnemonicParsing="false" onAction="#setDefaultTheme" text="Default theme (Gem)" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem disable="true" mnemonicParsing="false" text="Custom theme" />
                     </items>
