@@ -1,7 +1,5 @@
 package sample.controllers;
 
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -14,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
@@ -280,7 +277,7 @@ public class Controller_Vue {
 		currentFiles.remove(currentTextArea);
 		tabPane.getTabs().remove(tab);
 		if(wasModified)
-			removeFileFromOpenFilesList(title+"*");
+			removeFileFromOpenFilesList(title+"⚫");
 		else
 			removeFileFromOpenFilesList(title);
 		openFiles.remove(title);
@@ -349,7 +346,7 @@ public class Controller_Vue {
 	}
 
 	private String getType(String name) {
-		if(name.matches(".+[.].*"))
+		if(name.matches(".+[.].⚫"))
 		{
 			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		}
@@ -415,9 +412,9 @@ public class Controller_Vue {
 		{
 			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
 			{
-				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='*')
+				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='⚫')
 				{
-					l.setText(tabName+"*");
+					l.setText(tabName+"⚫");
 					return;
 				}
 			}
@@ -425,7 +422,7 @@ public class Controller_Vue {
 		{
 			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
 			{
-				if(l.getText().equals(tabName+"*"))
+				if(l.getText().equals(tabName+"⚫"))
 				{
 					l.setText(tabName);
 					return;

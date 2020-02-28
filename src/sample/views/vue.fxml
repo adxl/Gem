@@ -66,7 +66,7 @@
               </MenuBar>
             <AnchorPane id="themeAnchorPane" fx:id="switcherAnchorPane" layoutX="752.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <MenuButton id="themeButton" alignment="CENTER" mnemonicParsing="false" text="O" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <MenuButton id="themeButton" alignment="CENTER" mnemonicParsing="false" style="-fx-font-size: 15px;" text="◐" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#setLightTheme" text="Light theme" />
                       <MenuItem mnemonicParsing="false" onAction="#setDarkTheme" text="Dark theme" />
