@@ -9,8 +9,14 @@
 
 AnchorPane{
     -fx-background-radius: 0 0 0 20;
-    -fx-background-color: rgba(255, 0, 0, 0.17);
+    -fx-background-color: _PRIMARY;
 }
+
+AnchorPane .text-area .scroll-pane .corner {
+    /*-fx-background-color: _PRIMARY;*/
+    -fx-opacity: 0;
+}
+
 
 AnchorPane .text-area {
     -fx-control-inner-background: _PRIMARY;
@@ -29,14 +35,6 @@ AnchorPane .text-area {
 AnchorPane .text-area .scroll-pane {
     -fx-background-color: transparent;
     -fx-background-radius: 20;
-}
-
-AnchorPane .text-area > .scroll-pane {
-    -fx-vbar-policy: always;
-}
-
-AnchorPane .text-area > .scroll-pane {
-    -fx-vbar-policy: always;
 }
 
 AnchorPane .text-area > .scroll-pane > .scroll-bar {

@@ -10,6 +10,6 @@
          <font>
             <Font name="Mashq Bold" size="13.0" />
          </font></TextArea>
-        <TextArea fx:id="textArea" prefHeight="321.0" prefWidth="170.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <TextArea fx:id="textArea" prefHeight="321.0" prefWidth="170.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>

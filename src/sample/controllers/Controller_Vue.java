@@ -85,7 +85,7 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
-				setLightMode();
+		setDarkMode();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -376,7 +376,7 @@ public class Controller_Vue {
 
 	@FXML
 	private void setDarkMode() {
-		String style="_PRIMARY:black;"+"_SECONDARY:black;"+"_TEXT:white;"+"_DETAILS:black;";
+		String style="_PRIMARY:#15151E;"+"_SECONDARY:#080810;"+"_TEXT:#aeaeae;"+"_DETAILS:gray;";
 		appRoot.setStyle(style);
 	}
 
