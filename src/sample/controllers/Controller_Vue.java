@@ -215,7 +215,7 @@ public class Controller_Vue {
 		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
 		currentTextArea.setOnMouseEntered(event->
 		{
-			if(!isReady)
+			if(!isReady && !isModified())
 			{
 				currentTextArea.appendText(" ");
 				currentTextArea.deleteText(currentTextArea.getLength()-1,currentTextArea.getLength());
