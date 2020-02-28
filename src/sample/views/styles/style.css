@@ -44,19 +44,25 @@
     -fx-background-color: _PRIMARY;
 }
 
-#themeMenuBar {
-    -fx-background-radius: 0 0 15 0;
-}
-
-#themeMenuBar .container {
-    -fx-alignment: center;
-}
-
-#themeSwitcher {
-    -fx-padding: 0;
-    -fx-border-radius: 0;
+#themeButton {
     -fx-background-color: _PRIMARY;
     -fx-background-radius: 0 0 15 0;
+}
+
+#themeButton .label {
+    -fx-text-fill: _TEXT;
+}
+
+#themeButton .arrow-button {
+    -fx-pref-width: 0;
+}
+
+#themeButton .arrow-button .arrow {
+    -fx-opacity: 0;
+}
+
+#themeButton .context-menu{
+    -fx-background-color: _PRIMARY;
     -fx-text-fill: _TEXT;
 }
 

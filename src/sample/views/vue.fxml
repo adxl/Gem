@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
@@ -63,19 +64,17 @@
                       <Menu mnemonicParsing="false" text="Help" />
                   </menus>
               </MenuBar>
-            <AnchorPane layoutX="752.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="themeAnchorPane" fx:id="switcherAnchorPane" layoutX="752.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <MenuBar id="themeMenuBar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="O">
-                        <items>
-                          <MenuItem mnemonicParsing="false" onAction="#setLightMode" text="Light theme" />
-                              <MenuItem mnemonicParsing="false" onAction="#setDarkMode" text="Dark theme" />
-                              <MenuItem disable="true" mnemonicParsing="false" text="Custom theme" />
-                        </items>
-                      </Menu>
-                    </menus>
-                  </MenuBar>
+                  <MenuButton id="themeButton" alignment="CENTER" mnemonicParsing="false" text="O" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#setLightTheme" text="Light theme" />
+                      <MenuItem mnemonicParsing="false" onAction="#setDarkTheme" text="Dark theme" />
+                        <MenuItem mnemonicParsing="false" text="Default theme (Gem)" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Custom theme" />
+                    </items>
+                  </MenuButton>
                </children>
             </AnchorPane>
          </children>

@@ -1,5 +1,7 @@
 package sample.controllers;
 
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -12,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
@@ -61,6 +64,7 @@ public class Controller_Vue {
 
 	@FXML
 	private void initialize() throws IOException {
+
 		untitledIdCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
@@ -85,7 +89,7 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
-		setDarkMode();
+		setDarkTheme();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -369,15 +373,20 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void setLightMode() {
+	private void setLightTheme() {
 		String style="_PRIMARY:#f2f2f2;"+"_SECONDARY:#DBDBDB;"+"_TEXT:#343a40;"+"_DETAILS:rgba(52,58,64,0.55);";
 		appRoot.setStyle(style);
 	}
 
 	@FXML
-	private void setDarkMode() {
-		String style="_PRIMARY:#15151E;"+"_SECONDARY:#080810;"+"_TEXT:#aeaeae;"+"_DETAILS:gray;";
+	private void setDarkTheme() {
+		String style="_PRIMARY:#15151E;"+"_SECONDARY:#080810;"+"_TEXT:#aeaeae;"+"_DETAILS:rgba(109,109,109,0.6);";
 		appRoot.setStyle(style);
+	}
+
+	@FXML
+	private void setDefaultTheme(){
+
 	}
 
 
