@@ -64,7 +64,7 @@ public class Controller_Vue {
 		untitledIdCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
-		fontSizeSlider.setValue(12);
+		fontSizeSlider.setValue(13);
 		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 		textChangeListener=this::textAreaChanged;
 		if(Main.getPassedFile()!=null)
@@ -85,7 +85,7 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
-		//		setLightMode();
+				setLightMode();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -99,7 +99,7 @@ public class Controller_Vue {
 					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
 				else
 					for(Node l : openFilesList.getChildren())
-						l.setStyle("-fx-text-fill:_TEXT");
+						l.setStyle("-fx-text-fill:_DETAILS");
 				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:_TEXT"); //#39ea49 green
 				fileType.setText(getType(tab.getText()));
 				if(openFiles.get(tab.getText())!=null)
@@ -370,7 +370,7 @@ public class Controller_Vue {
 
 	@FXML
 	private void setLightMode() {
-		String style="_PRIMARY:#f2f2f2;"+"_SECONDARY:#DBDBDB;"+"_TEXT:#343a40;"+"_DETAILS:#575757;";
+		String style="_PRIMARY:#f2f2f2;"+"_SECONDARY:#DBDBDB;"+"_TEXT:#343a40;"+"_DETAILS:rgba(52,58,64,0.55);";
 		appRoot.setStyle(style);
 	}
 

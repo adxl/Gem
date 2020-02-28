@@ -1,9 +1,9 @@
 .root {
     -fx-font-family: "DejaVu Sans";
-    _PRIMARY : #2A363B;
-    _SECONDARY : #242C32;
-    _TEXT : #CDCDCD;
-    _DETAILS : #878787;
+    _PRIMARY: #2A363B;
+    _SECONDARY: #242C32;
+    _TEXT: #CDCDCD;
+    _DETAILS: #878787;
 }
 
 #menuBarDivider {
@@ -27,7 +27,7 @@
     -fx-spacing: 1;
 }
 
-#menuBarContainer{
+#menuBarContainer {
     -fx-background-color: _SECONDARY;
 }
 
@@ -44,8 +44,7 @@
     -fx-background-color: _PRIMARY;
 }
 
-#themeMenuBar
-{
+#themeMenuBar {
     -fx-background-radius: 0 0 15 0;
 }
 
@@ -53,7 +52,7 @@
     -fx-alignment: center;
 }
 
-#themeSwitcher{
+#themeSwitcher {
     -fx-padding: 0;
     -fx-border-radius: 0;
     -fx-background-color: _PRIMARY;
@@ -143,7 +142,7 @@
 }
 
 #openFilesList .label {
-    -fx-text-fill: _TEXT;
+    /*-fx-text-fill: _TEXT;*/
     -fx-cursor: hand;
     -fx-padding: 5 0 5 0;
 }
@@ -174,7 +173,6 @@
     /*shape: "M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z";*/ /*circle*/
     /*-fx-background-radius: 0 0 0 20;*/
 }
-
 
 
 .tab > .tab-container > .tab-close-button {

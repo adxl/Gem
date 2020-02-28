@@ -11,6 +11,7 @@ AnchorPane{
     -fx-background-radius: 0 0 0 20;
     -fx-background-color: rgba(255, 0, 0, 0.17);
 }
+
 AnchorPane .text-area {
     -fx-control-inner-background: _PRIMARY;
     -fx-highlight-fill: #214283;
@@ -19,9 +20,13 @@ AnchorPane .text-area {
     -fx-faint-focus-color: transparent;
     -fx-background-color: _PRIMARY;
     /*-fx-background-radius: 0 0 0 20;*/
+    -fx-font-family: "DejaVu Sans Mono";
+
+
 }
 
-.text-area .scroll-pane {
+
+AnchorPane .text-area .scroll-pane {
     -fx-background-color: transparent;
     -fx-background-radius: 20;
 }
@@ -36,7 +41,7 @@ AnchorPane .text-area > .scroll-pane {
 
 AnchorPane .text-area > .scroll-pane > .scroll-bar {
     -fx-background-color: transparent;
-    -fx-opacity: 30%;
+    -fx-opacity: 50%;
 }
 
 AnchorPane .text-area > .scroll-pane > .scroll-bar > .track {
@@ -71,6 +76,7 @@ AnchorPane .text-area > .scroll-pane > .scroll-bar > .decrement-button > .decrem
 .text-area .viewport, .text-area .viewport .content{
     -fx-border-color: transparent;
     -fx-background-color: _PRIMARY;
+
 }
 
 #lines, #lines .viewport, #lines .viewport .content{
