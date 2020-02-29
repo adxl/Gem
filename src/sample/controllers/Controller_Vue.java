@@ -386,6 +386,12 @@ public class Controller_Vue {
 		appRoot.setStyle(style);
 	}
 
+	@FXML
+	private void setCustomTheme(String[] colors) {
+		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
+		appRoot.setStyle(style);
+	}
+
 
 	private boolean isModified() {
 		return currentFiles.get(currentTextArea);

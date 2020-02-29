@@ -198,3 +198,16 @@
     -fx-scale-y: 50%;
     -fx-background-color: _TEXT;
 }
+
+#paletteAnchorPane{
+    -fx-background-color: _PRIMARY;
+    -fx-background-radius: 20;
+}
+
+#paletteAnchorPane .label{
+    -fx-text-fill: _TEXT;
+}
+
+.color-picker {
+    -fx-background-color: transparent;
+}
