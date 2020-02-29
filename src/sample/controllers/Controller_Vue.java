@@ -38,6 +38,7 @@ public class Controller_Vue {
 	@FXML
 	private Button cancelPaletteButton;
 
+	private String[] currentPalette=new String[4];
 
 	@FXML
 	private AnchorPane promptAnchorPane;
@@ -104,17 +105,6 @@ public class Controller_Vue {
 		createFile();
 		tabPane.getSelectionModel().select(0);
 		setLightTheme();
-
-	}
-
-	@FXML
-	private void showPalette() {
-		paletteContainer.setVisible(true);
-	}
-
-	@FXML
-	private void hidePalette() {
-		paletteContainer.setVisible(false);
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -399,26 +389,60 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void setLightTheme() {
-		String style="_PRIMARY:#f2f2f2;"+"_SECONDARY:#DBDBDB;"+"_TEXT:#343a40;"+"_DETAILS:rgba(52,58,64,0.55);";
+	private void showPalette() {
+		paletteContainer.setVisible(true);
+	}
+
+	private void hidePalette()
+	{
+		paletteContainer.setVisible(false);
+	}
+
+	@FXML
+	private void confirmTheme() {
+		for(int i=0;i<4;i++)
+		{
+			currentPalette[i]="#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+		}
+		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
 		appRoot.setStyle(style);
+		hidePalette();
+	}
+
+	@FXML
+	private void setLightTheme() {
+		currentPalette[0]="#f2f2f2";
+		currentPalette[1]="#DBDBDB";
+		currentPalette[2]="#343a40";
+		currentPalette[3]="rgba(52,58,64,0.55)";
+		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
+		appRoot.setStyle(style);
+
 	}
 
 	@FXML
 	private void setDarkTheme() {
-		String style="_PRIMARY:#15151E;"+"_SECONDARY:#080810;"+"_TEXT:#aeaeae;"+"_DETAILS:rgba(109,109,109,0.6);";
+		currentPalette[0]="#15151E";
+		currentPalette[1]="#080810";
+		currentPalette[2]="#aeaeae";
+		currentPalette[3]="rgba(109,109,109,0.6)";
+		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
 		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setDefaultTheme() {
-		String style="_PRIMARY:#2A363B;"+"_SECONDARY:#242C32;"+"_TEXT:#CDCDCD;"+"_DETAILS:#878787;";
+		currentPalette[0]="#2A363B";
+		currentPalette[1]="#242C32";
+		currentPalette[2]="#CDCDCD";
+		currentPalette[3]="#878787";
+		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
 		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setCustomTheme() {
-		String[] colors = new String[4];
+		String[] colors=new String[4];
 		for(int i=0;i<4;i++)
 		{
 			colors[i]="#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
@@ -427,6 +451,12 @@ public class Controller_Vue {
 		appRoot.setStyle(style);
 	}
 
+	@FXML
+	private void closeAndResetTheme(){
+		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
+		appRoot.setStyle(style);
+		hidePalette();
+	}
 
 	private boolean isModified() {
 		return currentFiles.get(currentTextArea);

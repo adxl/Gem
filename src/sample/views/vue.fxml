@@ -227,14 +227,15 @@
                         <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
+                  <Button fx:id="applyThemeButton" layoutX="120.0" layoutY="266.0" mnemonicParsing="false" onAction="#setCustomTheme" text="Apply" />
                   <HBox alignment="CENTER" layoutX="48.0" layoutY="230.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                      <children>
-                        <Button fx:id="confirmPaletteButton" mnemonicParsing="false" onAction="#setCustomTheme" text="Confirm">
+                        <Button fx:id="confirmPaletteButton" mnemonicParsing="false" onAction="#confirmTheme" text="Confirm">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="cancelPaletteButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#hidePalette" text="Cancel">
+                        <Button fx:id="cancelPaletteButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeAndResetTheme" text="Cancel">
                            <HBox.margin>
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
