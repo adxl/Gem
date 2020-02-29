@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -24,7 +25,7 @@
          <children>
               <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
                   <menus>
-                      <Menu mnemonicParsing="false" text="File">
+                      <Menu text="_File">
                           <items>
                               <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#createFile" text="New">
                                   <accelerator>
@@ -59,9 +60,24 @@
                                   </accelerator>
                               </MenuItem>
                           </items>
+                     <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="F" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
                       </Menu>
-                      <Menu mnemonicParsing="false" text="Edit" />
-                      <Menu mnemonicParsing="false" text="Help" />
+                      <Menu text="_Edit">
+                     <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="E" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                     </items></Menu>
+                      <Menu text="_Help">
+                     <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                     </items></Menu>
                   </menus>
               </MenuBar>
             <AnchorPane id="themeAnchorPane" fx:id="switcherAnchorPane" layoutX="752.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -74,6 +90,9 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem disable="true" mnemonicParsing="false" text="Custom theme" />
                     </items>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MenuButton>
                </children>
             </AnchorPane>

@@ -20,12 +20,17 @@
 
 .menu .context-menu {
     -fx-padding: 1 1 1 1;
+
 }
 
 .menu-bar {
     -fx-padding: 2 1 2 5;
     -fx-spacing: 1;
 }
+
+/*.menu-bar > .container > .menu:showing{*/
+/*    -fx-background-color: transparent;*/
+/*}*/
 
 #menuBarContainer {
     -fx-background-color: _SECONDARY;

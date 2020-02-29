@@ -61,7 +61,6 @@ public class Controller_Vue {
 
 	@FXML
 	private void initialize() throws IOException {
-
 		untitledIdCounter=1;
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
@@ -106,11 +105,12 @@ public class Controller_Vue {
 					filePath.setText(String.valueOf(openFiles.get(tab.getText())));
 				else
 					filePath.setText("");
-				try
+				if(isModified())
+				{
+					Main.setMainStageTitle(tab.getText()+"   (modified)");
+				} else
 				{
 					Main.setMainStageTitle(tab.getText());
-				} catch(NullPointerException ignored)
-				{
 				}
 			} else
 			{
@@ -381,7 +381,7 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void setDefaultTheme(){
+	private void setDefaultTheme() {
 		String style="_PRIMARY:#2A363B;"+"_SECONDARY:#242C32;"+"_TEXT:#CDCDCD;"+"_DETAILS:#878787;";
 		appRoot.setStyle(style);
 	}
@@ -392,16 +392,18 @@ public class Controller_Vue {
 	}
 
 	private void setModified(boolean b) {
-		//		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		if(b) //set modified
 		{
 			tabPane.setStyle(circleSVGPathProperty);
 			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:italic;");
+			Main.setMainStageTitle(tab.getText()+"   (modified)");
 			currentFiles.put(currentTextArea,true);
 		} else //set original
 		{
 			tabPane.setStyle(defaultSVGPathProperty);
 			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:normal;");
+			Main.setMainStageTitle(tab.getText());
 			currentFiles.put(currentTextArea,false);
 		}
 	}
