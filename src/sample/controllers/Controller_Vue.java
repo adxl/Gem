@@ -3,6 +3,7 @@ package sample.controllers;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,8 +38,6 @@ public class Controller_Vue {
 	private Button confirmPaletteButton;
 	@FXML
 	private Button cancelPaletteButton;
-
-	private String[] currentPalette=new String[4];
 
 	@FXML
 	private AnchorPane promptAnchorPane;
@@ -65,7 +65,7 @@ public class Controller_Vue {
 	private HashMap<String,File> openFiles=new HashMap<>();
 	private HashMap<TextArea,Boolean> currentFiles=new HashMap<>();
 
-	private HashMap<Label,ColorPicker> paletteMap=new HashMap<>();
+	private ArrayList<HashMap<Character,Integer>> currentPalette=new ArrayList<>();
 
 	@FXML
 	private Label fileType;
@@ -103,6 +103,7 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
+		setDefaultTheme();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -397,61 +398,107 @@ public class Controller_Vue {
 
 	@FXML
 	private void confirmTheme() {
+		String[] colors=new String[4];
 		for(int i=0;i<4;i++)
 		{
-			currentPalette[i]="#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
 		}
-		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
+		for(String color : colors)
+		{
+			currentPalette.add(colorToRGB(color));
+		}
+		String style="_PRIMARY:"+colorToHex(currentPalette.get(0))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(1))+";"+"_TEXT:"+colorToHex(currentPalette.get(2))+";"+"_DETAILS:"+colorToHex(currentPalette.get(3))+";";
 		appRoot.setStyle(style);
 		hidePalette();
 	}
 
 	@FXML
 	private void setLightTheme() {
-		currentPalette[0]="#f2f2f2";
-		currentPalette[1]="#DBDBDB";
-		currentPalette[2]="#343a40";
-		currentPalette[3]="rgba(52,58,64,0.55)";
-		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
-		appRoot.setStyle(style);
+//		currentPalette[0]="#f2f2f2";
+//		currentPalette[1]="#DBDBDB";
+//		currentPalette[2]="#343a40";
+//		currentPalette[3]="rgba(52,58,64,0.55)";
+//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
+//		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setDarkTheme() {
-		currentPalette[0]="#15151E";
-		currentPalette[1]="#080810";
-		currentPalette[2]="#aeaeae";
-		currentPalette[3]="rgba(109,109,109,0.6)";
-		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
-		appRoot.setStyle(style);
+//		currentPalette[0]="#15151E";
+//		currentPalette[1]="#080810";
+//		currentPalette[2]="#aeaeae";
+//		currentPalette[3]="rgba(109,109,109,0.6)";
+//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
+//		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setDefaultTheme() {
-		currentPalette[0]="#2A363B";
-		currentPalette[1]="#242C32";
-		currentPalette[2]="#CDCDCD";
-		currentPalette[3]="#878787";
-		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
-		appRoot.setStyle(style);
+//		currentPalette[0]="#2A363B";
+//		currentPalette[1]="#242C32";
+//		currentPalette[2]="#CDCDCD";
+//		currentPalette[3]="#878787";
+//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
+//		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setCustomTheme() {
-		String[] colors=new String[4];
-		for(int i=0;i<4;i++)
-		{
-			colors[i]="#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
-		}
-		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
-		appRoot.setStyle(style);
+//		String[] colors=new String[4];
+//		for(int i=0;i<4;i++)
+//		{
+//			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+//		}
+//		double r, g, b, a;
+//		for(String color : colors)
+//		{
+//			r=Integer.parseInt(color.substring(0,2),16);
+//			g=Integer.parseInt(color.substring(2,4),16);
+//			b=Integer.parseInt(color.substring(4,6),16);
+//			a=Integer.parseInt(color.substring(6,8),16);
+//			System.out.println(r+","+g+","+b+","+a);
+//		}
+//		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
+//		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void closeAndResetTheme() {
-		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
-		appRoot.setStyle(style);
-		hidePalette();
+//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
+//		appRoot.setStyle(style);
+//		hidePalette();
+	}
+
+	private void updatePalette() {
+//		int[] rgbaColors=new int[4];
+//		for(int i=0;i<4;i++)
+//		{
+//			System.out.println(currentPalette[i]);
+//			//			rgbaColors[0]=Integer.valueOf(currentPalette[i].substring(1,3),16);
+//			//			rgbaColors[1]=Integer.valueOf(currentPalette[i].substring(3,5),16);
+//			//			rgbaColors[2]=Integer.valueOf(currentPalette[i].substring(5,7),16);
+//			//			rgbaColors[3]=Integer.valueOf(currentPalette[i].substring(7,9),16);
+//			//			System.out.println(rgbaColors[0]+rgbaColors[1]+rgbaColors[2]);
+//			//			((ColorPicker)paletteGrid.getChildren().get(i+4)).setValue(new Color(rgbaColors[0],rgbaColors[1],rgbaColors[2],rgbaColors[3]));
+//			System.out.println("----------------------");
+//		}
+	}
+
+	private String colorToHex(HashMap<Character,Integer> rgba) {
+		StringBuilder colorString=new StringBuilder("#");
+		colorString.append(rgba.get('r')).append(rgba.get('g')).append(rgba.get('b')).append(rgba.get('a'));
+		System.out.println(colorString);
+		return colorString.toString();
+	}
+
+	private HashMap<Character,Integer> colorToRGB(String string) {
+		String hex=string.substring(1);
+		HashMap<Character,Integer> rgba=new HashMap<>();
+		rgba.put('r',Integer.parseInt(hex.substring(0,2),16));
+		rgba.put('g',Integer.parseInt(hex.substring(2,4),16));
+		rgba.put('b',Integer.parseInt(hex.substring(4,6),16));
+		rgba.put('a',Integer.parseInt(hex.substring(6,8),16));
+		return rgba;
 	}
 
 	private boolean isModified() {
