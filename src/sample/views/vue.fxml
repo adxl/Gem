@@ -97,7 +97,7 @@
                             <MenuItem mnemonicParsing="false" onAction="#setDarkTheme" text="Dark theme" />
                               <MenuItem mnemonicParsing="false" onAction="#setDefaultTheme" text="Default theme (Gem)" />
                               <SeparatorMenuItem mnemonicParsing="false" />
-                              <MenuItem mnemonicParsing="false" onAction="#showPalette" text="Custom theme" />
+                              <MenuItem mnemonicParsing="false" onAction="#showPalette" text="Custom theme..." />
                           </items>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -184,11 +184,11 @@
               </AnchorPane>
           </children>
       </VBox>
-      <AnchorPane id="paletteContainer" fx:id="paletteContainer" layoutX="250.0" layoutY="50.0" style="-fx-background-color: rgba(0,0,0,0.6);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="paletteContainer" fx:id="paletteContainer" layoutX="250.0" layoutY="50.0" style="-fx-background-color: rgba(0,0,0,0.6);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane id="paletteAnchorPane" fx:id="palette" prefHeight="327.0" prefWidth="296.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
                <children>
-                  <Label alignment="CENTER" layoutX="93.0" layoutY="49.0" text="Theme color palette" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <Label alignment="CENTER" layoutX="93.0" layoutY="49.0" text="Theme color palette" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0" />
                   <GridPane fx:id="paletteGrid" alignment="CENTER" layoutX="11.0" layoutY="101.0" prefHeight="153.0" prefWidth="250.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

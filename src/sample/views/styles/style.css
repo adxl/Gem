@@ -66,7 +66,7 @@
     -fx-opacity: 0;
 }
 
-#themeButton .context-menu{
+#themeButton .context-menu {
     -fx-background-color: _PRIMARY;
     -fx-text-fill: _TEXT;
 }
@@ -199,15 +199,29 @@
     -fx-background-color: _TEXT;
 }
 
-#paletteAnchorPane{
+#paletteAnchorPane {
     -fx-background-color: _PRIMARY;
     -fx-background-radius: 20;
 }
 
-#paletteAnchorPane .label{
+#paletteAnchorPane .label {
     -fx-text-fill: _TEXT;
 }
 
 .color-picker {
     -fx-background-color: transparent;
+    -fx-color-label-visible: false;
 }
+
+
+.color-picker .arrow-button {
+    -fx-background-color: lime;
+    -fx-pref-width: 0;
+    -fx-padding: 0;
+}
+
+.color-picker .arrow {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+}
+

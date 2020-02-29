@@ -20,7 +20,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
 
-import java.awt.*;
 import java.io.*;
 import java.util.*;
 
@@ -104,7 +103,6 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
-		setLightTheme();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -393,8 +391,7 @@ public class Controller_Vue {
 		paletteContainer.setVisible(true);
 	}
 
-	private void hidePalette()
-	{
+	private void hidePalette() {
 		paletteContainer.setVisible(false);
 	}
 
@@ -417,7 +414,6 @@ public class Controller_Vue {
 		currentPalette[3]="rgba(52,58,64,0.55)";
 		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
 		appRoot.setStyle(style);
-
 	}
 
 	@FXML
@@ -452,7 +448,7 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void closeAndResetTheme(){
+	private void closeAndResetTheme() {
 		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
 		appRoot.setStyle(style);
 		hidePalette();
