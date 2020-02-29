@@ -24,10 +24,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller_Vue">
+<AnchorPane fx:id="appRoot" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller_Vue">
    <children>
-      <VBox fx:id="appRoot" prefHeight="473.0" prefWidth="802.0">
+      <VBox prefHeight="473.0" prefWidth="802.0">
           <children>
             <AnchorPane id="menuBarContainer" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
                <children>
@@ -98,7 +97,7 @@
                             <MenuItem mnemonicParsing="false" onAction="#setDarkTheme" text="Dark theme" />
                               <MenuItem mnemonicParsing="false" onAction="#setDefaultTheme" text="Default theme (Gem)" />
                               <SeparatorMenuItem mnemonicParsing="false" />
-                              <MenuItem disable="true" mnemonicParsing="false" text="Custom theme" />
+                              <MenuItem mnemonicParsing="false" onAction="#showPalette" text="Custom theme" />
                           </items>
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -134,7 +133,7 @@
                               <TabPane id="tabPane" fx:id="tabPane" prefHeight="539.0" prefWidth="637.0" SplitPane.resizableWithParent="false" />
                           </items>
                       </SplitPane>
-                  <AnchorPane id="prompt" fx:id="promptAnchorPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane id="prompt" fx:id="promptAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                             <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" pickOnBounds="false" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <font>
@@ -185,61 +184,65 @@
               </AnchorPane>
           </children>
       </VBox>
-      <AnchorPane id="paletteAnchorPane" fx:id="palette" layoutX="10.0" layoutY="10.0" prefHeight="327.0" prefWidth="296.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
+      <AnchorPane id="paletteContainer" fx:id="paletteContainer" layoutX="250.0" layoutY="50.0" style="-fx-background-color: rgba(0,0,0,0.6);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" layoutX="93.0" layoutY="49.0" text="Theme color palette" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-            <GridPane alignment="CENTER" layoutX="11.0" layoutY="101.0" prefHeight="153.0" prefWidth="250.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <AnchorPane id="paletteAnchorPane" fx:id="palette" prefHeight="327.0" prefWidth="296.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" text="Primary" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                     <GridPane.margin>
-                        <Insets right="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="70.0" layoutY="25.0" text="Secondary" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                     <GridPane.margin>
-                        <Insets right="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="25.0" text="Text" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                     <GridPane.margin>
-                        <Insets right="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" text="Details" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                     <GridPane.margin>
-                        <Insets right="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <ColorPicker GridPane.columnIndex="1" />
-                  <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER" layoutX="93.0" layoutY="49.0" text="Theme color palette" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <GridPane fx:id="paletteGrid" alignment="CENTER" layoutX="11.0" layoutY="101.0" prefHeight="153.0" prefWidth="250.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" text="Primary" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" layoutX="70.0" layoutY="25.0" text="Secondary" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="25.0" text="Text" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" text="Details" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <ColorPicker GridPane.columnIndex="1" />
+                        <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <HBox alignment="CENTER" layoutX="48.0" layoutY="230.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                     <children>
+                        <Button fx:id="confirmPaletteButton" mnemonicParsing="false" onAction="#setCustomTheme" text="Confirm">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="cancelPaletteButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#hidePalette" text="Cancel">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
-            </GridPane>
-            <HBox alignment="CENTER" layoutX="48.0" layoutY="230.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Confirm">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Cancel">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

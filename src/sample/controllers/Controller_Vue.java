@@ -9,19 +9,35 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Main;
 
+import java.awt.*;
 import java.io.*;
 import java.util.*;
 
 public class Controller_Vue {
 	@FXML
-	private VBox appRoot;
+	private AnchorPane appRoot;
+	@FXML
+	private AnchorPane paletteContainer;
+	@FXML
+	private AnchorPane palette;
+	@FXML
+	private GridPane paletteGrid;
+	@FXML
+	private Button confirmPaletteButton;
+	@FXML
+	private Button cancelPaletteButton;
+
 
 	@FXML
 	private AnchorPane promptAnchorPane;
@@ -48,6 +64,8 @@ public class Controller_Vue {
 	private VBox openFilesList;
 	private HashMap<String,File> openFiles=new HashMap<>();
 	private HashMap<TextArea,Boolean> currentFiles=new HashMap<>();
+
+	private HashMap<Label,ColorPicker> paletteMap=new HashMap<>();
 
 	@FXML
 	private Label fileType;
@@ -85,6 +103,18 @@ public class Controller_Vue {
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
+		setLightTheme();
+
+	}
+
+	@FXML
+	private void showPalette() {
+		paletteContainer.setVisible(true);
+	}
+
+	@FXML
+	private void hidePalette() {
+		paletteContainer.setVisible(false);
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -387,7 +417,12 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void setCustomTheme(String[] colors) {
+	private void setCustomTheme() {
+		String[] colors = new String[4];
+		for(int i=0;i<4;i++)
+		{
+			colors[i]="#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+		}
 		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
 		appRoot.setStyle(style);
 	}
