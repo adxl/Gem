@@ -396,20 +396,20 @@ public class Controller_Vue {
 
 	@FXML
 	private void confirmTheme() {
-//		clearCurrentPalette();
-//		String[] colors=new String[4];
-//		for(int i=0;i<4;i++)
-//		{
-//			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
-//		}
-//		for(String color : colors)
-//		{
-//			System.out.println(color);
-//			currentPalette.add(colorToRGBA(color));
-//		}
-//		String style="_PRIMARY:"+colorToHex(currentPalette.get(0))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(1))+";"+"_TEXT:"+colorToHex(currentPalette.get(2))+";"+"_DETAILS:"+colorToHex(currentPalette.get(3))+";";
-//		appRoot.setStyle(style);
-//		hidePalette();
+		clearCurrentPalette();
+		String[] colors=new String[4];
+		for(int i=0;i<4;i++)
+		{
+			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+			System.out.println(colors[i]);
+		}
+		currentPalette.put("primary",colorToRGBA(colors[0]));
+		currentPalette.put("secondary",colorToRGBA(colors[1]));
+		currentPalette.put("text",colorToRGBA(colors[2]));
+		currentPalette.put("details",colorToRGBA(colors[3]));
+		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		appRoot.setStyle(style);
+		hidePalette();
 	}
 
 	@FXML
@@ -440,7 +440,6 @@ public class Controller_Vue {
 		//		currentPalette[1]="#242C32";
 		//		currentPalette[2]="#CDCDCD";
 		//		currentPalette[3]="#878787";
-
 		clearCurrentPalette();
 		currentPalette.put("primary",colorToRGBA("2A363BFF"));
 		currentPalette.put("secondary",colorToRGBA("242C32FF"));
@@ -448,14 +447,19 @@ public class Controller_Vue {
 		currentPalette.put("details",colorToRGBA("878787FF"));
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
-
-
 		//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
 		//		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void setCustomTheme() {
+		String[] colors=new String[4];
+		for(int i=0;i<4;i++)
+		{
+			colors[i]="#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+		}
+		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
+		appRoot.setStyle(style);
 		//		String[] colors=new String[4];
 		//		for(int i=0;i<4;i++)
 		//		{
@@ -470,7 +474,7 @@ public class Controller_Vue {
 		//			a=Integer.parseInt(color.substring(6,8),16);
 		//			System.out.println(r+","+g+","+b+","+a);
 		//		}
-		//		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
+//				String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
 		//		appRoot.setStyle(style);
 	}
 
@@ -501,6 +505,7 @@ public class Controller_Vue {
 	}
 
 	/**
+	 * @param hex hexadecimal representation of rgba without "#"
 	 * @return HashMap with RGBA values
 	 */
 	private HashMap<Character,Integer> colorToRGBA(String hex) {
@@ -514,7 +519,7 @@ public class Controller_Vue {
 
 	public void clearCurrentPalette() {
 		currentPalette.clear();
-		System.out.println(currentPalette);
+		//		System.out.println(currentPalette);
 	}
 
 	private boolean isModified() {
