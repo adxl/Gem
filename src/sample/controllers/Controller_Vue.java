@@ -33,10 +33,6 @@ public class Controller_Vue {
 	private AnchorPane palette;
 	@FXML
 	private GridPane paletteGrid;
-	@FXML
-	private Button confirmPaletteButton;
-	@FXML
-	private Button cancelPaletteButton;
 
 	@FXML
 	private AnchorPane promptAnchorPane;
@@ -97,13 +93,17 @@ public class Controller_Vue {
 		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());*/
 		SplitPane.setResizableWithParent(splitPane,false);
 		SplitPane.setResizableWithParent(splitPane.getItems().get(0),false);
+//		quickInit();
+		setDefaultTheme();
+	}
+
+	//quick init for test
+	private void quickInit() throws IOException {
 		openExistingFile("Gem.iml");
 		openExistingFile("README.md");
 		openExistingFile("todo.md");
 		createFile();
 		tabPane.getSelectionModel().select(0);
-		setDefaultTheme();
-		updatePalette();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -267,12 +267,16 @@ public class Controller_Vue {
 				openFiles.put(selectedFile.getName(),selectedFile);
 				createPrefFile(selectedFile.getName(),stringBuilder.toString());
 			} else
+			{
 				for(Tab t : tabPane.getTabs())
+				{
 					if(t.getText().equals(selectedFile.getName()))
 					{
 						tabPane.getSelectionModel().select(t);
 						return;
 					}
+				}
+			}
 		}
 	}
 
@@ -345,7 +349,6 @@ public class Controller_Vue {
 
 	@FXML
 	private void saveFileAs() throws IOException {
-		//		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(!currentTextArea.getText().isEmpty())
 		{
 			Stage stage=new Stage();
@@ -409,50 +412,56 @@ public class Controller_Vue {
 		currentPalette.put("secondary",colorToRGBA(colors[1]));
 		currentPalette.put("text",colorToRGBA(colors[2]));
 		currentPalette.put("details",colorToRGBA(colors[3]));
+
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
+
 		hidePalette();
 	}
 
 	@FXML
 	private void setLightTheme() {
 		clearCurrentPalette();
+
 		currentPalette.put("primary",colorToRGBA("F2F2F2FF"));
 		currentPalette.put("secondary",colorToRGBA("DBDBDBFF"));
 		currentPalette.put("text",colorToRGBA("343A40FF"));
 		currentPalette.put("details",colorToRGBA("343A408C"));
+
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
+
 		updatePalette();
 	}
 
 	@FXML
 	private void setDarkTheme() {
 		clearCurrentPalette();
+
 		currentPalette.put("primary",colorToRGBA("15151EFF"));
 		currentPalette.put("secondary",colorToRGBA("080810FF"));
 		currentPalette.put("text",colorToRGBA("AEAEAEFF"));
 		currentPalette.put("details",colorToRGBA("6D6D6D99"));
+
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
+
 		updatePalette();
 	}
 
 	@FXML
 	private void setDefaultTheme() {
-		//		currentPalette[0]="#2A363B";
-		//		currentPalette[1]="#242C32";
-		//		currentPalette[2]="#CDCDCD";
-		//		currentPalette[3]="#878787";
 		clearCurrentPalette();
+
 		currentPalette.put("primary",colorToRGBA("2A363BFF"));
 		currentPalette.put("secondary",colorToRGBA("242C32FF"));
 		currentPalette.put("text",colorToRGBA("CDCDCDFF"));
 		currentPalette.put("details",colorToRGBA("878787FF"));
+
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
-		//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
-		//		appRoot.setStyle(style);
+
+		updatePalette();
 	}
 
 	@FXML
@@ -464,22 +473,6 @@ public class Controller_Vue {
 		}
 		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
 		appRoot.setStyle(style);
-		//		String[] colors=new String[4];
-		//		for(int i=0;i<4;i++)
-		//		{
-		//			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
-		//		}
-		//		double r, g, b, a;
-		//		for(String color : colors)
-		//		{
-		//			r=Integer.parseInt(color.substring(0,2),16);
-		//			g=Integer.parseInt(color.substring(2,4),16);
-		//			b=Integer.parseInt(color.substring(4,6),16);
-		//			a=Integer.parseInt(color.substring(6,8),16);
-		//			System.out.println(r+","+g+","+b+","+a);
-		//		}
-		//				String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
-		//		appRoot.setStyle(style);
 	}
 
 	@FXML
@@ -490,11 +483,6 @@ public class Controller_Vue {
 	}
 
 	private void updatePalette() {
-		//		rgbaColors[0]=Integer.valueOf(currentPalette[i].substring(1,3),16);
-		//		rgbaColors[1]=Integer.valueOf(currentPalette[i].substring(3,5),16);
-		//		rgbaColors[2]=Integer.valueOf(currentPalette[i].substring(5,7),16);
-		//		rgbaColors[3]=Integer.valueOf(currentPalette[i].substring(7,9),16);
-		
 		String primaryColor=colorToHex(currentPalette.get("primary")).substring(0,7);
 		float primaryAlpha=(float)(currentPalette.get("primary")).get('a')/255;
 
@@ -511,21 +499,13 @@ public class Controller_Vue {
 		((ColorPicker)paletteGrid.getChildren().get(5)).setValue(Color.web(secondaryColor,secondaryAlpha));
 		((ColorPicker)paletteGrid.getChildren().get(6)).setValue(Color.web(textColor,textAlpha));
 		((ColorPicker)paletteGrid.getChildren().get(7)).setValue(Color.web(detailsColor,detailsAlpha));
-
-
-		//			System.out.println(rgbaColors[0]+rgbaColors[1]+rgbaColors[2]);
-		//
-		System.out.println("----------------------");
 	}
 
 	private String colorToHex(HashMap<Character,Integer> rgba) {
 		return String.format("#%02X%02X%02X%02X",rgba.get('r'),rgba.get('g'),rgba.get('b'),rgba.get('a'));
 	}
 
-	/**
-	 * @param hex hexadecimal representation of rgba without "#"
-	 * @return HashMap with RGBA values
-	 */
+	//hexadecimal representation of rgba without "#"
 	private HashMap<Character,Integer> colorToRGBA(String hex) {
 		HashMap<Character,Integer> rgba=new HashMap<>();
 		rgba.put('r',Integer.parseInt(hex.substring(0,2),16));
@@ -537,7 +517,6 @@ public class Controller_Vue {
 
 	public void clearCurrentPalette() {
 		currentPalette.clear();
-		//		System.out.println(currentPalette);
 	}
 
 	private boolean isModified() {
