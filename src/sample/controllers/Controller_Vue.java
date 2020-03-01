@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -102,6 +103,7 @@ public class Controller_Vue {
 		createFile();
 		tabPane.getSelectionModel().select(0);
 		setDefaultTheme();
+		updatePalette();
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -421,6 +423,7 @@ public class Controller_Vue {
 		currentPalette.put("details",colorToRGBA("343A408C"));
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
+		updatePalette();
 	}
 
 	@FXML
@@ -432,6 +435,7 @@ public class Controller_Vue {
 		currentPalette.put("details",colorToRGBA("6D6D6D99"));
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
+		updatePalette();
 	}
 
 	@FXML
@@ -474,30 +478,44 @@ public class Controller_Vue {
 		//			a=Integer.parseInt(color.substring(6,8),16);
 		//			System.out.println(r+","+g+","+b+","+a);
 		//		}
-//				String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
+		//				String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
 		//		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void closeAndResetTheme() {
-		//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
-		//		appRoot.setStyle(style);
-		//		hidePalette();
+		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		appRoot.setStyle(style);
+		hidePalette();
 	}
 
 	private void updatePalette() {
-		//		int[] rgbaColors=new int[4];
-		//		for(int i=0;i<4;i++)
-		//		{
-		//			System.out.println(currentPalette[i]);
-		//			//			rgbaColors[0]=Integer.valueOf(currentPalette[i].substring(1,3),16);
-		//			//			rgbaColors[1]=Integer.valueOf(currentPalette[i].substring(3,5),16);
-		//			//			rgbaColors[2]=Integer.valueOf(currentPalette[i].substring(5,7),16);
-		//			//			rgbaColors[3]=Integer.valueOf(currentPalette[i].substring(7,9),16);
-		//			//			System.out.println(rgbaColors[0]+rgbaColors[1]+rgbaColors[2]);
-		//			//			((ColorPicker)paletteGrid.getChildren().get(i+4)).setValue(new Color(rgbaColors[0],rgbaColors[1],rgbaColors[2],rgbaColors[3]));
-		//			System.out.println("----------------------");
-		//		}
+		//		rgbaColors[0]=Integer.valueOf(currentPalette[i].substring(1,3),16);
+		//		rgbaColors[1]=Integer.valueOf(currentPalette[i].substring(3,5),16);
+		//		rgbaColors[2]=Integer.valueOf(currentPalette[i].substring(5,7),16);
+		//		rgbaColors[3]=Integer.valueOf(currentPalette[i].substring(7,9),16);
+		
+		String primaryColor=colorToHex(currentPalette.get("primary")).substring(0,7);
+		float primaryAlpha=(float)(currentPalette.get("primary")).get('a')/255;
+
+		String secondaryColor=colorToHex(currentPalette.get("secondary")).substring(0,7);
+		float secondaryAlpha=(float)(currentPalette.get("secondary")).get('a')/255;
+
+		String textColor=colorToHex(currentPalette.get("text")).substring(0,7);
+		float textAlpha=(float)(currentPalette.get("text")).get('a')/255;
+
+		String detailsColor=colorToHex(currentPalette.get("details")).substring(0,7);
+		float detailsAlpha=(float)(currentPalette.get("details")).get('a')/255;
+
+		((ColorPicker)paletteGrid.getChildren().get(4)).setValue(Color.web(primaryColor,primaryAlpha));
+		((ColorPicker)paletteGrid.getChildren().get(5)).setValue(Color.web(secondaryColor,secondaryAlpha));
+		((ColorPicker)paletteGrid.getChildren().get(6)).setValue(Color.web(textColor,textAlpha));
+		((ColorPicker)paletteGrid.getChildren().get(7)).setValue(Color.web(detailsColor,detailsAlpha));
+
+
+		//			System.out.println(rgbaColors[0]+rgbaColors[1]+rgbaColors[2]);
+		//
+		System.out.println("----------------------");
 	}
 
 	private String colorToHex(HashMap<Character,Integer> rgba) {
