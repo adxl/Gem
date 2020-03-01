@@ -414,10 +414,6 @@ public class Controller_Vue {
 
 	@FXML
 	private void setLightTheme() {
-		//		currentPalette[0]="#f2f2f2";
-		//		currentPalette[1]="#DBDBDB";
-		//		currentPalette[2]="#343a40";
-		//		currentPalette[3]="rgba(52,58,64,0.55)";
 		clearCurrentPalette();
 		currentPalette.put("primary",colorToRGBA("F2F2F2FF"));
 		currentPalette.put("secondary",colorToRGBA("DBDBDBFF"));
@@ -429,10 +425,6 @@ public class Controller_Vue {
 
 	@FXML
 	private void setDarkTheme() {
-		//		currentPalette[0]="#15151E";
-		//		currentPalette[1]="#080810";
-		//		currentPalette[2]="#aeaeae";
-		//		currentPalette[3]="rgba(109,109,109,0.6)";
 		clearCurrentPalette();
 		currentPalette.put("primary",colorToRGBA("15151EFF"));
 		currentPalette.put("secondary",colorToRGBA("080810FF"));
@@ -497,26 +489,10 @@ public class Controller_Vue {
 	}
 
 	private String colorToHex(HashMap<Character,Integer> rgba) {
-		HashMap<Character,String> map=new HashMap<>();
-		for(Character c : rgba.keySet())
-		{
-			if(rgba.get(c)==0)
-			{
-				map.put(c,"00");
-				continue;
-			}
-			map.put(c,String.valueOf(rgba.get(c)));
-		}
-		StringBuilder colorString=new StringBuilder("#");
-		colorString.append(Integer.toHexString(Integer.parseInt(map.get('r'))));
-		colorString.append(Integer.toHexString(Integer.parseInt(map.get('g'))));
-		colorString.append(Integer.toHexString(Integer.parseInt(map.get('b'))));
-		colorString.append(Integer.toHexString(Integer.parseInt(map.get('a'))));
-		return colorString.toString();
+		return String.format("#%02X%02X%02X%02X",rgba.get('r'),rgba.get('g'),rgba.get('b'),rgba.get('a'));
 	}
 
 	/**
-	 * @param hex value without "#"
 	 * @return HashMap with RGBA values
 	 */
 	private HashMap<Character,Integer> colorToRGBA(String hex) {
@@ -528,8 +504,7 @@ public class Controller_Vue {
 		return rgba;
 	}
 
-	public void clearCurrentPalette()
-	{
+	public void clearCurrentPalette() {
 		currentPalette.clear();
 		System.out.println(currentPalette);
 	}
