@@ -430,8 +430,6 @@ public class Controller_Vue {
 		currentPalette.put("secondary",colorToRGBA("080810FF"));
 		currentPalette.put("text",colorToRGBA("AEAEAEFF"));
 		currentPalette.put("details",colorToRGBA("6D6D6D99"));
-		System.out.println(currentPalette.get("secondary"));
-		System.out.println(colorToHex(currentPalette.get("secondary")));
 		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
 		appRoot.setStyle(style);
 	}
@@ -442,6 +440,16 @@ public class Controller_Vue {
 		//		currentPalette[1]="#242C32";
 		//		currentPalette[2]="#CDCDCD";
 		//		currentPalette[3]="#878787";
+
+		clearCurrentPalette();
+		currentPalette.put("primary",colorToRGBA("2A363BFF"));
+		currentPalette.put("secondary",colorToRGBA("242C32FF"));
+		currentPalette.put("text",colorToRGBA("CDCDCDFF"));
+		currentPalette.put("details",colorToRGBA("878787FF"));
+		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		appRoot.setStyle(style);
+
+
 		//		String style="_PRIMARY:"+currentPalette[0]+";"+"_SECONDARY:"+currentPalette[1]+";"+"_TEXT:"+currentPalette[2]+";"+"_DETAILS:"+currentPalette[3]+";";
 		//		appRoot.setStyle(style);
 	}
