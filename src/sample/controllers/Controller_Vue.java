@@ -33,6 +33,7 @@ public class Controller_Vue {
 	private AnchorPane palette;
 	@FXML
 	private GridPane paletteGrid;
+	private ColorPicker[] colorPickers=new ColorPicker[4];
 
 	@FXML
 	private AnchorPane promptAnchorPane;
@@ -86,6 +87,13 @@ public class Controller_Vue {
 		}
 		final BooleanBinding isTabPaneEmpty=Bindings.isEmpty(tabPane.getTabs());
 		promptAnchorPane.visibleProperty().bind(isTabPaneEmpty);
+
+		for(int i=0;i<4;i++)
+		{
+			colorPickers[i]=(ColorPicker)(paletteGrid.getChildren().get(i+4));
+			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
+		}
+
 		//TODO : disabled font size modifications for a moment
 		fontSizeSlider.setVisible(false);
 		fontSizeSliderIcon.setVisible(false);
@@ -93,7 +101,7 @@ public class Controller_Vue {
 		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());*/
 		SplitPane.setResizableWithParent(splitPane,false);
 		SplitPane.setResizableWithParent(splitPane.getItems().get(0),false);
-//		quickInit();
+		//		quickInit();
 		setDefaultTheme();
 	}
 
@@ -400,26 +408,6 @@ public class Controller_Vue {
 	}
 
 	@FXML
-	private void confirmTheme() {
-		clearCurrentPalette();
-		String[] colors=new String[4];
-		for(int i=0;i<4;i++)
-		{
-			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
-			System.out.println(colors[i]);
-		}
-		currentPalette.put("primary",colorToRGBA(colors[0]));
-		currentPalette.put("secondary",colorToRGBA(colors[1]));
-		currentPalette.put("text",colorToRGBA(colors[2]));
-		currentPalette.put("details",colorToRGBA(colors[3]));
-
-		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
-		appRoot.setStyle(style);
-
-		hidePalette();
-	}
-
-	@FXML
 	private void setLightTheme() {
 		clearCurrentPalette();
 
@@ -462,6 +450,26 @@ public class Controller_Vue {
 		appRoot.setStyle(style);
 
 		updatePalette();
+	}
+
+	@FXML
+	private void confirmTheme() {
+		clearCurrentPalette();
+		String[] colors=new String[4];
+		for(int i=0;i<4;i++)
+		{
+			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+			System.out.println(colors[i]);
+		}
+		currentPalette.put("primary",colorToRGBA(colors[0]));
+		currentPalette.put("secondary",colorToRGBA(colors[1]));
+		currentPalette.put("text",colorToRGBA(colors[2]));
+		currentPalette.put("details",colorToRGBA(colors[3]));
+
+		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		appRoot.setStyle(style);
+
+		hidePalette();
 	}
 
 	@FXML

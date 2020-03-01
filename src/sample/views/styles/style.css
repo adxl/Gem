@@ -208,6 +208,15 @@
     -fx-text-fill: _TEXT;
 }
 
+#paletteAnchorPane #paletteMainLabel {
+    -fx-font-size: 18px;
+}
+
+#paletteAnchorPane .button{
+    -fx-background-color: _SECONDARY;
+    -fx-text-fill: _TEXT;
+}
+
 .color-picker {
     -fx-background-color: transparent;
     -fx-color-label-visible: false;
