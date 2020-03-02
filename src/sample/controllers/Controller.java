@@ -24,13 +24,11 @@ import sample.Main;
 import java.io.*;
 import java.util.*;
 
-public class Controller_Vue {
+public class Controller {
 	@FXML
 	private AnchorPane appRoot;
 	@FXML
 	private AnchorPane paletteContainer;
-	@FXML
-	private AnchorPane palette;
 	@FXML
 	private GridPane paletteGrid;
 	private ColorPicker[] colorPickers=new ColorPicker[4];
@@ -232,170 +230,170 @@ public class Controller_Vue {
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
-		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
-		addFileToOpenFilesList(tab);
-		tabSwitchListener(tab);
-		tab.setOnCloseRequest(event->closeFile(tab.getText()));
-		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
-		tabPane.getTabs().add(tab);
-		tabPane.getSelectionModel().select(tab);
-		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
-		currentTextArea.setOnMouseEntered(event->
-		{
-			if(!isReady && !isModified())
-			{
-				currentTextArea.appendText(" ");
-				currentTextArea.deleteText(currentTextArea.getLength()-1,currentTextArea.getLength());
-				currentTextArea.positionCaret(0);
-				setModified(false);
-				setLabelModified(false);
-				isReady=true;
-			}
-		});
+//		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
+//		addFileToOpenFilesList(tab);
+//		tabSwitchListener(tab);
+//		tab.setOnCloseRequest(event->closeFile(tab.getText()));
+//		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
+//		tabPane.getTabs().add(tab);
+//		tabPane.getSelectionModel().select(tab);
+//		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
+//		currentTextArea.setOnMouseEntered(event->
+//		{
+//			if(!isReady && !isModified())
+//			{
+//				currentTextArea.appendText(" ");
+//				currentTextArea.deleteText(currentTextArea.getLength()-1,currentTextArea.getLength());
+//				currentTextArea.positionCaret(0);
+//				setModified(false);
+//				setLabelModified(false);
+//				isReady=true;
+//			}
+//		});
 	}
 
 	@FXML
 	private void openFile() throws IOException {
-		Stage stage=new Stage();
-		FileChooser fileChooser=new FileChooser();
-		fileChooser.setTitle("Open File");
-		File selectedFile=fileChooser.showOpenDialog(stage);
-		if(selectedFile!=null)
-		{
-			if(!openFiles.containsKey(selectedFile.getName()))
-			{
-				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
-				BufferedReader bufferedReader=new BufferedReader(fileReader);
-				StringBuilder stringBuilder=new StringBuilder();
-				String text;
-				while((text=bufferedReader.readLine())!=null)
-				{
-					stringBuilder.append(text).append("\n");
-				}
-				openFiles.put(selectedFile.getName(),selectedFile);
-				createPrefFile(selectedFile.getName(),stringBuilder.toString());
-			} else
-			{
-				for(Tab t : tabPane.getTabs())
-				{
-					if(t.getText().equals(selectedFile.getName()))
-					{
-						tabPane.getSelectionModel().select(t);
-						return;
-					}
-				}
-			}
-		}
+//		Stage stage=new Stage();
+//		FileChooser fileChooser=new FileChooser();
+//		fileChooser.setTitle("Open File");
+//		File selectedFile=fileChooser.showOpenDialog(stage);
+//		if(selectedFile!=null)
+//		{
+//			if(!openFiles.containsKey(selectedFile.getName()))
+//			{
+//				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
+//				BufferedReader bufferedReader=new BufferedReader(fileReader);
+//				StringBuilder stringBuilder=new StringBuilder();
+//				String text;
+//				while((text=bufferedReader.readLine())!=null)
+//				{
+//					stringBuilder.append(text).append("\n");
+//				}
+//				openFiles.put(selectedFile.getName(),selectedFile);
+//				createPrefFile(selectedFile.getName(),stringBuilder.toString());
+//			} else
+//			{
+//				for(Tab t : tabPane.getTabs())
+//				{
+//					if(t.getText().equals(selectedFile.getName()))
+//					{
+//						tabPane.getSelectionModel().select(t);
+//						return;
+//					}
+//				}
+//			}
+//		}
 	}
 
 	private void openExistingFile(String path) throws IOException {
-		File file=new File(path);
-		FileReader fileReader=new FileReader(path);
-		BufferedReader bufferedReader=new BufferedReader(fileReader);
-		StringBuilder stringBuilder=new StringBuilder();
-		String text;
-		while((text=bufferedReader.readLine())!=null)
-		{
-			stringBuilder.append(text).append("\n");
-		}
-		openFiles.put(file.getName(),file);
-		createPrefFile(file.getName(),stringBuilder.toString());
+//		File file=new File(path);
+//		FileReader fileReader=new FileReader(path);
+//		BufferedReader bufferedReader=new BufferedReader(fileReader);
+//		StringBuilder stringBuilder=new StringBuilder();
+//		String text;
+//		while((text=bufferedReader.readLine())!=null)
+//		{
+//			stringBuilder.append(text).append("\n");
+//		}
+//		openFiles.put(file.getName(),file);
+//		createPrefFile(file.getName(),stringBuilder.toString());
 	}
 
 	private void closeFile(String title) {
-		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		boolean wasModified=isModified();
-		currentFiles.remove(currentTextArea);
-		tabPane.getTabs().remove(tab);
-		if(wasModified)
-			removeFileFromOpenFilesList(title+"⚫");
-		else
-			removeFileFromOpenFilesList(title);
-		openFiles.remove(title);
+//		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+//		boolean wasModified=isModified();
+//		currentFiles.remove(currentTextArea);
+//		tabPane.getTabs().remove(tab);
+//		if(wasModified)
+//			removeFileFromOpenFilesList(title+"⚫");
+//		else
+//			removeFileFromOpenFilesList(title);
+//		openFiles.remove(title);
 	}
 
 	@FXML
 	private void closeFileRequest() {
-		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		String title=tab.getText();
-		closeFile(title);
+//		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+//		String title=tab.getText();
+//		closeFile(title);
 	}
 
 	private void addFileToOpenFilesList(Tab tab) {
-		Label label=new Label(tab.getText());
-		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(tab));
-		openFilesList.getChildren().add(label);
+//		Label label=new Label(tab.getText());
+//		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(tab));
+//		openFilesList.getChildren().add(label);
 	}
 
 	private void removeFileFromOpenFilesList(String title) {
-		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
-		{
-			if(l.getText().equals(title))
-			{
-				openFilesList.getChildren().remove(l);
-				break;
-			}
-		}
-		tabPane.getSelectionModel().selectLast();
+//		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
+//		{
+//			if(l.getText().equals(title))
+//			{
+//				openFilesList.getChildren().remove(l);
+//				break;
+//			}
+//		}
+//		tabPane.getSelectionModel().selectLast();
 	}
 
 	@FXML
 	private void saveFile() throws IOException {
-		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
-		if(openFiles.get(fileName)==null) //saving an untitled file
-		{
-			saveFileAs();
-		} else //saving an existing file
-		{
-			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
-			writer.println(currentTextArea.getText());
-			writer.close();
-			setModified(false);
-			setLabelModified(false);
-		}
+//		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
+//		if(openFiles.get(fileName)==null) //saving an untitled file
+//		{
+//			saveFileAs();
+//		} else //saving an existing file
+//		{
+//			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
+//			writer.println(currentTextArea.getText());
+//			writer.close();
+//			setModified(false);
+//			setLabelModified(false);
+//		}
 	}
 
 	@FXML
 	private void saveFileAs() throws IOException {
-		if(!currentTextArea.getText().isEmpty())
-		{
-			Stage stage=new Stage();
-			FileChooser fileChooser=new FileChooser();
-			File file=fileChooser.showSaveDialog(stage);
-			if(file!=null)
-			{
-				PrintWriter writer=new PrintWriter(file);
-				writer.println(currentTextArea.getText());
-				writer.close();
-				closeFileRequest();
-				openExistingFile(file.getAbsolutePath());
-				setModified(false);
-				setLabelModified(false);
-			}
-		}
+//		if(!currentTextArea.getText().isEmpty())
+//		{
+//			Stage stage=new Stage();
+//			FileChooser fileChooser=new FileChooser();
+//			File file=fileChooser.showSaveDialog(stage);
+//			if(file!=null)
+//			{
+//				PrintWriter writer=new PrintWriter(file);
+//				writer.println(currentTextArea.getText());
+//				writer.close();
+//				closeFileRequest();
+//				openExistingFile(file.getAbsolutePath());
+//				setModified(false);
+//				setLabelModified(false);
+//			}
+//		}
 	}
 
 	private String getType(String name) {
-		if(name.matches(".+[.].⚫"))
-		{
-			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
-		}
+//		if(name.matches(".+[.].⚫"))
+//		{
+//			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
+//		}
 		return "";
 	}
 
 	private void countLines() {
-		int textLines=currentTextArea.getText().split("\r\n|\r|\n",-1).length;
-		int counterLines=currentLinesCounter.getText().split("\n").length;
-		if(textLines!=counterLines)
-		{
-			StringBuilder lines=new StringBuilder();
-			lines.append(1);
-			for(int i=2;i<=textLines;i++)
-			{
-				lines.append("\n").append(i);
-			}
-			currentLinesCounter.setText(lines.toString());
-		}
+//		int textLines=currentTextArea.getText().split("\r\n|\r|\n",-1).length;
+//		int counterLines=currentLinesCounter.getText().split("\n").length;
+//		if(textLines!=counterLines)
+//		{
+//			StringBuilder lines=new StringBuilder();
+//			lines.append(1);
+//			for(int i=2;i<=textLines;i++)
+//			{
+//				lines.append("\n").append(i);
+//			}
+//			currentLinesCounter.setText(lines.toString());
+//		}
 	}
 
 	@FXML
@@ -527,49 +525,50 @@ public class Controller_Vue {
 	}
 
 	private boolean isModified() {
-		return currentFiles.get(currentTextArea);
+//		return currentFiles.get(currentTextArea);
+		return false; //temporary
 	}
 
 	private void setModified(boolean b) {
-		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		if(b) //set modified
-		{
-			tabPane.setStyle(circleSVGPathProperty);
-			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:italic;");
-			Main.setMainStageTitle(tab.getText()+"   (modified)");
-			currentFiles.put(currentTextArea,true);
-		} else //set original
-		{
-			tabPane.setStyle(defaultSVGPathProperty);
-			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:normal;");
-			Main.setMainStageTitle(tab.getText());
-			currentFiles.put(currentTextArea,false);
-		}
+//		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+//		if(b) //set modified
+//		{
+//			tabPane.setStyle(circleSVGPathProperty);
+//			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:italic;");
+//			Main.setMainStageTitle(tab.getText()+"   (modified)");
+//			currentFiles.put(currentTextArea,true);
+//		} else //set original
+//		{
+//			tabPane.setStyle(defaultSVGPathProperty);
+//			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:normal;");
+//			Main.setMainStageTitle(tab.getText());
+//			currentFiles.put(currentTextArea,false);
+//		}
 	}
 
 	private void setLabelModified(boolean b) {
-		String tabName=tabPane.getSelectionModel().getSelectedItem().getText();
-		if(b) //set modified
-		{
-			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
-			{
-				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='⚫')
-				{
-					l.setText(tabName+"⚫");
-					return;
-				}
-			}
-		} else
-		{
-			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
-			{
-				if(l.getText().equals(tabName+"⚫"))
-				{
-					l.setText(tabName);
-					return;
-				}
-			}
-		}
+//		String tabName=tabPane.getSelectionModel().getSelectedItem().getText();
+//		if(b) //set modified
+//		{
+//			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
+//			{
+//				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='⚫')
+//				{
+//					l.setText(tabName+"⚫");
+//					return;
+//				}
+//			}
+//		} else
+//		{
+//			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
+//			{
+//				if(l.getText().equals(tabName+"⚫"))
+//				{
+//					l.setText(tabName);
+//					return;
+//				}
+//			}
+//		}
 	}
 
 	@FXML
