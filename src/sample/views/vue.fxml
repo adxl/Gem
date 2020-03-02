@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="appRoot" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Controller_Vue">
+   <children>
+      <VBox prefHeight="473.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <AnchorPane id="menuBarContainer" maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
+               <children>
+                    <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
+                        <menus>
+                            <Menu text="_File">
+                                <items>
+                                    <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#createFile" text="New">
+                                        <accelerator>
+                                            <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                        </accelerator>
+                                    </MenuItem>
+                                    <MenuItem fx:id="openFile" mnemonicParsing="false" onAction="#openFile" text="Open File…">
+                                        <accelerator>
+                                            <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                        </accelerator>
+                                    </MenuItem>
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem fx:id="closeFile" mnemonicParsing="false" onAction="#closeFileRequest" text="Close">
+                                        <accelerator>
+                                            <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                        </accelerator>
+                                    </MenuItem>
+                                    <MenuItem fx:id="saveFile" mnemonicParsing="false" onAction="#saveFile" text="Save">
+                                        <accelerator>
+                                            <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                        </accelerator>
+                                    </MenuItem>
+                                    <MenuItem fx:id="saveFileAs" mnemonicParsing="false" onAction="#saveFileAs" text="Save As…">
+                                        <accelerator>
+                                            <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                                        </accelerator>
+                                    </MenuItem>
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#exitApplication" text="Quit">
+                                        <accelerator>
+                                            <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                        </accelerator>
+                                    </MenuItem>
+                                </items>
+                           <accelerator>
+                              <KeyCodeCombination alt="DOWN" code="F" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                            </Menu>
+                            <Menu text="_Edit">
+                           <accelerator>
+                              <KeyCodeCombination alt="DOWN" code="E" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                           </items>
+                        </Menu>
+                            <Menu text="_Help">
+                           <accelerator>
+                              <KeyCodeCombination alt="DOWN" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                           </items>
+                        </Menu>
+                        </menus>
+                    </MenuBar>
+                  <AnchorPane id="themeAnchorPane" fx:id="switcherAnchorPane" layoutX="752.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <MenuButton id="themeButton" alignment="CENTER" mnemonicParsing="false" style="-fx-font-size: 15px;" text="◐" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#setLightTheme" text="Light theme" />
+                            <MenuItem mnemonicParsing="false" onAction="#setDarkTheme" text="Dark theme" />
+                              <MenuItem mnemonicParsing="false" onAction="#setDefaultTheme" text="Default theme (Gem)" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem mnemonicParsing="false" onAction="#showPalette" text="Custom theme..." />
+                          </items>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MenuButton>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <Region id="menuBarDivider" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="10.0" prefWidth="200.0" />
+              <AnchorPane prefHeight="381.0" prefWidth="802.0" style="-fx-background-color: #242C32; -fx-background-color: red;" VBox.vgrow="ALWAYS">
+                  <children>
+                      <SplitPane fx:id="splitPane" dividerPositions="0.2" prefHeight="414.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                              <AnchorPane id="openFilesAnchor" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                  <children>
+                                      <AnchorPane layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                                          <children>
+                                              <Label text="OPEN FILES" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          </children>
+                                      </AnchorPane>
+                                      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                                          <children>
+                                    <ScrollPane id="openFilesPane" layoutY="10.0" prefHeight="385.0" prefWidth="137.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                                       <content>
+                                                    <VBox id="openFilesList" fx:id="openFilesList" />
+                                       </content>
+                                    </ScrollPane>
+                                          </children>
+                                      </AnchorPane>
+                                  </children>
+                              </AnchorPane>
+                              <TabPane id="tabPane" fx:id="tabPane" prefHeight="539.0" prefWidth="637.0" SplitPane.resizableWithParent="false" />
+                          </items>
+                      </SplitPane>
+                  <AnchorPane id="prompt" fx:id="promptAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" pickOnBounds="false" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <font>
+                                    <Font name="FreeSans" size="20.0" />
+                                </font>
+                            </Label>
+                     </children>
+                  </AnchorPane>
+                  </children>
+                  <VBox.margin>
+                      <Insets />
+                  </VBox.margin>
+              </AnchorPane>
+              <AnchorPane id="bottomBar" prefHeight="30.0" prefWidth="640.0" VBox.vgrow="NEVER">
+                  <children>
+                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                              <Label fx:id="filePath" alignment="CENTER">
+                                  <font>
+                                      <Font size="14.0" />
+                                  </font>
+                                  <HBox.margin>
+                                      <Insets left="5.0" />
+                                  </HBox.margin>
+                              </Label>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="fontSizeSliderIcon" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="21.0" text="Aa" visible="false">
+                                  <font>
+                                      <Font size="16.0" />
+                                  </font>
+                                  <HBox.margin>
+                                      <Insets right="3.0" />
+                                  </HBox.margin>
+                              </Label>
+                              <Slider fx:id="fontSizeSlider" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="140.0" style="-fx-focus-color: white; -fx-background-color: #6d7678;" visible="false" HBox.hgrow="NEVER">
+                                  <HBox.margin>
+                                      <Insets />
+                                  </HBox.margin>
+                              </Slider>
+                              <Label fx:id="fileType" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="96.0" HBox.hgrow="ALWAYS">
+                                  <HBox.margin>
+                                      <Insets right="10.0" />
+                                  </HBox.margin>
+                              </Label>
+                          </children>
+                      </HBox>
+                  </children>
+              </AnchorPane>
+          </children>
+      </VBox>
+      <AnchorPane id="paletteContainer" fx:id="paletteContainer" layoutX="250.0" layoutY="50.0" style="-fx-background-color: rgba(0,0,0,0.6);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" layoutX="275.0" layoutY="73.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+               <children>
+                  <HBox alignment="CENTER" VBox.vgrow="NEVER">
+                     <children>
+                        <AnchorPane id="paletteAnchorPane" fx:id="palette" prefHeight="327.0" prefWidth="252.0" HBox.hgrow="NEVER">
+                           <children>
+                              <Label id="paletteMainLabel" alignment="CENTER" layoutX="93.0" layoutY="49.0" text="Theme color palette" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0" />
+                              <GridPane fx:id="paletteGrid" alignment="CENTER" layoutX="11.0" layoutY="101.0" prefHeight="150.0" prefWidth="252.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="80.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" text="Primary" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                       <GridPane.margin>
+                                          <Insets right="20.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="70.0" layoutY="25.0" text="Secondary" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                       <GridPane.margin>
+                                          <Insets right="20.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="25.0" text="Text" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                       <GridPane.margin>
+                                          <Insets right="20.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="22.0" layoutY="25.0" text="Details" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                                       <GridPane.margin>
+                                          <Insets right="20.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <ColorPicker GridPane.columnIndex="1" />
+                                    <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
+                              <HBox alignment="CENTER" layoutX="48.0" layoutY="230.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+                                 <children>
+                                    <Button fx:id="confirmPaletteButton" mnemonicParsing="false" onAction="#confirmTheme" text="Confirm">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="cancelPaletteButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeAndResetTheme" text="Cancel">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
