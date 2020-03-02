@@ -4,8 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.fxmisc.richtext.CodeArea;
+import sample.controllers.Test;
 
 import java.io.File;
+
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 public class Main extends Application {
 
@@ -18,30 +22,30 @@ public class Main extends Application {
 		launch(args);
 	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/vue.fxml"));
-		mainStage=primaryStage;
-		mainStage.setScene(new Scene(loader.load()));
-		mainStage.setTitle("Gem");
-		//		mainStage.setMaximized(true);
-		mainStage.setAlwaysOnTop(true);
-		mainStage.setMinHeight(200);
-		mainStage.setMinWidth(400);
-		mainStage.show();
-		checkPassedArg();
-	}
-
-	//TEST
 //	@Override
 //	public void start(Stage primaryStage) throws Exception {
-//		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/test.fxml"));
+//		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/vue.fxml"));
 //		mainStage=primaryStage;
 //		mainStage.setScene(new Scene(loader.load()));
+//		mainStage.setTitle("Gem");
 //		//		mainStage.setMaximized(true);
 //		mainStage.setAlwaysOnTop(true);
+//		mainStage.setMinHeight(200);
+//		mainStage.setMinWidth(400);
 //		mainStage.show();
+//		checkPassedArg();
 //	}
+
+	//TEST
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/test.fxml"));
+		mainStage=primaryStage;
+		Scene scene = new Scene(loader.load());
+		mainStage.setScene(scene);
+		mainStage.setAlwaysOnTop(true);
+		mainStage.show();
+	}
 
 
 	private void checkPassedArg() {
