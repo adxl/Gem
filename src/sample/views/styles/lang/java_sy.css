@@ -1,0 +1,24 @@
+/*
+kyw:keywords
+smc:semicolons
+com:commas
+str:strings
+cmt:comments
+*/
+
+.kyw {
+    -fx-fill: blue;
+    -fx-font-weight: bold;
+}
+
+.smc, .com {
+    -fx-text-fill: orangered;
+}
+
+.str {
+    -fx-fill: green;
+}
+
+.cmt {
+    -fx-fill: gray;
+}
