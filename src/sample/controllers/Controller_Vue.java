@@ -459,7 +459,6 @@ public class Controller_Vue {
 		for(int i=0;i<4;i++)
 		{
 			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
-			System.out.println(colors[i]);
 		}
 		currentPalette.put("primary",colorToRGBA(colors[0]));
 		currentPalette.put("secondary",colorToRGBA(colors[1]));

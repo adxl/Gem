@@ -184,7 +184,7 @@
               </AnchorPane>
           </children>
       </VBox>
-      <AnchorPane id="paletteContainer" fx:id="paletteContainer" layoutX="250.0" layoutY="50.0" style="-fx-background-color: rgba(0,0,0,0.6);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="paletteContainer" fx:id="paletteContainer" layoutX="250.0" layoutY="50.0" style="-fx-background-color: rgba(0,0,0,0.6);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER" layoutX="275.0" layoutY="73.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
                <children>
