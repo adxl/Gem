@@ -339,8 +339,11 @@ public class Controller {
 	private void closeFile(String title) {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 
-		codeAreasSubscriptionsMap.get(currentCodeArea).unsubscribe();
-		codeAreasSubscriptionsMap.remove(currentCodeArea);
+		if(codeAreasSubscriptionsMap.containsKey(currentCodeArea))
+		{
+			codeAreasSubscriptionsMap.get(currentCodeArea).unsubscribe();
+			codeAreasSubscriptionsMap.remove(currentCodeArea);
+		}
 
 		boolean wasModified=isModified();
 
