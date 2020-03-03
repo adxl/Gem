@@ -1,5 +1,6 @@
 package sample.controllers;
 
+import com.sun.istack.internal.Nullable;
 import com.sun.org.apache.bcel.internal.classfile.Code;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -121,14 +122,8 @@ public class Controller {
 		{
 			if(tab.isSelected())
 			{
-
-				try
-				{
-					currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
-					System.out.println(tab.getText()+"--"+currentCodeArea.getText());
-				} catch(Exception ignored)
-				{
-				}
+				currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+				System.out.println(tab.getText()/*+"--"+currentCodeArea.getText()*/);
 
 				//TODO necessary? currentCodeAreaListener();
 
@@ -167,6 +162,7 @@ public class Controller {
 		//		currentTextArea.requestFocus();
 	}
 
+	//TODO useless?
 	private void currentCodeAreaListener() {
 		//TODO: isListened=false;
 		//TODO: isReady=false;
@@ -208,6 +204,7 @@ public class Controller {
 		//TODO Platform.runLater(currentTextArea::requestFocus);
 	}
 
+	//TODO useless?
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
 		//		currentTextArea.setOnScroll(null);
 		//		int textLines=c.split("\r\n|\r|\n",-1).length;
@@ -244,88 +241,109 @@ public class Controller {
 		//		setLabelModified(true);
 	}
 
-	private Tab generateEditorTab(String title) throws IOException {
+	private Tab generateEditorTab(String title,@Nullable String text) throws IOException {
 		AnchorPane root=FXMLLoader.load(getClass().getResource("/sample/views/editor_tab.fxml"));
-		CodeArea codeArea=new CodeArea();
+		CodeArea codeArea;
+
+		if(text==null)
+			codeArea=new CodeArea();
+		else
+			codeArea=new CodeArea(text);
+
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+
 		AnchorPane.setTopAnchor(codeArea,0.0);
 		AnchorPane.setRightAnchor(codeArea,0.0);
 		AnchorPane.setBottomAnchor(codeArea,0.0);
 		AnchorPane.setLeftAnchor(codeArea,0.0);
+
 		root.getChildren().add(codeArea);
+
 		return new Tab(title,root);
 	}
 
 	@FXML
 	private void createFile() throws IOException {
-		Tab tab=generateEditorTab("Untitled"+untitledIdCounter++);
+		Tab tab=generateEditorTab("Untitled"+untitledIdCounter++,null);
 
 		//TODO: addFileToOpenFilesList(tab);
 
 		openFiles.put(tab.getText(),null);
+
 		tabSwitchListener(tab);
 		tab.setOnCloseRequest(event->closeFile(tab.getText()));
+
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
+
 		currentCodeArea=(CodeArea)((AnchorPane)(tab.getContent())).getChildren().get(0);
 		currentCodeArea.requestFocus();
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
 		//		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
-		//		addFileToOpenFilesList(tab);
-		//		tabSwitchListener(tab);
-		//		tab.setOnCloseRequest(event->closeFile(tab.getText()));
-		//		((TextArea)((AnchorPane)tab.getContent()).getChildren().get(1)).setText(text);
-		//		tabPane.getTabs().add(tab);
-		//		tabPane.getSelectionModel().select(tab);
-		//		((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
-		//		currentTextArea.setOnMouseEntered(event->
-		//		{
-		//			if(!isReady && !isModified())
-		//			{
-		//				currentTextArea.appendText(" ");
-		//				currentTextArea.deleteText(currentTextArea.getLength()-1,currentTextArea.getLength());
-		//				currentTextArea.positionCaret(0);
-		//				setModified(false);
-		//				setLabelModified(false);
-		//				isReady=true;
-		//			}
-		//		});
+		Tab tab=generateEditorTab(title,text);
+
+		//TODO addFileToOpenFilesList(tab);
+
+		tabSwitchListener(tab);
+		tab.setOnCloseRequest(event->closeFile(tab.getText()));
+
+		tabPane.getTabs().add(tab);
+		tabPane.getSelectionModel().select(tab);
+
+		currentCodeArea=(CodeArea)((AnchorPane)(tab.getContent())).getChildren().get(0);
+		currentCodeArea.requestFocus();
+
+		//((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
+
+		//TODO might be unnecessary
+		/*currentTextArea.setOnMouseEntered(event->
+		{
+			if(!isReady && !isModified())
+			{
+				currentTextArea.appendText(" ");
+				currentTextArea.deleteText(currentTextArea.getLength()-1,currentTextArea.getLength());
+				currentTextArea.positionCaret(0);
+				setModified(false);
+				setLabelModified(false);
+				isReady=true;
+			}
+		});*/
 	}
 
 	@FXML
 	private void openFile() throws IOException {
-		//		Stage stage=new Stage();
-		//		FileChooser fileChooser=new FileChooser();
-		//		fileChooser.setTitle("Open File");
-		//		File selectedFile=fileChooser.showOpenDialog(stage);
-		//		if(selectedFile!=null)
-		//		{
-		//			if(!openFiles.containsKey(selectedFile.getName()))
-		//			{
-		//				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
-		//				BufferedReader bufferedReader=new BufferedReader(fileReader);
-		//				StringBuilder stringBuilder=new StringBuilder();
-		//				String text;
-		//				while((text=bufferedReader.readLine())!=null)
-		//				{
-		//					stringBuilder.append(text).append("\n");
-		//				}
-		//				openFiles.put(selectedFile.getName(),selectedFile);
-		//				createPrefFile(selectedFile.getName(),stringBuilder.toString());
-		//			} else
-		//			{
-		//				for(Tab t : tabPane.getTabs())
-		//				{
-		//					if(t.getText().equals(selectedFile.getName()))
-		//					{
-		//						tabPane.getSelectionModel().select(t);
-		//						return;
-		//					}
-		//				}
-		//			}
-		//		}
+		Stage stage=new Stage();
+		FileChooser fileChooser=new FileChooser();
+		fileChooser.setTitle("Open File");
+		File selectedFile=fileChooser.showOpenDialog(stage);
+		if(selectedFile!=null)
+		{
+			if(!openFiles.containsKey(selectedFile.getName()))
+			{
+				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
+				BufferedReader bufferedReader=new BufferedReader(fileReader);
+				StringBuilder stringBuilder=new StringBuilder();
+				String text;
+				while((text=bufferedReader.readLine())!=null)
+				{
+					stringBuilder.append(text).append("\n");
+				}
+				openFiles.put(selectedFile.getName(),selectedFile);
+				createPrefFile(selectedFile.getName(),stringBuilder.toString());
+			} else
+			{
+				for(Tab t : tabPane.getTabs())
+				{
+					if(t.getText().equals(selectedFile.getName()))
+					{
+						tabPane.getSelectionModel().select(t);
+						return;
+					}
+				}
+			}
+		}
 	}
 
 	private void openExistingFile(String path) throws IOException {
