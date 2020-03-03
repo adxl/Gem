@@ -76,7 +76,27 @@
                               <KeyCodeCombination alt="DOWN" code="E" control="UP" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem mnemonicParsing="false" onAction="#cut" text="Cut">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" onAction="#copy" text="Copy">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator></MenuItem>
+                              <MenuItem mnemonicParsing="false" onAction="#paste" text="Paste">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem mnemonicParsing="false" text="Find">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
                            </items>
                         </Menu>
                             <Menu text="_Help">

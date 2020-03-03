@@ -427,6 +427,21 @@ public class Controller {
 		return "";
 	}
 
+	@FXML
+	private void cut(){
+		currentCodeArea.cut();
+	}
+
+	@FXML
+	private void copy() {
+		currentCodeArea.copy();
+	}
+
+	@FXML
+	private void paste() {
+		currentCodeArea.paste();
+	}
+
 	// independent UI related methods :
 
 	@FXML
