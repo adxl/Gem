@@ -332,6 +332,8 @@ public class Controller {
 				{
 					stringBuilder.append(text).append("\n");
 				}
+				System.out.println("<"+stringBuilder.charAt(stringBuilder.length()-1)+">");
+				stringBuilder.deleteCharAt(stringBuilder.length()-1);
 				openTabsFiles.put(selectedFile.getName(),selectedFile);
 				createPrefFile(selectedFile.getName(),stringBuilder.toString());
 			} else
