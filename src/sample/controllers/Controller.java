@@ -41,11 +41,15 @@ public class Controller {
 	public SplitPane splitPane;
 
 	private int untitledIdCounter;
-	private TextArea currentTextArea; //Deprecated
+
+	//private TextArea currentTextArea; //Deprecated
 	private CodeArea currentCodeArea;
+
 	//	private TextArea currentLinesCounter; //Deprecated
-	private ScrollBar currentTextScrollBar;
-	private ScrollBar currentLinesCounterScrollBar;
+
+	//old textArea related fields : Deprecated
+	/*private ScrollBar currentTextScrollBar;
+	private ScrollBar currentLinesCounterScrollBar;*/
 
 	//	private boolean isListened=false;
 	//	private boolean isReady=false;
@@ -404,38 +408,46 @@ public class Controller {
 
 	@FXML
 	private void saveFile() throws IOException {
-		//		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
-		//		if(openFiles.get(fileName)==null) //saving an untitled file
-		//		{
-		//			saveFileAs();
-		//		} else //saving an existing file
-		//		{
-		//			PrintWriter writer=new PrintWriter(openFiles.get(fileName));
-		//			writer.println(currentTextArea.getText());
-		//			writer.close();
-		//			setModified(false);
-		//			setLabelModified(false);
-		//		}
+		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
+		if(openTabsFiles.get(fileName)==null) //saving an untitled file
+		{
+			saveFileAs();
+		} else //saving an existing file
+		{
+			PrintWriter writer=new PrintWriter(openTabsFiles.get(fileName));
+			//writer.println(currentTextArea.getText());
+			writer.println(currentCodeArea.getText());
+			writer.close();
+
+			//TODO modification stuff : check later
+			/*setModified(false);
+			setLabelModified(false);*/
+		}
 	}
 
 	@FXML
 	private void saveFileAs() throws IOException {
-		//		if(!currentTextArea.getText().isEmpty())
-		//		{
-		//			Stage stage=new Stage();
-		//			FileChooser fileChooser=new FileChooser();
-		//			File file=fileChooser.showSaveDialog(stage);
-		//			if(file!=null)
-		//			{
-		//				PrintWriter writer=new PrintWriter(file);
-		//				writer.println(currentTextArea.getText());
-		//				writer.close();
-		//				closeFileRequest();
-		//				openExistingFile(file.getAbsolutePath());
-		//				setModified(false);
-		//				setLabelModified(false);
-		//			}
-		//		}
+//		if(!currentTextArea.getText().isEmpty())
+		if(!currentCodeArea.getText().isEmpty()) //don't save an empty file
+		{
+			Stage stage=new Stage();
+			FileChooser fileChooser=new FileChooser();
+			File file=fileChooser.showSaveDialog(stage);
+			if(file!=null)
+			{
+				PrintWriter writer=new PrintWriter(file);
+//				writer.println(currentTextArea.getText());
+				writer.println(currentCodeArea.getText());
+				writer.close();
+
+				closeFileRequest();
+				openExistingFile(file.getAbsolutePath());
+
+				//TODO modification, as save() : to check later
+				/*setModified(false);
+				setLabelModified(false);*/
+			}
+		}
 	}
 
 	private String getType(String name) {
