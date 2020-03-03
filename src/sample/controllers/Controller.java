@@ -1,24 +1,20 @@
 package sample.controllers;
 
 import com.sun.istack.internal.Nullable;
-import com.sun.org.apache.bcel.internal.classfile.Code;
-import javafx.application.Platform;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.CodeArea;
@@ -51,8 +47,8 @@ public class Controller {
 	private ScrollBar currentTextScrollBar;
 	private ScrollBar currentLinesCounterScrollBar;
 
-	private boolean isListened=false;
-	private boolean isReady=false;
+	//	private boolean isListened=false;
+	//	private boolean isReady=false;
 
 	@FXML
 	private Slider fontSizeSlider;
@@ -61,8 +57,11 @@ public class Controller {
 
 	@FXML
 	private VBox openFilesList;
-	private HashMap<String,File> openFiles=new HashMap<>();
-	private HashMap<TextArea,Boolean> currentFiles=new HashMap<>();
+	private HashMap<String,File> openTabsFiles=new HashMap<>();
+
+	//	private HashMap<TextArea,Boolean> currentFiles=new HashMap<>();
+	private HashMap<CodeArea,Boolean> currentFilesModifiedState=new HashMap<>();
+
 
 	private HashMap<String,HashMap<Character,Integer>> currentPalette=new HashMap<>();
 
@@ -110,11 +109,11 @@ public class Controller {
 
 	//quick init for test
 	private void quickInit() throws IOException {
-//		openExistingFile("Gem.iml");
-//		openExistingFile("README.md");
-//		openExistingFile("todo.md");
-//		createFile();
-//		tabPane.getSelectionModel().select(0);
+		//		openExistingFile("Gem.iml");
+		//		openExistingFile("README.md");
+		//		openExistingFile("todo.md");
+		//		createFile();
+		//		tabPane.getSelectionModel().select(0);
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -268,7 +267,7 @@ public class Controller {
 
 		//TODO: addFileToOpenFilesList(tab);
 
-		openFiles.put(tab.getText(),null);
+		openTabsFiles.put(tab.getText(),null);
 
 		tabSwitchListener(tab);
 		tab.setOnCloseRequest(event->closeFile(tab.getText()));
@@ -320,7 +319,7 @@ public class Controller {
 		File selectedFile=fileChooser.showOpenDialog(stage);
 		if(selectedFile!=null)
 		{
-			if(!openFiles.containsKey(selectedFile.getName()))
+			if(!openTabsFiles.containsKey(selectedFile.getName()))
 			{
 				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
 				//TODO possible duplicated code : openExistingFile()
@@ -331,7 +330,7 @@ public class Controller {
 				{
 					stringBuilder.append(text).append("\n");
 				}
-				openFiles.put(selectedFile.getName(),selectedFile);
+				openTabsFiles.put(selectedFile.getName(),selectedFile);
 				createPrefFile(selectedFile.getName(),stringBuilder.toString());
 			} else
 			{
@@ -359,27 +358,30 @@ public class Controller {
 		{
 			stringBuilder.append(text).append("\n");
 		}
-		openFiles.put(file.getName(),file);
+		openTabsFiles.put(file.getName(),file);
 		createPrefFile(file.getName(),stringBuilder.toString());
 	}
 
 	private void closeFile(String title) {
-		//		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		//		boolean wasModified=isModified();
-		//		currentFiles.remove(currentTextArea);
-		//		tabPane.getTabs().remove(tab);
-		//		if(wasModified)
-		//			removeFileFromOpenFilesList(title+"⚫");
-		//		else
-		//			removeFileFromOpenFilesList(title);
-		//		openFiles.remove(title);
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		//boolean wasModified=isModified();
+		//TODO modified files currentFiles.remove(currentTextArea);
+		tabPane.getTabs().remove(tab);
+
+		//TODO check if modified to interact with sidebar
+		/*if(wasModified)
+			removeFileFromOpenFilesList(title+"⚫");
+		else
+			removeFileFromOpenFilesList(title);*/
+
+		openTabsFiles.remove(title);
 	}
 
 	@FXML
 	private void closeFileRequest() {
-		//		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		//		String title=tab.getText();
-		//		closeFile(title);
+		Tab selectedTab=tabPane.getSelectionModel().getSelectedItem();
+		String title=selectedTab.getText();
+		closeFile(title);
 	}
 
 	private void addFileToOpenFilesList(Tab tab) {
