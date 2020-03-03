@@ -123,7 +123,7 @@ public class Controller {
 
 	//launch application with already open files
 	private void quickInit() throws IOException {
-		openExistingFile("snippets/java_snippet_test.java");
+		openExistingFile("snippets/c_snippet_test.c");
 		openExistingFile("Gem.iml");
 		openExistingFile("README.md");
 		openExistingFile("todo.md");
@@ -180,8 +180,7 @@ public class Controller {
 	}
 
 	private void currentCodeAreaListener() {
-		currentCodeArea=
-				(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+		currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 
 		if(!currentFilesModifiedState.containsKey(currentCodeArea))
 			setModified(false);
@@ -215,7 +214,7 @@ public class Controller {
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 
 		String type=getType(title);
-		if(isLangageSupported(type))
+		if(isLanguageSupported(type))
 		{
 			currentCodeAreaSub=codeArea.multiPlainChanges()
 									   .successionEnds(Duration.ofMillis(1))
@@ -237,14 +236,14 @@ public class Controller {
 		return new Tab(title,root);
 	}
 
-	private boolean isLangageSupported(String type) {
+	private boolean isLanguageSupported(String type) {
 		return supportedLanguages.contains(type);
 	}
 
 	private StyleSpans<Collection<String>> applySyntaxComputer(CodeArea codeArea,String type) {
 		SyntaxComputer syntaxComputer=null; //should never happen
 
-		//all cases should exist in SUPPORTED_LANGAGES
+		//all cases should exist in SUPPORTED_LANGUAGES
 		switch(type)
 		{
 			case "JAVA":

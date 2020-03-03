@@ -1,61 +1,75 @@
 /*INHERITED FROM style.css*/
 
 .root {
-    _PRIMARY: #2A363B;
-    _SECONDARY: #242C32;
-    _TEXT: #CDCDCD;
-    _DETAILS: #878787;
+	_PRIMARY: #2A363B;
+	_SECONDARY: #242C32;
+	_TEXT: #CDCDCD;
+	_DETAILS: #878787;
 }
 
 AnchorPane {
-    -fx-background-radius: 0 0 0 20;
-    -fx-background-color: _PRIMARY;
+	-fx-background-radius: 0 0 0 20;
+	-fx-background-color: _PRIMARY;
 }
 
 .styled-text-area {
-    -fx-background-color: _PRIMARY;
-    -fx-background-radius: 0 0 0 20;
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 0 0 0 20;
 }
 
 .styled-text-area .text {
-    -fx-fill: _TEXT;
+	-fx-fill: _TEXT;
 }
 
 .styled-text-area .lineno {
-    -fx-background-color: _PRIMARY;
-    -fx-text-fill: _TEXT;
-    -fx-background-radius: 0 0 0 20;
+	-fx-background-color: _PRIMARY;
+	-fx-text-fill: _TEXT;
+	-fx-background-radius: 0 0 0 20;
 
 }
 
-/*  Highlighting classes :
+/*  Highlighting classes : */
 
-kyw:keywords
-lit:literals
-smc:semicolons
-com:commas
-str:strings
-cmt:comments
+/*
+>>general classes<<
+	kyw:keywords
+	lit:literals
+	smc:semicolons
+	com:commas
+	str:strings
+	cmt:comments
 */
 
 .styled-text-area .kyw {
-    -fx-fill: blue;
-    -fx-font-weight: bold;
+	-fx-fill: blue;
+	-fx-font-weight: bold;
 }
 
 .styled-text-area .lit {
-    -fx-fill: purple;
-    -fx-font-weight: bold;
+	-fx-fill: purple;
+	-fx-font-weight: bold;
 }
 
 .styled-text-area .smc, .com {
-    -fx-fill: #c27423;
+	-fx-fill: #c27423;
 }
 
 .styled-text-area .str {
-    -fx-fill: green;
+	-fx-fill: green;
 }
 
 .styled-text-area .cmt {
-    -fx-fill: gray;
+	-fx-fill: gray;
+}
+/* >>C<<
+	dir:directives
+*/
+
+.styled-text-area .dir{
+	-fx-fill:orange;
+}
+
+.styled-text-area .hea{
+	-fx-font-style: italic;
+	-fx-fill: purple;
 }

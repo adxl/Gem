@@ -10,10 +10,14 @@ import java.util.regex.Pattern;
 
 public class CSyntaxComputer implements SyntaxComputer {
 
+	private final String[] DIRECTIVES=new String[] {"include","define","undef","if","ifdef","ifndef","error"};
+
 	private final String[] KEYWORDS=new String[] {"auto","break","case","char","const","continue","default","do","double","else","enum","extern",
 			"float","for","goto","if","int","long","register","return","short","signed","sizeof","static","struct","switch","typedef","union",
 			"unsigned","void","volatile","while"};
 
+	private final String DIRECTIVE_REGEX_PATTERN="\\B[##]("+String.join("|",DIRECTIVES)+")\\b";
+	private final String HEADER_REGEX_PATTERN="\\B<[^\\s]+[.]h>\\B";
 	private final String KEYWORD_REGEX_PATTERN="\\b("+String.join("|",KEYWORDS)+")\\b";
 	private final String LITERAL_REGEX_PATTERN="\\b(true|false|null)\\b";
 	private final String SEMICOLON_REGEX_PATTERN="\\;";
@@ -22,6 +26,8 @@ public class CSyntaxComputer implements SyntaxComputer {
 	private final String COMMENT_REGEX_PATTERN="//[^\n]*"+"|"+"/\\*(.|\\R)*?\\*/";
 
 	private final String[] PATTERNS=new String[] {
+			"(?<DIRECTIVE>"+DIRECTIVE_REGEX_PATTERN+")",
+			"(?<HEADER>"+HEADER_REGEX_PATTERN+")",
 			"(?<KEYWORD>"+KEYWORD_REGEX_PATTERN+")",
 			"(?<LITERAL>"+LITERAL_REGEX_PATTERN+")",
 			"(?<SEMICOLON>"+SEMICOLON_REGEX_PATTERN+")",
@@ -42,11 +48,13 @@ public class CSyntaxComputer implements SyntaxComputer {
 		while(matcher.find())
 		{
 			String styleClass=matcher.group("KEYWORD")!=null ? "kyw" :
-									  matcher.group("LITERAL")!=null ? "lit" :
-											  matcher.group("SEMICOLON")!=null ? "smc" :
-													  matcher.group("COMMA")!=null ? "com" :
-															  matcher.group("STRING")!=null ? "str" :
-																	  matcher.group("COMMENT")!=null ? "cmt" : null;
+									  matcher.group("DIRECTIVE")!=null ? "dir" :
+											  matcher.group("LITERAL")!=null ? "lit" :
+													  matcher.group("SEMICOLON")!=null ? "smc" :
+															  matcher.group("COMMA")!=null ? "com" :
+																	  matcher.group("STRING")!=null ? "str" :
+																			  matcher.group("HEADER")!=null ? "hea" :
+																					  matcher.group("COMMENT")!=null ? "cmt" : null;
 			assert styleClass!=null;
 			spansBuilder.add(Collections.emptyList(),matcher.start()-lastKeywordEnd);
 			spansBuilder.add(Collections.singleton(styleClass),matcher.end()-matcher.start());
