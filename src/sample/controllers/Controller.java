@@ -52,8 +52,8 @@ public class Controller {
 	private Subscription currentCodeAreaSub;
 	private HashMap<CodeArea,Subscription> codeAreasSubscriptionsMap=new HashMap<>();
 
-	private final String[] SUPPORTED_LANGAGES=new String[] {"JAVA","C"};
-	private ArrayList<String> supportedLangages;
+	private final String[] SUPPORTED_LANGUAGES=new String[] {"JAVA","C"};
+	private ArrayList<String> supportedLanguages;
 
 
 	@FXML
@@ -88,7 +88,7 @@ public class Controller {
 		fontSizeSlider.setValue(13);
 		//fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 
-		supportedLangages=new ArrayList<>(Arrays.asList(SUPPORTED_LANGAGES));
+		supportedLanguages=new ArrayList<>(Arrays.asList(SUPPORTED_LANGUAGES));
 
 		textChangeListener=this::textAreaChanged;
 
@@ -238,7 +238,7 @@ public class Controller {
 	}
 
 	private boolean isLangageSupported(String type) {
-		return supportedLangages.contains(type);
+		return supportedLanguages.contains(type);
 	}
 
 	private StyleSpans<Collection<String>> applySyntaxComputer(CodeArea codeArea,String type) {
