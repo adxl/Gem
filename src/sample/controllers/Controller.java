@@ -44,9 +44,9 @@ public class Controller {
 	public SplitPane splitPane;
 
 	private int untitledIdCounter;
-	private TextArea currentTextArea;
+	private TextArea currentTextArea; //Deprecated
 	private CodeArea currentCodeArea;
-	private TextArea currentLinesCounter;
+	//	private TextArea currentLinesCounter; //Deprecated
 	private ScrollBar currentTextScrollBar;
 	private ScrollBar currentLinesCounterScrollBar;
 
@@ -121,8 +121,19 @@ public class Controller {
 		{
 			if(tab.isSelected())
 			{
-				currentTextAreaListener();
-				int index=tabPane.getTabs().indexOf(tab);
+
+				try
+				{
+					currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+					System.out.println(tab.getText()+"--"+currentCodeArea.getText());
+				} catch(Exception ignored)
+				{
+				}
+
+				//TODO necessary? currentCodeAreaListener();
+
+				//TODO open files side bar
+				/*int index=tabPane.getTabs().indexOf(tab);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
 					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
 				else
@@ -140,7 +151,7 @@ public class Controller {
 				} else
 				{
 					Main.setMainStageTitle(tab.getText());
-				}
+				}*/
 			} else
 			{
 				Main.setMainStageTitle("Gem");
@@ -156,32 +167,45 @@ public class Controller {
 		//		currentTextArea.requestFocus();
 	}
 
-	private void currentTextAreaListener() {
-		//		isListened=false;
-		//		isReady=false;
-		//		currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
-		//		if(!currentFiles.containsKey(currentTextArea))
-		//		{
-		//			setModified(false);
-		//		} else
-		//		{
-		//			if(isModified())
-		//			{
-		//				setModified(true);
-		//				setLabelModified(true);
-		//			} else
-		//			{
-		//				setModified(false);
-		//				setLabelModified(false);
-		//			}
-		//		}
-		//		currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
-		//		currentTextArea.textProperty().removeListener(textChangeListener);
-		//		currentTextArea.textProperty().addListener(textChangeListener);
-		//		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-		//		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-		//		countLines();
-		//		Platform.runLater(currentTextArea::requestFocus);
+	private void currentCodeAreaListener() {
+		//TODO: isListened=false;
+		//TODO: isReady=false;
+
+		//currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
+		currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+
+		//TODO modification check
+		/*if(!currentFiles.containsKey(currentTextArea))
+		{
+			setModified(false);
+		} else
+		{
+			if(isModified())
+			{
+				setModified(true);
+				setLabelModified(true);
+			} else
+			{
+				setModified(false);
+				setLabelModified(false);
+			}
+		}*/
+
+		//currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+
+		//currentTextArea.textProperty().removeListener(textChangeListener);
+		//currentTextArea.textProperty().addListener(textChangeListener);
+		//currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+
+		//TODO Confirm if a listener is necessary
+		//currentCodeArea.textProperty().removeListener(textChangeListener);
+		//currentCodeArea.textProperty().addListener(textChangeListener);
+		//currentCodeArea.setStyle("-fx-font-family: Mashq-Bold");
+
+		//currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+		//countLines();
+
+		//TODO Platform.runLater(currentTextArea::requestFocus);
 	}
 
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
