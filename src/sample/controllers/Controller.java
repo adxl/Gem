@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -128,26 +129,29 @@ public class Controller {
 				currentCodeAreaListener();
 				System.out.println(tab.getText()/*+"--"+currentCodeArea.getText()*/);
 
-				//TODO open files side bar styles
-				/*int index=tabPane.getTabs().indexOf(tab);
+				int index=tabPane.getTabs().indexOf(tab);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
 					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
 				else
-					for(Node l : openFilesList.getChildren())
+					for(Node l : openFilesList.getChildren()) // Label (l) upcasting
 						l.setStyle("-fx-text-fill:_DETAILS");
+
 				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:_TEXT"); //#39ea49 green
+
 				fileType.setText(getType(tab.getText()));
-				if(openFiles.get(tab.getText())!=null)
-					filePath.setText(String.valueOf(openFiles.get(tab.getText())));
+
+				if(openTabsFiles.get(tab.getText())!=null)
+					filePath.setText(String.valueOf(openTabsFiles.get(tab.getText())));
 				else
 					filePath.setText("");
+
 				if(isModified())
 				{
 					Main.setMainStageTitle(tab.getText()+"   (modified)");
 				} else
 				{
 					Main.setMainStageTitle(tab.getText());
-				}*/
+				}
 			} else
 			{
 				Main.setMainStageTitle("Gem");
@@ -163,7 +167,6 @@ public class Controller {
 		//		currentTextArea.requestFocus();
 	}
 
-	//TODO useless?
 	private void currentCodeAreaListener() {
 		//TODO: isListened=false;
 		//TODO: isReady=false;
@@ -444,10 +447,8 @@ public class Controller {
 	}
 
 	private String getType(String name) {
-		//		if(name.matches(".+[.].⚫"))
-		//		{
-		//			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
-		//		}
+		if(name.matches(".+[.].⚫"))
+			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		return "";
 	}
 
