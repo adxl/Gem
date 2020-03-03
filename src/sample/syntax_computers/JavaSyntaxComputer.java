@@ -43,12 +43,12 @@ public class JavaSyntaxComputer implements SyntaxComputer {
 
 		while(matcher.find())
 		{
-			String styleClass=matcher.group("KEYWORD")!=null ? "kyw" :
-									  matcher.group("LITERAL")!=null ? "lit" :
-											  matcher.group("SEMICOLON")!=null ? "smc" :
-													  matcher.group("COMMA")!=null ? "com" :
-															  matcher.group("STRING")!=null ? "str" :
-																	  matcher.group("COMMENT")!=null ? "cmt" : null;
+			String styleClass=matcher.group("KEYWORD")!=null ? "java_keyword" :
+									  matcher.group("LITERAL")!=null ? "java_literal" :
+											  matcher.group("SEMICOLON")!=null ? "java_semicolon" :
+													  matcher.group("COMMA")!=null ? "java_comma" :
+															  matcher.group("STRING")!=null ? "java_string" :
+																	  matcher.group("COMMENT")!=null ? "java_comment" : null;
 			assert styleClass!=null;
 			spansBuilder.add(Collections.emptyList(),matcher.start()-lastKeywordEnd);
 			spansBuilder.add(Collections.singleton(styleClass),matcher.end()-matcher.start());

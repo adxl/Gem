@@ -47,14 +47,14 @@ public class CSyntaxComputer implements SyntaxComputer {
 
 		while(matcher.find())
 		{
-			String styleClass=matcher.group("KEYWORD")!=null ? "kyw" :
-									  matcher.group("DIRECTIVE")!=null ? "dir" :
-											  matcher.group("LITERAL")!=null ? "lit" :
-													  matcher.group("SEMICOLON")!=null ? "smc" :
-															  matcher.group("COMMA")!=null ? "com" :
-																	  matcher.group("STRING")!=null ? "str" :
-																			  matcher.group("HEADER")!=null ? "hea" :
-																					  matcher.group("COMMENT")!=null ? "cmt" : null;
+			String styleClass=matcher.group("KEYWORD")!=null ? "c_keyword" :
+									  matcher.group("DIRECTIVE")!=null ? "c_directive" :
+											  matcher.group("LITERAL")!=null ? "c_literal" :
+													  matcher.group("SEMICOLON")!=null ? "c_semicolon" :
+															  matcher.group("COMMA")!=null ? "c_comma" :
+																	  matcher.group("STRING")!=null ? "c_string" :
+																			  matcher.group("HEADER")!=null ? "c_header" :
+																					  matcher.group("COMMENT")!=null ? "c_comment" : null;
 			assert styleClass!=null;
 			spansBuilder.add(Collections.emptyList(),matcher.start()-lastKeywordEnd);
 			spansBuilder.add(Collections.singleton(styleClass),matcher.end()-matcher.start());

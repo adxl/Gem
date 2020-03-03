@@ -21,55 +21,80 @@ AnchorPane {
 	-fx-fill: _TEXT;
 }
 
+
 .styled-text-area .lineno {
 	-fx-background-color: _PRIMARY;
 	-fx-text-fill: _TEXT;
 	-fx-background-radius: 0 0 0 20;
+}
 
+.caret {
+	-fx-stroke: _TEXT;
 }
 
 /*  Highlighting classes : */
 
-/*
->>general classes<<
-	kyw:keywords
-	lit:literals
-	smc:semicolons
-	com:commas
-	str:strings
-	cmt:comments
-*/
+/* >> Java classes << */
 
-.styled-text-area .kyw {
+.styled-text-area .java_keyword {
 	-fx-fill: blue;
 	-fx-font-weight: bold;
 }
 
-.styled-text-area .lit {
+.styled-text-area .java_literal {
 	-fx-fill: purple;
 	-fx-font-weight: bold;
 }
 
-.styled-text-area .smc, .com {
+.styled-text-area .java_semicolon {
 	-fx-fill: #c27423;
 }
 
-.styled-text-area .str {
+.styled-text-area .java_comma {
+	-fx-fill: #c27423;
+}
+
+.styled-text-area .java_string {
 	-fx-fill: green;
 }
 
-.styled-text-area .cmt {
+.styled-text-area .java_comment {
 	-fx-fill: gray;
 }
-/* >>C<<
-	dir:directives
-*/
 
-.styled-text-area .dir{
-	-fx-fill:orange;
+/* >> C classes << */
+
+.styled-text-area .c_directive {
+	-fx-fill: orange;
 }
 
-.styled-text-area .hea{
+.styled-text-area .c_header {
 	-fx-font-style: italic;
 	-fx-fill: purple;
+}
+
+.styled-text-area .c_keyword {
+	-fx-fill: blue;
+	-fx-font-weight: bold;
+}
+
+.styled-text-area .c_literal {
+	-fx-fill: purple;
+	-fx-font-weight: bold;
+}
+
+.styled-text-area .c_semicolon {
+	-fx-fill: #c27423;
+}
+
+.styled-text-area .c_comma {
+	-fx-fill: #c27423;
+}
+
+.styled-text-area .c_string {
+	-fx-fill: green;
+}
+
+.styled-text-area .c_comment {
+	-fx-fill: gray;
 }
