@@ -1,7 +1,6 @@
 package sample.controllers;
 
 import com.sun.istack.internal.Nullable;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -12,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -77,7 +75,7 @@ public class Controller {
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
-		//		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
+		//fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
 
 		textChangeListener=this::textAreaChanged;
 
@@ -106,7 +104,7 @@ public class Controller {
 			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
 		}
 
-		//quickInit();
+		quickInit();
 		setDefaultTheme();
 	}
 
@@ -125,7 +123,6 @@ public class Controller {
 			if(tab.isSelected())
 			{
 				currentCodeAreaListener();
-				System.out.println(tab.getText()/*+"--"+currentCodeArea.getText()*/);
 
 				int index=tabPane.getTabs().indexOf(tab);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
@@ -171,23 +168,16 @@ public class Controller {
 
 		if(!currentFilesModifiedState.containsKey(currentCodeArea))
 			setModified(false);
-			//TODO else block can be improved
 		else
 		{
-			if(isModified())
-			{
-				setModified(true);
-				setLabelModified(true);
-			} else
-			{
-				setModified(false);
-				setLabelModified(false);
-			}
+			setModified(isModified());
+			setLabelModified(isModified());
 		}
 
 		currentCodeArea.textProperty().removeListener(textChangeListener);
 		currentCodeArea.textProperty().addListener(textChangeListener);
-		//TODO set text fontsize to `fontSizeSlider.getValue()`
+
+		currentCodeArea.setStyle("-fx-font-size:"+fontSizeSlider.getValue()+"px;");
 
 		Platform.runLater(currentCodeArea::requestFocus);
 	}
@@ -223,17 +213,9 @@ public class Controller {
 		Tab tab=generateEditorTab("Untitled"+untitledIdCounter++,null);
 
 		addFileToOpenFilesList(tab);
-
 		openTabsFiles.put(tab.getText(),null);
 
-		tabSwitchListener(tab);
-		tab.setOnCloseRequest(event->closeFile(tab.getText()));
-
-		tabPane.getTabs().add(tab);
-		tabPane.getSelectionModel().select(tab);
-
-		currentCodeArea=(CodeArea)((AnchorPane)(tab.getContent())).getChildren().get(0);
-		currentCodeArea.requestFocus();
+		finalizeFileCreation(tab);
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
@@ -241,6 +223,10 @@ public class Controller {
 
 		addFileToOpenFilesList(tab);
 
+		finalizeFileCreation(tab);
+	}
+
+	private void finalizeFileCreation(Tab tab) {
 		tabSwitchListener(tab);
 		tab.setOnCloseRequest(event->closeFile(tab.getText()));
 
@@ -263,19 +249,10 @@ public class Controller {
 			{
 				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
 
-				//TODO possible duplicated code : openExistingFile()
-				BufferedReader bufferedReader=new BufferedReader(fileReader);
-				StringBuilder stringBuilder=new StringBuilder();
-				String text;
-				while((text=bufferedReader.readLine())!=null)
-				{
-					stringBuilder.append(text).append("\n");
-				}
-				System.out.println("<"+stringBuilder.charAt(stringBuilder.length()-1)+">");
-				stringBuilder.deleteCharAt(stringBuilder.length()-1);
-
 				openTabsFiles.put(selectedFile.getName(),selectedFile);
-				createPrefFile(selectedFile.getName(),stringBuilder.toString());
+
+				String text=readFile(fileReader);
+				createPrefFile(selectedFile.getName(),text);
 			} else
 				for(Tab t : tabPane.getTabs())
 					if(t.getText().equals(selectedFile.getName()))
@@ -290,7 +267,13 @@ public class Controller {
 		File file=new File(path);
 		FileReader fileReader=new FileReader(path);
 
-		//TODO possible duplicated code : openFile()
+		openTabsFiles.put(file.getName(),file);
+
+		String text=readFile(fileReader);
+		createPrefFile(file.getName(),text);
+	}
+
+	private String readFile(FileReader fileReader) throws IOException {
 		BufferedReader bufferedReader=new BufferedReader(fileReader);
 		StringBuilder stringBuilder=new StringBuilder();
 		String text;
@@ -300,8 +283,7 @@ public class Controller {
 		}
 		stringBuilder.deleteCharAt(stringBuilder.length()-1);
 
-		openTabsFiles.put(file.getName(),file);
-		createPrefFile(file.getName(),stringBuilder.toString());
+		return stringBuilder.toString();
 	}
 
 	private void closeFile(String title) {
