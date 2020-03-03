@@ -130,7 +130,7 @@ public class Controller {
 
 				//TODO necessary? currentCodeAreaListener();
 
-				//TODO open files side bar
+				//TODO open files side bar styles
 				/*int index=tabPane.getTabs().indexOf(tab);
 				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
 					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
@@ -269,7 +269,7 @@ public class Controller {
 	private void createFile() throws IOException {
 		Tab tab=generateEditorTab("Untitled"+untitledIdCounter++,null);
 
-		//TODO: addFileToOpenFilesList(tab);
+		addFileToOpenFilesList(tab);
 
 		openTabsFiles.put(tab.getText(),null);
 
@@ -287,7 +287,7 @@ public class Controller {
 		//		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		Tab tab=generateEditorTab(title,text);
 
-		//TODO addFileToOpenFilesList(tab);
+		addFileToOpenFilesList(tab);
 
 		tabSwitchListener(tab);
 		tab.setOnCloseRequest(event->closeFile(tab.getText()));
@@ -389,21 +389,21 @@ public class Controller {
 	}
 
 	private void addFileToOpenFilesList(Tab tab) {
-		//		Label label=new Label(tab.getText());
-		//		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(tab));
-		//		openFilesList.getChildren().add(label);
+		Label label=new Label(tab.getText());
+		label.setOnMouseClicked(event->tabPane.getSelectionModel().select(tab));
+		openFilesList.getChildren().add(label);
 	}
 
 	private void removeFileFromOpenFilesList(String title) {
-		//		for(Label l : openFilesList.getChildren().toArray(new Label[openFilesList.getChildren().size()]))
-		//		{
-		//			if(l.getText().equals(title))
-		//			{
-		//				openFilesList.getChildren().remove(l);
-		//				break;
-		//			}
-		//		}
-		//		tabPane.getSelectionModel().selectLast();
+		for(Label l : openFilesList.getChildren().toArray(new Label[0]))
+		{
+			if(l.getText().equals(title))
+			{
+				openFilesList.getChildren().remove(l);
+				break;
+			}
+		}
+		tabPane.getSelectionModel().selectLast();
 	}
 
 	@FXML
@@ -427,7 +427,7 @@ public class Controller {
 
 	@FXML
 	private void saveFileAs() throws IOException {
-//		if(!currentTextArea.getText().isEmpty())
+		//		if(!currentTextArea.getText().isEmpty())
 		if(!currentCodeArea.getText().isEmpty()) //don't save an empty file
 		{
 			Stage stage=new Stage();
@@ -436,7 +436,7 @@ public class Controller {
 			if(file!=null)
 			{
 				PrintWriter writer=new PrintWriter(file);
-//				writer.println(currentTextArea.getText());
+				//				writer.println(currentTextArea.getText());
 				writer.println(currentCodeArea.getText());
 				writer.close();
 
@@ -472,6 +472,8 @@ public class Controller {
 		//			currentLinesCounter.setText(lines.toString());
 		//		}
 	}
+
+	// independent UI related methods :
 
 	@FXML
 	private void showPalette() {
@@ -587,7 +589,7 @@ public class Controller {
 		return String.format("#%02X%02X%02X%02X",rgba.get('r'),rgba.get('g'),rgba.get('b'),rgba.get('a'));
 	}
 
-	//hexadecimal representation of rgba without "#"
+	//param hex -> hexadecimal representation of rgba without "#"
 	private HashMap<Character,Integer> colorToRGBA(String hex) {
 		HashMap<Character,Integer> rgba=new HashMap<>();
 		rgba.put('r',Integer.parseInt(hex.substring(0,2),16));
@@ -600,6 +602,9 @@ public class Controller {
 	public void clearCurrentPalette() {
 		currentPalette.clear();
 	}
+
+	//end of UI methods
+
 
 	private boolean isModified() {
 		//		return currentFiles.get(currentTextArea);
