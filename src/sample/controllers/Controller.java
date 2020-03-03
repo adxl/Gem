@@ -2,6 +2,7 @@ package sample.controllers;
 
 import com.sun.istack.internal.Nullable;
 import com.sun.xml.internal.bind.v2.TODO;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
@@ -43,17 +44,8 @@ public class Controller {
 
 	private int untitledIdCounter;
 
-	//private TextArea currentTextArea; //Deprecated
 	private CodeArea currentCodeArea;
 
-	//	private TextArea currentLinesCounter; //Deprecated
-
-	//old textArea related fields : Deprecated
-	/*private ScrollBar currentTextScrollBar;
-	private ScrollBar currentLinesCounterScrollBar;*/
-
-	//	private boolean isListened=false;
-	//	private boolean isReady=false;
 
 	@FXML
 	private Slider fontSizeSlider;
@@ -64,9 +56,7 @@ public class Controller {
 	private VBox openFilesList;
 	private HashMap<String,File> openTabsFiles=new HashMap<>();
 
-	//	private HashMap<TextArea,Boolean> currentFiles=new HashMap<>();
 	private HashMap<CodeArea,Boolean> currentFilesModifiedState=new HashMap<>();
-
 
 	private HashMap<String,HashMap<Character,Integer>> currentPalette=new HashMap<>();
 
@@ -83,42 +73,50 @@ public class Controller {
 	@FXML
 	private void initialize() throws IOException {
 		untitledIdCounter=1;
+
 		fontSizeSlider.setMin(10);
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
-		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
+		//		fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
+
 		textChangeListener=this::textAreaChanged;
+
+		//test if jar was run with arg
 		if(Main.getPassedFile()!=null)
 		{
 			openExistingFile(Main.getPassedFile().getAbsolutePath());
 		}
+
 		final BooleanBinding isTabPaneEmpty=Bindings.isEmpty(tabPane.getTabs());
 		promptAnchorPane.visibleProperty().bind(isTabPaneEmpty);
-
-		for(int i=0;i<4;i++)
-		{
-			colorPickers[i]=(ColorPicker)(paletteGrid.getChildren().get(i+4));
-			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
-		}
 
 		//TODO : disabled font size modifications for a moment
 		fontSizeSlider.setVisible(false);
 		fontSizeSliderIcon.setVisible(false);
 		/*fontSizeSlider.visibleProperty().bind(isTabPaneEmpty.not());
 		fontSizeSliderIcon.visibleProperty().bind(isTabPaneEmpty.not());*/
+
 		SplitPane.setResizableWithParent(splitPane,false);
 		SplitPane.setResizableWithParent(splitPane.getItems().get(0),false);
-		//		quickInit();
+
+		//custom theme live preview
+		for(int i=0;i<4;i++)
+		{
+			colorPickers[i]=(ColorPicker)(paletteGrid.getChildren().get(i+4));
+			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
+		}
+
+		//quickInit();
 		setDefaultTheme();
 	}
 
-	//quick init for test
+	//launch application with already open files
 	private void quickInit() throws IOException {
-		//		openExistingFile("Gem.iml");
-		//		openExistingFile("README.md");
-		//		openExistingFile("todo.md");
-		//		createFile();
-		//		tabPane.getSelectionModel().select(0);
+		openExistingFile("Gem.iml");
+		openExistingFile("README.md");
+		openExistingFile("todo.md");
+		createFile();
+		tabPane.getSelectionModel().select(0);
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -161,23 +159,20 @@ public class Controller {
 		});
 	}
 
+	@Deprecated
 	private void fontSizeSliderListener(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
-		//		currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-		//		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-		//		currentTextArea.requestFocus();
+		/*currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
+		currentTextArea.requestFocus();*/
 	}
 
 	private void currentCodeAreaListener() {
-		//TODO: isListened=false;
-		//TODO: isReady=false;
-
-		//currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
 		currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 
 		if(!currentFilesModifiedState.containsKey(currentCodeArea))
-		{
 			setModified(false);
-		} else
+			//TODO else block can be improved
+		else
 		{
 			if(isModified())
 			{
@@ -190,54 +185,14 @@ public class Controller {
 			}
 		}
 
-		//currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
-
-		//currentTextArea.textProperty().removeListener(textChangeListener);
-		//currentTextArea.textProperty().addListener(textChangeListener);
-		//currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-
 		currentCodeArea.textProperty().removeListener(textChangeListener);
 		currentCodeArea.textProperty().addListener(textChangeListener);
-		//TODO set text fontsize
+		//TODO set text fontsize to `fontSizeSlider.getValue()`
 
-		//currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
-		//countLines();
-
-		//TODO Platform.runLater(currentTextArea::requestFocus);
+		Platform.runLater(currentCodeArea::requestFocus);
 	}
 
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
-		//		currentTextArea.setOnScroll(null);
-		//		int textLines=c.split("\r\n|\r|\n",-1).length;
-		//		int counterLines=currentLinesCounter.getText().split("\n").length;
-		//		if(counterLines<textLines) //add row(s)
-		//		{
-		//			int linesDiff=textLines-counterLines;
-		//			for(int i=0;i<linesDiff;i++)
-		//				currentLinesCounter.appendText("\n"+(++counterLines));
-		//		} else if(counterLines>textLines) //remove row(s)
-		//		{
-		//			char[] chars=currentLinesCounter.getText().toCharArray();
-		//			int linesDiff=counterLines-textLines;
-		//			int diffCounter=0;
-		//			int deleteStartIndex=-1;
-		//			for(int i=currentLinesCounter.getLength()-1;i >= 0;i--)
-		//			{
-		//				deleteStartIndex=i;
-		//				if(chars[i]=='\n')
-		//					diffCounter++;
-		//				if(diffCounter==linesDiff)
-		//					break;
-		//			}
-		//			currentLinesCounter.deleteText(deleteStartIndex,currentLinesCounter.getLength());
-		//		}
-		//		currentTextScrollBar=(ScrollBar)currentTextArea.lookup(".scroll-bar:vertical");
-		//		currentLinesCounterScrollBar=(ScrollBar)currentLinesCounter.lookup(".scroll-bar:vertical");
-		//		if(!isListened)
-		//		{
-		//			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
-		//			isListened=true;
-		//		}
 		setModified(true);
 		setLabelModified(true);
 	}
@@ -282,7 +237,6 @@ public class Controller {
 	}
 
 	private void createPrefFile(String title,String text) throws IOException {
-		//		Tab tab=new Tab(title,FXMLLoader.load(getClass().getResource("/sample/views/tab.fxml")));
 		Tab tab=generateEditorTab(title,text);
 
 		addFileToOpenFilesList(tab);
@@ -295,22 +249,6 @@ public class Controller {
 
 		currentCodeArea=(CodeArea)((AnchorPane)(tab.getContent())).getChildren().get(0);
 		currentCodeArea.requestFocus();
-
-		//((AnchorPane)tab.getContent()).getChildren().get(1).requestFocus();
-
-		//TODO might be unnecessary
-		/*currentTextArea.setOnMouseEntered(event->
-		{
-			if(!isReady && !isModified())
-			{
-				currentTextArea.appendText(" ");
-				currentTextArea.deleteText(currentTextArea.getLength()-1,currentTextArea.getLength());
-				currentTextArea.positionCaret(0);
-				setModified(false);
-				setLabelModified(false);
-				isReady=true;
-			}
-		});*/
 	}
 
 	@FXML
@@ -324,6 +262,7 @@ public class Controller {
 			if(!openTabsFiles.containsKey(selectedFile.getName()))
 			{
 				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
+
 				//TODO possible duplicated code : openExistingFile()
 				BufferedReader bufferedReader=new BufferedReader(fileReader);
 				StringBuilder stringBuilder=new StringBuilder();
@@ -334,19 +273,16 @@ public class Controller {
 				}
 				System.out.println("<"+stringBuilder.charAt(stringBuilder.length()-1)+">");
 				stringBuilder.deleteCharAt(stringBuilder.length()-1);
+
 				openTabsFiles.put(selectedFile.getName(),selectedFile);
 				createPrefFile(selectedFile.getName(),stringBuilder.toString());
 			} else
-			{
 				for(Tab t : tabPane.getTabs())
-				{
 					if(t.getText().equals(selectedFile.getName()))
 					{
 						tabPane.getSelectionModel().select(t);
 						return;
 					}
-				}
-			}
 		}
 	}
 
@@ -362,6 +298,8 @@ public class Controller {
 		{
 			stringBuilder.append(text).append("\n");
 		}
+		stringBuilder.deleteCharAt(stringBuilder.length()-1);
+
 		openTabsFiles.put(file.getName(),file);
 		createPrefFile(file.getName(),stringBuilder.toString());
 	}
@@ -415,7 +353,6 @@ public class Controller {
 		} else //saving an existing file
 		{
 			PrintWriter writer=new PrintWriter(openTabsFiles.get(fileName));
-			//writer.println(currentTextArea.getText());
 			writer.println(currentCodeArea.getText());
 			writer.close();
 
@@ -426,7 +363,6 @@ public class Controller {
 
 	@FXML
 	private void saveFileAs() throws IOException {
-		//		if(!currentTextArea.getText().isEmpty())
 		if(!currentCodeArea.getText().isEmpty()) //don't save an empty file
 		{
 			Stage stage=new Stage();
@@ -435,7 +371,6 @@ public class Controller {
 			if(file!=null)
 			{
 				PrintWriter writer=new PrintWriter(file);
-				//				writer.println(currentTextArea.getText());
 				writer.println(currentCodeArea.getText());
 				writer.close();
 
@@ -452,21 +387,6 @@ public class Controller {
 		if(name.matches(".+[.].⚫"))
 			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		return "";
-	}
-
-	private void countLines() {
-		//		int textLines=currentTextArea.getText().split("\r\n|\r|\n",-1).length;
-		//		int counterLines=currentLinesCounter.getText().split("\n").length;
-		//		if(textLines!=counterLines)
-		//		{
-		//			StringBuilder lines=new StringBuilder();
-		//			lines.append(1);
-		//			for(int i=2;i<=textLines;i++)
-		//			{
-		//				lines.append("\n").append(i);
-		//			}
-		//			currentLinesCounter.setText(lines.toString());
-		//		}
 	}
 
 	// independent UI related methods :
@@ -613,14 +533,12 @@ public class Controller {
 			tabPane.setStyle(circleSVGPathProperty);
 			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:italic;");
 			Main.setMainStageTitle(tab.getText()+"   (modified)");
-			//			currentFilesModifiedState.put(currentTextArea,true);
 			currentFilesModifiedState.put(currentCodeArea,true);
 		} else //set original (unmodified)
 		{
 			tabPane.setStyle(defaultSVGPathProperty);
 			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:normal;");
 			Main.setMainStageTitle(tab.getText());
-			//			currentFilesModifiedState.put(currentTextArea,false);
 			currentFilesModifiedState.put(currentCodeArea,false);
 		}
 	}
