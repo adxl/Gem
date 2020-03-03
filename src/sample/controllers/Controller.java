@@ -110,11 +110,11 @@ public class Controller {
 
 	//quick init for test
 	private void quickInit() throws IOException {
-		openExistingFile("Gem.iml");
-		openExistingFile("README.md");
-		openExistingFile("todo.md");
-		createFile();
-		tabPane.getSelectionModel().select(0);
+//		openExistingFile("Gem.iml");
+//		openExistingFile("README.md");
+//		openExistingFile("todo.md");
+//		createFile();
+//		tabPane.getSelectionModel().select(0);
 	}
 
 	private void tabSwitchListener(Tab tab) {
@@ -323,6 +323,7 @@ public class Controller {
 			if(!openFiles.containsKey(selectedFile.getName()))
 			{
 				FileReader fileReader=new FileReader(selectedFile.getAbsolutePath());
+				//TODO possible duplicated code : openExistingFile()
 				BufferedReader bufferedReader=new BufferedReader(fileReader);
 				StringBuilder stringBuilder=new StringBuilder();
 				String text;
@@ -347,17 +348,19 @@ public class Controller {
 	}
 
 	private void openExistingFile(String path) throws IOException {
-		//		File file=new File(path);
-		//		FileReader fileReader=new FileReader(path);
-		//		BufferedReader bufferedReader=new BufferedReader(fileReader);
-		//		StringBuilder stringBuilder=new StringBuilder();
-		//		String text;
-		//		while((text=bufferedReader.readLine())!=null)
-		//		{
-		//			stringBuilder.append(text).append("\n");
-		//		}
-		//		openFiles.put(file.getName(),file);
-		//		createPrefFile(file.getName(),stringBuilder.toString());
+		File file=new File(path);
+		FileReader fileReader=new FileReader(path);
+
+		//TODO possible duplicated code : openFile()
+		BufferedReader bufferedReader=new BufferedReader(fileReader);
+		StringBuilder stringBuilder=new StringBuilder();
+		String text;
+		while((text=bufferedReader.readLine())!=null)
+		{
+			stringBuilder.append(text).append("\n");
+		}
+		openFiles.put(file.getName(),file);
+		createPrefFile(file.getName(),stringBuilder.toString());
 	}
 
 	private void closeFile(String title) {
