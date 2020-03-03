@@ -49,6 +49,7 @@ public class Controller {
 
 	private CodeArea currentCodeArea;
 	private Subscription currentCodeAreaSub;
+	private HashMap<CodeArea,Subscription> codeAreasSubscriptionsMap=new HashMap<>();
 
 	private final String[] SUPPORTED_LANGAGES=new String[] {"JAVA"};
 	private ArrayList<String> supportedLangages;
@@ -136,15 +137,16 @@ public class Controller {
 					{
 						currentCodeAreaListener();
 
+						System.out.println(codeAreasSubscriptionsMap.keySet());
+
 						int index=tabPane.getTabs().indexOf(tab);
 						if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
 							openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
 						else
-							for(Node l : openFilesList.getChildren()) // Label (l) upcasting
+							for(Node l : openFilesList.getChildren())
 								l.setStyle("-fx-text-fill:_DETAILS");
 
-						(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:_TEXT");
-						//#39ea49 green
+						(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:_TEXT"); //#39ea49 green
 
 						fileType.setText(getType(tab.getText()));
 
@@ -212,15 +214,13 @@ public class Controller {
 			codeArea=new CodeArea(text);
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 
-		//		Subscription cleanupWhenNoLongerNeedIt=area.multiPlainChanges()
-		//				.successionEnds(Duration.ofMillis(1))
-		//				.subscribe(ignore->area.setStyleSpans(0,computeHighlighting(area.getText())));
 		String type=getType(title);
 		if(isLangageSupported(type))
 		{
 			currentCodeAreaSub=codeArea.multiPlainChanges()
 									   .successionEnds(Duration.ofMillis(1))
 									   .subscribe(ignore->codeArea.setStyleSpans(0,applySyntaxComputer(codeArea,type)));
+			codeAreasSubscriptionsMap.put(codeArea,currentCodeAreaSub);
 		}
 
 		AnchorPane.setTopAnchor(codeArea,0.0);
@@ -239,6 +239,8 @@ public class Controller {
 
 	private StyleSpans<Collection<String>> applySyntaxComputer(CodeArea codeArea,String type) {
 		SyntaxComputer syntaxComputer=null; //should not happen
+
+		//all cases should exist in SUPPORTED_LANGAGES
 		switch(type)
 		{
 			case "JAVA":
@@ -329,6 +331,10 @@ public class Controller {
 
 	private void closeFile(String title) {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+
+		codeAreasSubscriptionsMap.get(currentCodeArea).unsubscribe();
+		codeAreasSubscriptionsMap.remove(currentCodeArea);
+
 		boolean wasModified=isModified();
 
 		currentFilesModifiedState.remove(currentCodeArea);
