@@ -22,6 +22,7 @@ import org.fxmisc.richtext.LineNumberFactory;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.reactfx.Subscription;
 import sample.Main;
+import sample.syntax_computers.CSyntaxComputer;
 import sample.syntax_computers.JavaSyntaxComputer;
 import sample.syntax_computers.SyntaxComputer;
 
@@ -51,7 +52,7 @@ public class Controller {
 	private Subscription currentCodeAreaSub;
 	private HashMap<CodeArea,Subscription> codeAreasSubscriptionsMap=new HashMap<>();
 
-	private final String[] SUPPORTED_LANGAGES=new String[] {"JAVA"};
+	private final String[] SUPPORTED_LANGAGES=new String[] {"JAVA","C"};
 	private ArrayList<String> supportedLangages;
 
 
@@ -122,7 +123,7 @@ public class Controller {
 
 	//launch application with already open files
 	private void quickInit() throws IOException {
-		openExistingFile("java_snippet_test.java");
+		openExistingFile("snippets/java_snippet_test.java");
 		openExistingFile("Gem.iml");
 		openExistingFile("README.md");
 		openExistingFile("todo.md");
@@ -220,6 +221,10 @@ public class Controller {
 									   .successionEnds(Duration.ofMillis(1))
 									   .subscribe(ignore->codeArea.setStyleSpans(0,applySyntaxComputer(codeArea,type)));
 			codeAreasSubscriptionsMap.put(codeArea,currentCodeAreaSub);
+
+			int textLength=codeArea.getText().length();
+			codeArea.insertText(textLength,"$");
+			codeArea.deleteText(textLength,textLength+1);
 		}
 
 		AnchorPane.setTopAnchor(codeArea,0.0);
@@ -237,13 +242,16 @@ public class Controller {
 	}
 
 	private StyleSpans<Collection<String>> applySyntaxComputer(CodeArea codeArea,String type) {
-		SyntaxComputer syntaxComputer=null; //should not happen
+		SyntaxComputer syntaxComputer=null; //should never happen
 
 		//all cases should exist in SUPPORTED_LANGAGES
 		switch(type)
 		{
 			case "JAVA":
 				syntaxComputer=new JavaSyntaxComputer();
+				break;
+			case "C":
+				syntaxComputer=new CSyntaxComputer();
 				break;
 		}
 		assert syntaxComputer!=null;
