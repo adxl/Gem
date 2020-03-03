@@ -125,10 +125,8 @@ public class Controller {
 		{
 			if(tab.isSelected())
 			{
-				currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+				currentCodeAreaListener();
 				System.out.println(tab.getText()/*+"--"+currentCodeArea.getText()*/);
-
-				//TODO necessary? currentCodeAreaListener();
 
 				//TODO open files side bar styles
 				/*int index=tabPane.getTabs().indexOf(tab);
@@ -173,8 +171,7 @@ public class Controller {
 		//currentTextArea=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(1);
 		currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 
-		//TODO modification check
-		/*if(!currentFiles.containsKey(currentTextArea))
+		if(!currentFilesModifiedState.containsKey(currentCodeArea))
 		{
 			setModified(false);
 		} else
@@ -188,7 +185,7 @@ public class Controller {
 				setModified(false);
 				setLabelModified(false);
 			}
-		}*/
+		}
 
 		//currentLinesCounter=(TextArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 
@@ -196,10 +193,9 @@ public class Controller {
 		//currentTextArea.textProperty().addListener(textChangeListener);
 		//currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 
-		//TODO Confirm if a listener is necessary
-		//currentCodeArea.textProperty().removeListener(textChangeListener);
-		//currentCodeArea.textProperty().addListener(textChangeListener);
-		//currentCodeArea.setStyle("-fx-font-family: Mashq-Bold");
+		currentCodeArea.textProperty().removeListener(textChangeListener);
+		currentCodeArea.textProperty().addListener(textChangeListener);
+		//TODO set text fontsize
 
 		//currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		//countLines();
@@ -207,7 +203,6 @@ public class Controller {
 		//TODO Platform.runLater(currentTextArea::requestFocus);
 	}
 
-	//TODO useless?
 	private void textAreaChanged(ObservableValue<? extends String> observableValue,String p,String c) {
 		//		currentTextArea.setOnScroll(null);
 		//		int textLines=c.split("\r\n|\r|\n",-1).length;
@@ -240,8 +235,8 @@ public class Controller {
 		//			currentLinesCounterScrollBar.valueProperty().bindBidirectional(currentTextScrollBar.valueProperty());
 		//			isListened=true;
 		//		}
-		//		setModified(true);
-		//		setLabelModified(true);
+		setModified(true);
+		setLabelModified(true);
 	}
 
 	private Tab generateEditorTab(String title,@Nullable String text) throws IOException {
@@ -368,15 +363,15 @@ public class Controller {
 
 	private void closeFile(String title) {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		//boolean wasModified=isModified();
-		//TODO modified files currentFiles.remove(currentTextArea);
+		boolean wasModified=isModified();
+
+		currentFilesModifiedState.remove(currentCodeArea);
 		tabPane.getTabs().remove(tab);
 
-		//TODO check if modified to interact with sidebar
-		/*if(wasModified)
+		if(wasModified)
 			removeFileFromOpenFilesList(title+"⚫");
 		else
-			removeFileFromOpenFilesList(title);*/
+			removeFileFromOpenFilesList(title);
 
 		openTabsFiles.remove(title);
 	}
@@ -419,9 +414,8 @@ public class Controller {
 			writer.println(currentCodeArea.getText());
 			writer.close();
 
-			//TODO modification stuff : check later
-			/*setModified(false);
-			setLabelModified(false);*/
+			setModified(false);
+			setLabelModified(false);
 		}
 	}
 
@@ -443,9 +437,8 @@ public class Controller {
 				closeFileRequest();
 				openExistingFile(file.getAbsolutePath());
 
-				//TODO modification, as save() : to check later
-				/*setModified(false);
-				setLabelModified(false);*/
+				setModified(false);
+				setLabelModified(false);
 			}
 		}
 	}
@@ -607,50 +600,51 @@ public class Controller {
 
 
 	private boolean isModified() {
-		//		return currentFiles.get(currentTextArea);
-		return false; //temporary
+		return currentFilesModifiedState.get(currentCodeArea);
 	}
 
 	private void setModified(boolean b) {
-		//		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		//		if(b) //set modified
-		//		{
-		//			tabPane.setStyle(circleSVGPathProperty);
-		//			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:italic;");
-		//			Main.setMainStageTitle(tab.getText()+"   (modified)");
-		//			currentFiles.put(currentTextArea,true);
-		//		} else //set original
-		//		{
-		//			tabPane.setStyle(defaultSVGPathProperty);
-		//			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:normal;");
-		//			Main.setMainStageTitle(tab.getText());
-		//			currentFiles.put(currentTextArea,false);
-		//		}
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		if(b) //set modified
+		{
+			tabPane.setStyle(circleSVGPathProperty);
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:italic;");
+			Main.setMainStageTitle(tab.getText()+"   (modified)");
+			//			currentFilesModifiedState.put(currentTextArea,true);
+			currentFilesModifiedState.put(currentCodeArea,true);
+		} else //set original (unmodified)
+		{
+			tabPane.setStyle(defaultSVGPathProperty);
+			tabPane.getSelectionModel().getSelectedItem().setStyle("-fx-font-style:normal;");
+			Main.setMainStageTitle(tab.getText());
+			//			currentFilesModifiedState.put(currentTextArea,false);
+			currentFilesModifiedState.put(currentCodeArea,false);
+		}
 	}
 
 	private void setLabelModified(boolean b) {
-		//		String tabName=tabPane.getSelectionModel().getSelectedItem().getText();
-		//		if(b) //set modified
-		//		{
-		//			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
-		//			{
-		//				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='⚫')
-		//				{
-		//					l.setText(tabName+"⚫");
-		//					return;
-		//				}
-		//			}
-		//		} else
-		//		{
-		//			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
-		//			{
-		//				if(l.getText().equals(tabName+"⚫"))
-		//				{
-		//					l.setText(tabName);
-		//					return;
-		//				}
-		//			}
-		//		}
+		String tabName=tabPane.getSelectionModel().getSelectedItem().getText();
+		if(b) //set modified
+		{
+			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
+			{
+				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='⚫')
+				{
+					l.setText(tabName+"⚫");
+					return;
+				}
+			}
+		} else
+		{
+			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
+			{
+				if(l.getText().equals(tabName+"⚫"))
+				{
+					l.setText(tabName);
+					return;
+				}
+			}
+		}
 	}
 
 	@FXML

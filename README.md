@@ -1,3 +1,4 @@
 # Gem
-Gem Text Editor
+Gem Code Editor
+
 
