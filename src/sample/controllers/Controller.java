@@ -122,6 +122,7 @@ public class Controller {
 
 	//launch application with already open files
 	private void quickInit() throws IOException {
+		openExistingFile("java_snippet_test.java");
 		openExistingFile("Gem.iml");
 		openExistingFile("README.md");
 		openExistingFile("todo.md");
@@ -136,8 +137,6 @@ public class Controller {
 					if(tab.isSelected())
 					{
 						currentCodeAreaListener();
-
-						System.out.println(codeAreasSubscriptionsMap.keySet());
 
 						int index=tabPane.getTabs().indexOf(tab);
 						if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
