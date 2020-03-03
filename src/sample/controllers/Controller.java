@@ -19,9 +19,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
+import org.fxmisc.richtext.model.StyleSpans;
+import org.reactfx.Subscription;
 import sample.Main;
+import sample.syntax_computers.JavaSyntaxComputer;
+import sample.syntax_computers.SyntaxComputer;
 
 import java.io.*;
+import java.time.Duration;
 import java.util.*;
 
 public class Controller {
@@ -43,6 +48,10 @@ public class Controller {
 	private int untitledIdCounter;
 
 	private CodeArea currentCodeArea;
+	private Subscription currentCodeAreaSub;
+
+	private final String[] SUPPORTED_LANGAGES=new String[] {"JAVA"};
+	private ArrayList<String> supportedLangages;
 
 
 	@FXML
@@ -65,7 +74,7 @@ public class Controller {
 
 	private ChangeListener<String> textChangeListener;
 
-	private String defaultSVGPathProperty="shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z\";";
+	private String defaultSVGPathProperty="shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1Z\";";
 	private String circleSVGPathProperty="shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
 
 	@FXML
@@ -76,6 +85,8 @@ public class Controller {
 		fontSizeSlider.setMax(20);
 		fontSizeSlider.setValue(13);
 		//fontSizeSlider.valueProperty().addListener(this::fontSizeSliderListener);
+
+		supportedLangages=new ArrayList<>(Arrays.asList(SUPPORTED_LANGAGES));
 
 		textChangeListener=this::textAreaChanged;
 
@@ -118,53 +129,57 @@ public class Controller {
 	}
 
 	private void tabSwitchListener(Tab tab) {
-		tab.setOnSelectionChanged(event->
-		{
-			if(tab.isSelected())
-			{
-				currentCodeAreaListener();
-
-				int index=tabPane.getTabs().indexOf(tab);
-				if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
-					openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
-				else
-					for(Node l : openFilesList.getChildren()) // Label (l) upcasting
-						l.setStyle("-fx-text-fill:_DETAILS");
-
-				(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:_TEXT"); //#39ea49 green
-
-				fileType.setText(getType(tab.getText()));
-
-				if(openTabsFiles.get(tab.getText())!=null)
-					filePath.setText(String.valueOf(openTabsFiles.get(tab.getText())));
-				else
-					filePath.setText("");
-
-				if(isModified())
+		tab.setOnSelectionChanged(
+				event->
 				{
-					Main.setMainStageTitle(tab.getText()+"   (modified)");
-				} else
-				{
-					Main.setMainStageTitle(tab.getText());
-				}
-			} else
-			{
-				Main.setMainStageTitle("Gem");
-				fileType.setText("");
-				filePath.setText("");
-			}
-		});
+					if(tab.isSelected())
+					{
+						currentCodeAreaListener();
+
+						int index=tabPane.getTabs().indexOf(tab);
+						if(tabPane.getTabs().size()==1 && openFilesList.getChildren().size()==2)
+							openFilesList.getChildren().get(1).setStyle("-fx-text-fill:_TEXT");
+						else
+							for(Node l : openFilesList.getChildren()) // Label (l) upcasting
+								l.setStyle("-fx-text-fill:_DETAILS");
+
+						(openFilesList.getChildren().get(index)).setStyle("-fx-text-fill:_TEXT");
+						//#39ea49 green
+
+						fileType.setText(getType(tab.getText()));
+
+						if(openTabsFiles.get(tab.getText())!=null)
+							filePath.setText(String.valueOf(openTabsFiles.get(tab.getText())));
+						else
+							filePath.setText("");
+
+						if(isModified())
+						{
+							Main.setMainStageTitle(tab.getText()+"   (modified)");
+						} else
+						{
+							Main.setMainStageTitle(tab.getText());
+						}
+					} else
+					{
+						Main.setMainStageTitle("Gem");
+						fileType.setText("");
+						filePath.setText("");
+					}
+				});
 	}
 
 	@Deprecated
-	private void fontSizeSliderListener(ObservableValue<? extends Number> observableValue,Number previousValue,Number currentValue) {
+	private void fontSizeSliderListener(ObservableValue<? extends Number> observableValue,Number previousValue,
+										Number currentValue) {
 		/*currentTextArea.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		currentLinesCounter.setFont(Font.font("Arial",fontSizeSlider.getValue()));
 		currentTextArea.requestFocus();*/
 	}
 
 	private void currentCodeAreaListener() {
-		currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+		currentCodeArea=
+				(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
 
 		if(!currentFilesModifiedState.containsKey(currentCodeArea))
 			setModified(false);
@@ -195,8 +210,18 @@ public class Controller {
 			codeArea=new CodeArea();
 		else
 			codeArea=new CodeArea(text);
-
 		codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+
+		//		Subscription cleanupWhenNoLongerNeedIt=area.multiPlainChanges()
+		//				.successionEnds(Duration.ofMillis(1))
+		//				.subscribe(ignore->area.setStyleSpans(0,computeHighlighting(area.getText())));
+		String type=getType(title);
+		if(isLangageSupported(type))
+		{
+			currentCodeAreaSub=codeArea.multiPlainChanges()
+									   .successionEnds(Duration.ofMillis(1))
+									   .subscribe(ignore->codeArea.setStyleSpans(0,applySyntaxComputer(codeArea,type)));
+		}
 
 		AnchorPane.setTopAnchor(codeArea,0.0);
 		AnchorPane.setRightAnchor(codeArea,0.0);
@@ -206,6 +231,22 @@ public class Controller {
 		root.getChildren().add(codeArea);
 
 		return new Tab(title,root);
+	}
+
+	private boolean isLangageSupported(String type) {
+		return supportedLangages.contains(type);
+	}
+
+	private StyleSpans<Collection<String>> applySyntaxComputer(CodeArea codeArea,String type) {
+		SyntaxComputer syntaxComputer=null; //should not happen
+		switch(type)
+		{
+			case "JAVA":
+				syntaxComputer=new JavaSyntaxComputer();
+				break;
+		}
+		assert syntaxComputer!=null;
+		return syntaxComputer.computeSyntaxHighlight(codeArea.getText());
 	}
 
 	@FXML
@@ -366,7 +407,7 @@ public class Controller {
 	}
 
 	private String getType(String name) {
-		if(name.matches(".+[.].⚫"))
+		if(name.matches(".+[.].*"))
 			return name.substring(name.lastIndexOf(".")+1).toUpperCase();
 		return "";
 	}
@@ -391,7 +432,10 @@ public class Controller {
 		currentPalette.put("text",colorToRGBA("343A40FF"));
 		currentPalette.put("details",colorToRGBA("343A408C"));
 
-		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		String style=
+				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						";";
 		appRoot.setStyle(style);
 
 		updatePalette();
@@ -406,7 +450,10 @@ public class Controller {
 		currentPalette.put("text",colorToRGBA("AEAEAEFF"));
 		currentPalette.put("details",colorToRGBA("6D6D6D99"));
 
-		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		String style=
+				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						";";
 		appRoot.setStyle(style);
 
 		updatePalette();
@@ -421,7 +468,10 @@ public class Controller {
 		currentPalette.put("text",colorToRGBA("CDCDCDFF"));
 		currentPalette.put("details",colorToRGBA("878787FF"));
 
-		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		String style=
+				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						";";
 		appRoot.setStyle(style);
 
 		updatePalette();
@@ -433,14 +483,18 @@ public class Controller {
 		String[] colors=new String[4];
 		for(int i=0;i<4;i++)
 		{
-			colors[i]=((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+			colors[i]=
+					((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
 		}
 		currentPalette.put("primary",colorToRGBA(colors[0]));
 		currentPalette.put("secondary",colorToRGBA(colors[1]));
 		currentPalette.put("text",colorToRGBA(colors[2]));
 		currentPalette.put("details",colorToRGBA(colors[3]));
 
-		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		String style=
+				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						";";
 		appRoot.setStyle(style);
 
 		hidePalette();
@@ -451,15 +505,20 @@ public class Controller {
 		String[] colors=new String[4];
 		for(int i=0;i<4;i++)
 		{
-			colors[i]="#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
+			colors[i]=
+					"#"+((ColorPicker)paletteGrid.getChildren().get(i+4)).getValue().toString().substring(2,10).toUpperCase();
 		}
-		String style="_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
+		String style=
+				"_PRIMARY:"+colors[0]+";"+"_SECONDARY:"+colors[1]+";"+"_TEXT:"+colors[2]+";"+"_DETAILS:"+colors[3]+";";
 		appRoot.setStyle(style);
 	}
 
 	@FXML
 	private void closeAndResetTheme() {
-		String style="_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get("secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+";";
+		String style=
+				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						";";
 		appRoot.setStyle(style);
 		hidePalette();
 	}

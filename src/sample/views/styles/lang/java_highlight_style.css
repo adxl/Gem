@@ -12,7 +12,7 @@ cmt:comments
 }
 
 .smc, .com {
-    -fx-text-fill: orangered;
+    -fx-fill: #c27423;
 }
 
 .str {
