@@ -1,5 +1,6 @@
 /*
 kyw:keywords
+lit:literals
 smc:semicolons
 com:commas
 str:strings
@@ -8,6 +9,11 @@ cmt:comments
 
 .kyw {
     -fx-fill: blue;
+    -fx-font-weight: bold;
+}
+
+.lit{
+    -fx-fill: purple;
     -fx-font-weight: bold;
 }
 

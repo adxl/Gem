@@ -18,6 +18,7 @@ public class JavaSyntaxComputer implements SyntaxComputer {
 			"throws","transient","try","void","volatile","while"};
 
 	private final String KEYWORD_REGEX_PATTERN="\\b("+String.join("|",KEYWORDS)+")\\b";
+	private final String LITERAL_REGEX_PATTERN="\\b(true|false|null)\\b";
 	private final String SEMICOLON_REGEX_PATTERN="\\;";
 	private final String COMMA_REGEX_PATTERN="\\,";
 	private final String STRING_REGEX_PATTERN="\"([^\"\\\\]|\\\\.)*\"";
@@ -25,6 +26,7 @@ public class JavaSyntaxComputer implements SyntaxComputer {
 
 	private final String[] PATTERNS=new String[] {
 			"(?<KEYWORD>"+KEYWORD_REGEX_PATTERN+")",
+			"(?<LITERAL>"+LITERAL_REGEX_PATTERN+")",
 			"(?<SEMICOLON>"+SEMICOLON_REGEX_PATTERN+")",
 			"(?<COMMA>"+COMMA_REGEX_PATTERN+")",
 			"(?<STRING>"+STRING_REGEX_PATTERN+")",
@@ -44,11 +46,12 @@ public class JavaSyntaxComputer implements SyntaxComputer {
 		{
 			String styleClass=
 					matcher.group("KEYWORD")!=null ? "kyw" :
-							matcher.group("SEMICOLON")!=null ? "smc" :
-									matcher.group("COMMA")!=null ? "com" :
-											matcher.group("STRING")!=null ? "str" :
-													matcher.group("COMMENT")!=null ? "cmt" :
-															null;
+							matcher.group("LITERAL")!=null ? "lit" :
+									matcher.group("SEMICOLON")!=null ? "smc" :
+											matcher.group("COMMA")!=null ? "com" :
+													matcher.group("STRING")!=null ? "str" :
+															matcher.group("COMMENT")!=null ? "cmt" :
+																	null;
 			assert styleClass!=null;
 			spansBuilder.add(Collections.emptyList(),matcher.start()-lastKeywordEnd);
 			spansBuilder.add(Collections.singleton(styleClass),matcher.end()-matcher.start());
