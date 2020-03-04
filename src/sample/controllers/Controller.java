@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -75,6 +76,7 @@ public class Controller {
 	private Label filePath;
 
 	private ChangeListener<String> textChangeListener;
+	private ChangeListener<String> searchFieldListener;
 
 	private String defaultSVGPathProperty="shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1Z\";";
 	private String circleSVGPathProperty="shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
@@ -91,6 +93,7 @@ public class Controller {
 		supportedLanguages=new ArrayList<>(Arrays.asList(SUPPORTED_LANGUAGES));
 
 		textChangeListener=this::textAreaChanged;
+		searchFieldListener=this::findInText;
 
 		//test if jar was run with arg
 		if(Main.getPassedFile()!=null)
@@ -180,7 +183,8 @@ public class Controller {
 	}
 
 	private void currentCodeAreaListener() {
-		currentCodeArea=(CodeArea)((AnchorPane)tabPane.getSelectionModel().getSelectedItem().getContent()).getChildren().get(0);
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		currentCodeArea=(CodeArea)((AnchorPane)(tab.getContent())).getChildren().get(0);
 
 		if(!currentFilesModifiedState.containsKey(currentCodeArea))
 			setModified(false);
@@ -231,7 +235,7 @@ public class Controller {
 		AnchorPane.setBottomAnchor(codeArea,0.0);
 		AnchorPane.setLeftAnchor(codeArea,0.0);
 
-		root.getChildren().add(codeArea);
+		root.getChildren().add(0,codeArea);
 
 		return new Tab(title,root);
 	}
@@ -428,7 +432,7 @@ public class Controller {
 	}
 
 	@FXML
-	private void cut(){
+	private void cut() {
 		currentCodeArea.cut();
 	}
 
@@ -440,6 +444,40 @@ public class Controller {
 	@FXML
 	private void paste() {
 		currentCodeArea.paste();
+	}
+
+	@FXML
+	private void find() {
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		Pane searchBar=(Pane)((AnchorPane)tab.getContent()).getChildren().get(1);
+
+		Button button=(Button)searchBar.getChildren().get(1);
+		button.setOnAction(event->searchBar.setVisible(false));
+
+		TextField searchField=(TextField)searchBar.getChildren().get(0);
+
+		if(searchBar.isVisible())
+			searchBar.setVisible(false);
+		else
+		{
+			searchBar.setVisible(true);
+			searchField.textProperty().removeListener(searchFieldListener);
+			searchField.textProperty().addListener(searchFieldListener);
+		}
+	}
+
+	private void findInText(ObservableValue<? extends String> observableValue,String p,String requestedText) {
+		String fileText=currentCodeArea.getText();
+
+		int index=fileText.indexOf(requestedText);
+
+		if(index==-1)
+			currentCodeArea.deselect();
+		else
+		{
+			currentCodeArea.moveTo(index);
+			currentCodeArea.selectRange(index,index+requestedText.length());
+		}
 	}
 
 	// independent UI related methods :
@@ -464,7 +502,8 @@ public class Controller {
 
 		String style=
 				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
-						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"
+				))+
 						";";
 		appRoot.setStyle(style);
 
@@ -482,7 +521,8 @@ public class Controller {
 
 		String style=
 				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
-						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"
+				))+
 						";";
 		appRoot.setStyle(style);
 
@@ -500,7 +540,8 @@ public class Controller {
 
 		String style=
 				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
-						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"
+				))+
 						";";
 		appRoot.setStyle(style);
 
@@ -523,7 +564,8 @@ public class Controller {
 
 		String style=
 				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
-						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"
+				))+
 						";";
 		appRoot.setStyle(style);
 
@@ -547,7 +589,8 @@ public class Controller {
 	private void closeAndResetTheme() {
 		String style=
 				"_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
-						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"))+
+						"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"
+				))+
 						";";
 		appRoot.setStyle(style);
 		hidePalette();
@@ -591,7 +634,6 @@ public class Controller {
 	}
 
 	//end of UI methods
-
 
 	private boolean isModified() {
 		return currentFilesModifiedState.get(currentCodeArea);

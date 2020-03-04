@@ -92,7 +92,7 @@
                                  </accelerator>
                               </MenuItem>
                               <SeparatorMenuItem mnemonicParsing="false" />
-                              <MenuItem mnemonicParsing="false" text="Find">
+                              <MenuItem mnemonicParsing="false" onAction="#find" text="Find">
                                  <accelerator>
                                     <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
@@ -150,10 +150,10 @@
                                       </AnchorPane>
                                   </children>
                               </AnchorPane>
-                              <TabPane id="tabPane" fx:id="tabPane" prefHeight="539.0" prefWidth="637.0" SplitPane.resizableWithParent="false" />
+                              <TabPane id="tabPane" fx:id="tabPane" prefHeight="539.0" prefWidth="637.0" />
                           </items>
                       </SplitPane>
-                  <AnchorPane id="prompt" fx:id="promptAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane id="prompt" fx:id="promptAnchorPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                             <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mouseTransparent="true" pickOnBounds="false" text="Create or Open a file.." textAlignment="CENTER" textFill="#ffffff33" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <font>

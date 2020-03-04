@@ -4,12 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.fxmisc.richtext.CodeArea;
-import sample.controllers.Test;
 
 import java.io.File;
-
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 public class Main extends Application {
 

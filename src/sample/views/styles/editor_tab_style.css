@@ -32,6 +32,34 @@ AnchorPane {
 	-fx-stroke: _TEXT;
 }
 
+/*AnchorPane override*/
+#search-container {
+	-fx-background-radius: 0;
+	-fx-background-color: _SECONDARY;
+}
+
+#search-field {
+	-fx-background-radius: 0 0 10 0;
+	-fx-text-fill: _TEXT;
+	-fx-background-color: _PRIMARY;
+}
+
+/*
+#search-icon{
+	-fx-font-size: 10px;
+	-fx-text-fill: _TEXT;
+	-fx-background-color: _PRIMARY;
+}*/
+
+#search-close {
+	-fx-background-color: transparent;
+	-fx-background-radius: 20;
+	-fx-text-fill: _TEXT;
+	-fx-font-size: 15px;
+
+}
+
+
 /*  Highlighting classes : */
 
 /* >> Java classes << */
