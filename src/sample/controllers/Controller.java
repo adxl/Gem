@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,6 +24,7 @@ import sample.syntax_computers.CSyntaxComputer;
 import sample.syntax_computers.JavaSyntaxComputer;
 import sample.syntax_computers.SyntaxComputer;
 
+import javax.swing.*;
 import java.io.*;
 import java.time.Duration;
 import java.util.*;
@@ -121,7 +119,7 @@ public class Controller {
 		}
 
 		quickInit();
-		setDefaultTheme();
+		setDarkTheme();
 	}
 
 	//launch application with already open files
@@ -184,7 +182,7 @@ public class Controller {
 
 	private void currentCodeAreaListener() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		currentCodeArea=(CodeArea)((AnchorPane)(tab.getContent())).getChildren().get(0);
+		currentCodeArea=(CodeArea)((VBox)((AnchorPane)(tab.getContent())).getChildren().get(0)).getChildren().get(1);
 
 		if(!currentFilesModifiedState.containsKey(currentCodeArea))
 			setModified(false);
@@ -230,12 +228,14 @@ public class Controller {
 			codeArea.deleteText(textLength,textLength+1);
 		}
 
-		AnchorPane.setTopAnchor(codeArea,0.0);
-		AnchorPane.setRightAnchor(codeArea,0.0);
-		AnchorPane.setBottomAnchor(codeArea,0.0);
-		AnchorPane.setLeftAnchor(codeArea,0.0);
+//		AnchorPane.setTopAnchor(codeArea,0.0);
+//		AnchorPane.setRightAnchor(codeArea,0.0);
+//		AnchorPane.setBottomAnchor(codeArea,0.0);
+//		AnchorPane.setLeftAnchor(codeArea,0.0);
 
-		root.getChildren().add(0,codeArea);
+		VBox.setVgrow(codeArea,Priority.ALWAYS);
+		codeArea.setMaxHeight(Double.MAX_VALUE);
+		((VBox)root.getChildren().get(0)).getChildren().add(codeArea);
 
 		return new Tab(title,root);
 	}
@@ -286,7 +286,7 @@ public class Controller {
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
 
-		currentCodeArea=(CodeArea)((AnchorPane)(tab.getContent())).getChildren().get(0);
+		currentCodeArea=(CodeArea)((VBox)((AnchorPane)(tab.getContent())).getChildren().get(0)).getChildren().get(1);
 		currentCodeArea.requestFocus();
 	}
 
@@ -449,18 +449,20 @@ public class Controller {
 	@FXML
 	private void find() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		Pane searchBar=(Pane)((AnchorPane)tab.getContent()).getChildren().get(1);
+		Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
 
 		Button button=(Button)searchBar.getChildren().get(1);
-		button.setOnAction(event->searchBar.setVisible(false));
+		button.setOnAction(event->searchBar.setPrefHeight(0.0));
 
 		TextField searchField=(TextField)searchBar.getChildren().get(0);
 
-		if(searchBar.isVisible())
-			searchBar.setVisible(false);
+		System.out.println(searchBar.getPrefHeight());
+
+		if(searchBar.getPrefHeight()==30.0)
+			searchBar.setPrefHeight(0.0);
 		else
 		{
-			searchBar.setVisible(true);
+			searchBar.setPrefHeight(30.0);
 			searchField.textProperty().removeListener(searchFieldListener);
 			searchField.textProperty().addListener(searchFieldListener);
 		}
@@ -468,7 +470,7 @@ public class Controller {
 
 	private void findInText(ObservableValue<? extends String> observableValue,String p,String requestedText) {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		Pane searchBar=(Pane)((AnchorPane)tab.getContent()).getChildren().get(1);
+		Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
 
 		TextField searchField=(TextField)searchBar.getChildren().get(0);
 
