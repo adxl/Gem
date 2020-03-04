@@ -467,14 +467,22 @@ public class Controller {
 	}
 
 	private void findInText(ObservableValue<? extends String> observableValue,String p,String requestedText) {
-		String fileText=currentCodeArea.getText();
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		Pane searchBar=(Pane)((AnchorPane)tab.getContent()).getChildren().get(1);
 
+		TextField searchField=(TextField)searchBar.getChildren().get(0);
+
+		String fileText=currentCodeArea.getText();
 		int index=fileText.indexOf(requestedText);
 
 		if(index==-1)
+		{
+			searchField.setStyle("-fx-background-color: rgba(255,0,0,0.2)");
 			currentCodeArea.deselect();
+		}
 		else
 		{
+			searchField.setStyle("-fx-background-color: _PRIMARY");
 			currentCodeArea.moveTo(index);
 			currentCodeArea.selectRange(index,index+requestedText.length());
 		}
