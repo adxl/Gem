@@ -451,7 +451,20 @@ public class Controller {
 		Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
 
 		Button button=(Button)searchBar.getChildren().get(1);
-		button.setOnAction(event->searchBar.setPrefHeight(0.0));
+		button.setOnAction(event->
+						   {
+							   if(!currentSelections.isEmpty())
+							   {
+								   currentCodeArea.deselect();
+								   for(Selection selection : currentSelections)
+								   {
+									   selection.deselect();
+									   currentCodeArea.removeSelection(selection);
+								   }
+								   currentSelections.clear();
+							   }
+							   searchBar.setPrefHeight(0.0);
+						   });
 
 		TextField searchField=(TextField)searchBar.getChildren().get(0);
 
@@ -466,12 +479,25 @@ public class Controller {
 	}
 
 	private void findInText(ObservableValue<? extends String> observableValue,String p,String requestedText) {
-		if(!requestedText.isEmpty())
-		{
-			Tab tab=tabPane.getSelectionModel().getSelectedItem();
-			Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
-			TextField searchField=(TextField)searchBar.getChildren().get(0);
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
+		TextField searchField=(TextField)searchBar.getChildren().get(0);
 
+		if(requestedText.isEmpty())
+		{
+			searchField.setStyle("-fx-background-color: _PRIMARY");
+			if(!currentSelections.isEmpty())
+			{
+				currentCodeArea.deselect();
+				for(Selection selection : currentSelections)
+				{
+					selection.deselect();
+					currentCodeArea.removeSelection(selection);
+				}
+				currentSelections.clear();
+			}
+		} else
+		{
 			ArrayList<Integer> occurenceIndexes=new ArrayList<>();
 
 			String fileText=currentCodeArea.getText();
