@@ -124,7 +124,9 @@ public class Controller {
 	//launch application with already open files
 	private void quickInit() throws IOException {
 		openExistingFile("snippets/java_snippet_test.java");
+		openExistingFile("src/sample/Main.java");
 		openExistingFile("Gem.iml");
+		openExistingFile("snippets/c_snippet_test.c");
 		openExistingFile("README.md");
 		openExistingFile("todo.md");
 		createFile();

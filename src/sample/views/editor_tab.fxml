@@ -12,7 +12,7 @@
          <children>
             <AnchorPane id="find-container" maxHeight="30.0" minHeight="0.0" prefHeight="0.0" prefWidth="200.0" VBox.vgrow="NEVER">
                <children>
-                  <TextField id="find-field" layoutY="3.0" promptText="Type to search.." AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="2.0" />
+                  <TextField id="find-field" layoutY="3.0" promptText="Type to search.." AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="2.0" />
                   <Button id="find-close" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="X" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
                <opaqueInsets>

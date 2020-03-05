@@ -33,27 +33,45 @@ AnchorPane {
 }
 
 /*AnchorPane override*/
-#find-container, #replace-container {
+#find-container {
 	-fx-background-radius: 0;
 	-fx-background-color: _SECONDARY;
 }
 
-#find-field, #replace-field {
-	-fx-background-radius: 0 0 10 0;
+#find-field {
+	-fx-background-radius: 0 10 10 0;
 	-fx-text-fill: _TEXT;
 	-fx-background-color: _PRIMARY;
 }
 
-#find-close, #replace-close {
+#find-close {
 	-fx-background-color: transparent;
 	-fx-background-radius: 20;
 	-fx-text-fill: _TEXT;
 	-fx-font-size: 15px;
 }
 
-#replace-all{
+#replace-container {
+	-fx-background-radius: 0;
+	-fx-background-color: _SECONDARY;
+}
+
+#replace-field {
+	-fx-background-radius: 10 10 0 0;
+	-fx-text-fill: _TEXT;
 	-fx-background-color: _PRIMARY;
+}
+
+#replace-close {
+	-fx-background-color: transparent;
 	-fx-background-radius: 20;
+	-fx-text-fill: _TEXT;
+	-fx-font-size: 15px;
+}
+
+#replace-all {
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 10 10 0 0;
 	-fx-text-fill: _TEXT;
 	-fx-font-size: 12px;
 }
