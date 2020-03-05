@@ -44,9 +44,14 @@ AnchorPane {
 	-fx-background-color: _PRIMARY;
 }
 
+.find-navs{
+	-fx-background-color: transparent;
+	-fx-text-fill: _TEXT;
+	-fx-font-size: 13px;
+}
+
 #find-close {
 	-fx-background-color: transparent;
-	-fx-background-radius: 20;
 	-fx-text-fill: _TEXT;
 	-fx-font-size: 15px;
 }
@@ -75,6 +80,7 @@ AnchorPane {
 	-fx-text-fill: _TEXT;
 	-fx-font-size: 12px;
 }
+
 
 
 /*  Highlighting classes : */
