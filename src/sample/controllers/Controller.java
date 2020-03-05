@@ -15,8 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.LineNumberFactory;
+import org.fxmisc.richtext.*;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.reactfx.Subscription;
 import sample.Main;
@@ -24,7 +23,6 @@ import sample.syntax_computers.CSyntaxComputer;
 import sample.syntax_computers.JavaSyntaxComputer;
 import sample.syntax_computers.SyntaxComputer;
 
-import javax.swing.*;
 import java.io.*;
 import java.time.Duration;
 import java.util.*;
@@ -49,10 +47,11 @@ public class Controller {
 
 	private CodeArea currentCodeArea;
 	private Subscription currentCodeAreaSub;
-	private HashMap<CodeArea,Subscription> codeAreasSubscriptionsMap=new HashMap<>();
+	private Map<CodeArea,Subscription> codeAreasSubscriptionsMap=new HashMap<>();
+	private List<Selection> currentSelections=new ArrayList<>();
 
 	private final String[] SUPPORTED_LANGUAGES=new String[] {"JAVA","C"};
-	private ArrayList<String> supportedLanguages;
+	private List<String> supportedLanguages;
 
 
 	@FXML
@@ -62,11 +61,11 @@ public class Controller {
 
 	@FXML
 	private VBox openFilesList;
-	private HashMap<String,File> openTabsFiles=new HashMap<>();
+	private Map<String,File> openTabsFiles=new HashMap<>();
 
-	private HashMap<CodeArea,Boolean> currentFilesModifiedState=new HashMap<>();
+	private Map<CodeArea,Boolean> currentFilesModifiedState=new HashMap<>();
 
-	private HashMap<String,HashMap<Character,Integer>> currentPalette=new HashMap<>();
+	private Map<String,HashMap<Character,Integer>> currentPalette=new HashMap<>();
 
 	@FXML
 	private Label fileType;
@@ -228,10 +227,10 @@ public class Controller {
 			codeArea.deleteText(textLength,textLength+1);
 		}
 
-//		AnchorPane.setTopAnchor(codeArea,0.0);
-//		AnchorPane.setRightAnchor(codeArea,0.0);
-//		AnchorPane.setBottomAnchor(codeArea,0.0);
-//		AnchorPane.setLeftAnchor(codeArea,0.0);
+		//		AnchorPane.setTopAnchor(codeArea,0.0);
+		//		AnchorPane.setRightAnchor(codeArea,0.0);
+		//		AnchorPane.setBottomAnchor(codeArea,0.0);
+		//		AnchorPane.setLeftAnchor(codeArea,0.0);
 
 		VBox.setVgrow(codeArea,Priority.ALWAYS);
 		codeArea.setMaxHeight(Double.MAX_VALUE);
@@ -456,8 +455,6 @@ public class Controller {
 
 		TextField searchField=(TextField)searchBar.getChildren().get(0);
 
-		System.out.println(searchBar.getPrefHeight());
-
 		if(searchBar.getPrefHeight()==30.0)
 			searchBar.setPrefHeight(0.0);
 		else
@@ -469,24 +466,51 @@ public class Controller {
 	}
 
 	private void findInText(ObservableValue<? extends String> observableValue,String p,String requestedText) {
-		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
-
-		TextField searchField=(TextField)searchBar.getChildren().get(0);
-
-		String fileText=currentCodeArea.getText();
-		int index=fileText.indexOf(requestedText);
-
-		if(index==-1)
+		if(!requestedText.isEmpty())
 		{
-			searchField.setStyle("-fx-background-color: rgba(255,0,0,0.2)");
-			currentCodeArea.deselect();
-		}
-		else
-		{
-			searchField.setStyle("-fx-background-color: _PRIMARY");
-			currentCodeArea.moveTo(index);
-			currentCodeArea.selectRange(index,index+requestedText.length());
+			Tab tab=tabPane.getSelectionModel().getSelectedItem();
+			Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
+			TextField searchField=(TextField)searchBar.getChildren().get(0);
+
+			ArrayList<Integer> occurenceIndexes=new ArrayList<>();
+
+			String fileText=currentCodeArea.getText();
+			int length=requestedText.length();
+
+			for(int i=fileText.indexOf(requestedText);i >= 0;i=fileText.indexOf(requestedText,i+length))
+				occurenceIndexes.add(i);
+
+			//			System.out.println(occurenceIndexes.size());
+
+			if(occurenceIndexes.isEmpty()) // 0 occurences found
+			{
+				searchField.setStyle("-fx-background-color: rgba(255,0,0,0.2)");
+				currentCodeArea.deselect();
+			} else
+			{
+				searchField.setStyle("-fx-background-color: _PRIMARY");
+				if(!currentSelections.isEmpty())
+				{
+					currentCodeArea.deselect();
+					for(Selection selection : currentSelections)
+					{
+						selection.deselect();
+						currentCodeArea.removeSelection(selection);
+					}
+					currentSelections.clear();
+				}
+				for(Integer index : occurenceIndexes)
+				{
+					Selection selection=new SelectionImpl("s"+index,currentCodeArea);
+					currentSelections.add(selection);
+					currentCodeArea.addSelection(selection);  // add it first
+					selection.selectRange(index,index+length);  // then set range
+				}
+				for(Selection s : currentSelections)
+				{
+					System.out.println(s.getSelectedText()+"["+s.getRange()+"]");
+				}
+			}
 		}
 	}
 
