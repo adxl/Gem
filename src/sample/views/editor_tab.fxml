@@ -6,15 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane fx:id="tabRoot" prefHeight="400.0" prefWidth="500.0" stylesheets="@styles/editor_tab_style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane id="search-container" maxHeight="30.0" minHeight="0.0" prefHeight="0.0" prefWidth="200.0" VBox.vgrow="NEVER">
+            <AnchorPane id="find-container" maxHeight="30.0" minHeight="0.0" prefHeight="30.0" prefWidth="200.0" VBox.vgrow="NEVER">
                <children>
-                  <TextField id="search-field" fx:id="searchField" layoutY="3.0" promptText="Type to search.." AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="2.0" />
-                  <Button id="search-close" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="X" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField id="find-field" layoutY="3.0" promptText="Type to search.." AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="2.0" />
+                  <Button id="find-close" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="X" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </AnchorPane>
+            <AnchorPane id="replace-container" layoutX="10.0" layoutY="10.0" maxHeight="30.0" minHeight="0.0" prefHeight="30.0" prefWidth="200.0">
+               <children>
+                  <TextField id="replace-field" layoutY="3.0" promptText="Replace with.." AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="2.0" />
+                  <Button id="replace-close" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="X" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button id="replace-all" alignment="CENTER" contentDisplay="CENTER" layoutX="479.0" layoutY="10.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Replace All" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="2.0" />
                </children>
                <opaqueInsets>
                   <Insets />

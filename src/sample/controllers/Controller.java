@@ -73,7 +73,7 @@ public class Controller {
 	private Label filePath;
 
 	private ChangeListener<String> textChangeListener;
-	private ChangeListener<String> searchFieldListener;
+	private ChangeListener<String> findFieldListener;
 
 	private String defaultSVGPathProperty="shape:\"M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1Z\";";
 	private String circleSVGPathProperty="shape:\"M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z\";";
@@ -90,7 +90,7 @@ public class Controller {
 		supportedLanguages=new ArrayList<>(Arrays.asList(SUPPORTED_LANGUAGES));
 
 		textChangeListener=this::textAreaChanged;
-		searchFieldListener=this::findInText;
+		findFieldListener=this::findInText;
 
 		//test if jar was run with arg
 		if(Main.getPassedFile()!=null)
@@ -123,7 +123,7 @@ public class Controller {
 
 	//launch application with already open files
 	private void quickInit() throws IOException {
-		openExistingFile("snippets/c_snippet_test.c");
+		openExistingFile("snippets/java_snippet_test.java");
 		openExistingFile("Gem.iml");
 		openExistingFile("README.md");
 		openExistingFile("todo.md");
@@ -181,7 +181,7 @@ public class Controller {
 
 	private void currentCodeAreaListener() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		currentCodeArea=(CodeArea)((VBox)((AnchorPane)(tab.getContent())).getChildren().get(0)).getChildren().get(1);
+		currentCodeArea=(CodeArea)((VBox)((AnchorPane)(tab.getContent())).getChildren().get(0)).getChildren().get(2);
 
 		if(!currentFilesModifiedState.containsKey(currentCodeArea))
 			setModified(false);
@@ -285,7 +285,7 @@ public class Controller {
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
 
-		currentCodeArea=(CodeArea)((VBox)((AnchorPane)(tab.getContent())).getChildren().get(0)).getChildren().get(1);
+		currentCodeArea=(CodeArea)((VBox)((AnchorPane)(tab.getContent())).getChildren().get(0)).getChildren().get(2);
 		currentCodeArea.requestFocus();
 	}
 
@@ -448,39 +448,40 @@ public class Controller {
 	@FXML
 	private void find() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
+		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
+		Pane replaceBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(1);
 
-		Button button=(Button)searchBar.getChildren().get(1);
+		Button button=(Button)findBar.getChildren().get(1);
 		button.setOnAction(event->
 						   {
 							   clearSelections();
-							   searchBar.setPrefHeight(0.0);
+							   findBar.setPrefHeight(0.0);
 						   });
 
-		TextField searchField=(TextField)searchBar.getChildren().get(0);
+		TextField findField=(TextField)findBar.getChildren().get(0);
 
-		if(searchBar.getPrefHeight()==30.0)
+		if(isBarVisible(findBar))
 		{
-			searchBar.setPrefHeight(0.0);
+			toggleBar(findBar,false);
+			toggleBar(replaceBar,false);
 			currentCodeArea.requestFocus();
-		}
-		else
+		} else
 		{
-			searchBar.setPrefHeight(30.0);
-			searchField.textProperty().removeListener(searchFieldListener);
-			searchField.textProperty().addListener(searchFieldListener);
-			searchField.requestFocus();
+			toggleBar(findBar,true);
+			findField.textProperty().removeListener(findFieldListener);
+			findField.textProperty().addListener(findFieldListener);
+			findField.requestFocus();
 		}
 	}
 
 	private void findInText(ObservableValue<? extends String> observableValue,String p,String requestedText) {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
-		Pane searchBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
-		TextField searchField=(TextField)searchBar.getChildren().get(0);
+		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
+		TextField findField=(TextField)findBar.getChildren().get(0);
 
 		if(requestedText.isEmpty())
 		{
-			searchField.setStyle("-fx-background-color: _PRIMARY");
+			findField.setStyle("-fx-background-color: _PRIMARY");
 			clearSelections();
 		} else
 		{
@@ -496,11 +497,11 @@ public class Controller {
 
 			if(occurenceIndexes.isEmpty()) // 0 occurences found
 			{
-				searchField.setStyle("-fx-background-color: rgba(255,0,0,0.2)");
+				findField.setStyle("-fx-background-color: rgba(255,0,0,0.2)");
 				clearSelections();
 			} else
 			{
-				searchField.setStyle("-fx-background-color: _PRIMARY");
+				findField.setStyle("-fx-background-color: _PRIMARY");
 				clearSelections();
 				for(Integer index : occurenceIndexes)
 				{
@@ -517,6 +518,31 @@ public class Controller {
 		}
 	}
 
+	@FXML
+	private void replace() {
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
+		Pane replaceBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(1);
+
+		Button replaceAllButton=(Button)replaceBar.getChildren().get(1);
+		Button replaceCloseButton=(Button)replaceBar.getChildren().get(2);
+
+		replaceAllButton.setOnAction(event->System.out.println(replaceAllButton.getText()));
+		replaceCloseButton.setOnAction(event->System.out.println(replaceCloseButton.getText()));
+
+		TextField replaceField=(TextField)replaceBar.getChildren().get(0);
+
+		if(!isBarVisible(replaceBar))
+		{
+			toggleBar(findBar,true);
+			toggleBar(replaceBar,true);
+		} else
+		{
+			toggleBar(replaceBar,false);
+		}
+	}
+
+
 	private void clearSelections() {
 		if(!currentSelections.isEmpty())
 		{
@@ -528,6 +554,17 @@ public class Controller {
 			}
 			currentSelections.clear();
 		}
+	}
+
+	private boolean isBarVisible(Pane bar) {
+		return bar.getHeight()==30.0;
+	}
+
+	private void toggleBar(Pane bar,boolean state) {
+		if(state)
+			bar.setPrefHeight(30.0);
+		else
+			bar.setPrefHeight(0.0);
 	}
 
 	// independent UI related methods :
