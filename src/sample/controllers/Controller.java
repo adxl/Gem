@@ -460,12 +460,16 @@ public class Controller {
 		TextField searchField=(TextField)searchBar.getChildren().get(0);
 
 		if(searchBar.getPrefHeight()==30.0)
+		{
 			searchBar.setPrefHeight(0.0);
+			currentCodeArea.requestFocus();
+		}
 		else
 		{
 			searchBar.setPrefHeight(30.0);
 			searchField.textProperty().removeListener(searchFieldListener);
 			searchField.textProperty().addListener(searchFieldListener);
+			searchField.requestFocus();
 		}
 	}
 
@@ -513,8 +517,7 @@ public class Controller {
 		}
 	}
 
-	private void clearSelections()
-	{
+	private void clearSelections() {
 		if(!currentSelections.isEmpty())
 		{
 			currentCodeArea.deselect();
@@ -526,7 +529,6 @@ public class Controller {
 			currentSelections.clear();
 		}
 	}
-
 
 	// independent UI related methods :
 
