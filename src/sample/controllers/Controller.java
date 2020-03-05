@@ -453,16 +453,7 @@ public class Controller {
 		Button button=(Button)searchBar.getChildren().get(1);
 		button.setOnAction(event->
 						   {
-							   if(!currentSelections.isEmpty())
-							   {
-								   currentCodeArea.deselect();
-								   for(Selection selection : currentSelections)
-								   {
-									   selection.deselect();
-									   currentCodeArea.removeSelection(selection);
-								   }
-								   currentSelections.clear();
-							   }
+							   clearSelections();
 							   searchBar.setPrefHeight(0.0);
 						   });
 
@@ -486,16 +477,7 @@ public class Controller {
 		if(requestedText.isEmpty())
 		{
 			searchField.setStyle("-fx-background-color: _PRIMARY");
-			if(!currentSelections.isEmpty())
-			{
-				currentCodeArea.deselect();
-				for(Selection selection : currentSelections)
-				{
-					selection.deselect();
-					currentCodeArea.removeSelection(selection);
-				}
-				currentSelections.clear();
-			}
+			clearSelections();
 		} else
 		{
 			ArrayList<Integer> occurenceIndexes=new ArrayList<>();
@@ -511,20 +493,11 @@ public class Controller {
 			if(occurenceIndexes.isEmpty()) // 0 occurences found
 			{
 				searchField.setStyle("-fx-background-color: rgba(255,0,0,0.2)");
-				currentCodeArea.deselect();
+				clearSelections();
 			} else
 			{
 				searchField.setStyle("-fx-background-color: _PRIMARY");
-				if(!currentSelections.isEmpty())
-				{
-					currentCodeArea.deselect();
-					for(Selection selection : currentSelections)
-					{
-						selection.deselect();
-						currentCodeArea.removeSelection(selection);
-					}
-					currentSelections.clear();
-				}
+				clearSelections();
 				for(Integer index : occurenceIndexes)
 				{
 					Selection selection=new SelectionImpl("s"+index,currentCodeArea);
@@ -539,6 +512,21 @@ public class Controller {
 			}
 		}
 	}
+
+	private void clearSelections()
+	{
+		if(!currentSelections.isEmpty())
+		{
+			currentCodeArea.deselect();
+			for(Selection selection : currentSelections)
+			{
+				selection.deselect();
+				currentCodeArea.removeSelection(selection);
+			}
+			currentSelections.clear();
+		}
+	}
+
 
 	// independent UI related methods :
 
