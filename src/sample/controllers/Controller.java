@@ -453,12 +453,19 @@ public class Controller {
 		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
 		Pane replaceBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(1);
 
-		Button button=(Button)findBar.getChildren().get(1);
-		button.setOnAction(event->
-						   {
-							   clearSelections();
-							   toggleBar(findBar, false);
-						   });
+		Button prevOccurenceButton=(Button)findBar.getChildren().get(1);
+		Button nextOccurenceButton=(Button)findBar.getChildren().get(2);
+
+		prevOccurenceButton.setOnAction(event->jumpToPreviousOccurence());
+		nextOccurenceButton.setOnAction(event->jumpToNextOccurence());
+
+		Button findCloseButton=(Button)findBar.getChildren().get(3);
+		findCloseButton.setOnAction(event->
+									{
+										clearSelections();
+										toggleBar(findBar,false);
+									}
+		);
 
 		TextField findField=(TextField)findBar.getChildren().get(0);
 
@@ -513,11 +520,42 @@ public class Controller {
 					currentCodeArea.addSelection(selection);  // add it first
 					selection.selectRange(index,index+length);  // then set range
 				}
-				for(Selection s : currentSelections)
+			}
+		}
+	}
+
+	private void jumpToPreviousOccurence() {
+		if(!currentSelections.isEmpty())
+		{
+			int caretPos = currentCodeArea.getCaretPosition();
+			int nearestPreviousIndex = 0;
+			for(Selection s : currentSelections)
+			{
+				if(s.getStartPosition()<caretPos)
+					nearestPreviousIndex=s.getStartPosition();
+				else
+					break;
+			}
+			currentCodeArea.moveTo(nearestPreviousIndex);
+			currentCodeArea.requestFocus();
+		}
+	}
+
+	private void jumpToNextOccurence() {
+		if(!currentSelections.isEmpty())
+		{
+			int caretPos = currentCodeArea.getCaretPosition();
+			int nearestNextIndex = 0;
+			for(Selection s : currentSelections)
+			{
+				if(s.getStartPosition()>caretPos)
 				{
-					System.out.println(s.getSelectedText()+"["+s.getRange()+"]");
+					nearestNextIndex=s.getStartPosition();
+					break;
 				}
 			}
+			currentCodeArea.moveTo(nearestNextIndex);
+			currentCodeArea.requestFocus();
 		}
 	}
 
@@ -534,7 +572,6 @@ public class Controller {
 		replaceAllButton.setOnAction(event->replaceText(replaceField.getText()));
 		replaceCloseButton.setOnAction(event->toggleBar(replaceBar,false));
 
-
 		if(!isBarVisible(replaceBar))
 		{
 			find();
@@ -545,13 +582,13 @@ public class Controller {
 		}
 	}
 
-	private void replaceText(String replacement){
+	private void replaceText(String replacement) {
 		System.out.println(replacement);
 		if(!currentSelections.isEmpty())
 		{
 			for(Selection selection : currentSelections)
 			{
-				currentCodeArea.replaceText(selection.getRange(), replacement);
+				currentCodeArea.replaceText(selection.getRange(),replacement);
 			}
 			clearSelections();
 		}
