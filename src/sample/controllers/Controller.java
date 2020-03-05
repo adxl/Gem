@@ -455,7 +455,7 @@ public class Controller {
 		button.setOnAction(event->
 						   {
 							   clearSelections();
-							   findBar.setPrefHeight(0.0);
+							   toggleBar(findBar, false);
 						   });
 
 		TextField findField=(TextField)findBar.getChildren().get(0);
@@ -465,6 +465,7 @@ public class Controller {
 			toggleBar(findBar,false);
 			toggleBar(replaceBar,false);
 			currentCodeArea.requestFocus();
+			clearSelections();
 		} else
 		{
 			toggleBar(findBar,true);
@@ -526,15 +527,15 @@ public class Controller {
 
 		Button replaceAllButton=(Button)replaceBar.getChildren().get(1);
 		Button replaceCloseButton=(Button)replaceBar.getChildren().get(2);
-
-		replaceAllButton.setOnAction(event->System.out.println(replaceAllButton.getText()));
-		replaceCloseButton.setOnAction(event->System.out.println(replaceCloseButton.getText()));
-
 		TextField replaceField=(TextField)replaceBar.getChildren().get(0);
+
+		replaceAllButton.setOnAction(event->replaceText(replaceField.getText()));
+		replaceCloseButton.setOnAction(event->toggleBar(replaceBar,false));
+
 
 		if(!isBarVisible(replaceBar))
 		{
-			toggleBar(findBar,true);
+			find();
 			toggleBar(replaceBar,true);
 		} else
 		{
@@ -542,6 +543,17 @@ public class Controller {
 		}
 	}
 
+	private void replaceText(String replacement){
+		System.out.println(replacement);
+		if(!currentSelections.isEmpty())
+		{
+			for(Selection selection : currentSelections)
+			{
+				currentCodeArea.replaceText(selection.getRange(), replacement);
+			}
+			clearSelections();
+		}
+	}
 
 	private void clearSelections() {
 		if(!currentSelections.isEmpty())
