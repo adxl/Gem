@@ -528,7 +528,7 @@ public class Controller {
 		if(!currentSelections.isEmpty())
 		{
 			int caretPos = currentCodeArea.getCaretPosition();
-			int nearestPreviousIndex = 0;
+			int nearestPreviousIndex = currentSelections.get(currentSelections.size()-1).getStartPosition();
 			for(Selection s : currentSelections)
 			{
 				if(s.getStartPosition()<caretPos)
@@ -545,7 +545,7 @@ public class Controller {
 		if(!currentSelections.isEmpty())
 		{
 			int caretPos = currentCodeArea.getCaretPosition();
-			int nearestNextIndex = 0;
+			int nearestNextIndex = currentSelections.get(0).getStartPosition();
 			for(Selection s : currentSelections)
 			{
 				if(s.getStartPosition()>caretPos)
