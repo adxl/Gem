@@ -74,7 +74,7 @@ AnchorPane {
 	-fx-font-size: 15px;
 }
 
-#replace-all {
+#replace-one, #replace-all {
 	-fx-background-color: _PRIMARY;
 	-fx-background-radius: 10 10 0 0;
 	-fx-text-fill: _TEXT;
