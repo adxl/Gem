@@ -602,6 +602,7 @@ public class Controller {
 			currentCodeArea.replaceText(selection.getRange(),replacement);
 			currentCodeArea.removeSelection(selection);
 			currentSelections.remove(selection);
+			currentCodeArea.moveTo(jumpToNextOccurrence());
 			currentCodeArea.requestFocus();
 		}
 	}
