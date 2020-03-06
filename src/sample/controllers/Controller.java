@@ -360,6 +360,7 @@ public class Controller {
 		FXMLLoader loader=new FXMLLoader(getClass().getResource("/sample/views/close_tab_dialog.fxml"));
 
 		final Stage stage=new Stage();
+		stage.setTitle("");
 		stage.initOwner(Main.getMainStage());
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.setScene(new Scene(loader.load()));

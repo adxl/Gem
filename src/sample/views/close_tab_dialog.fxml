@@ -7,27 +7,27 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="150.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ConfirmCloseController">
+<AnchorPane id="dialog-anchor-pane" fx:id="root" prefHeight="150.0" prefWidth="400.0" stylesheets="@styles/close_confirmation_style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ConfirmCloseController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="50.0" prefWidth="500.0" VBox.vgrow="NEVER">
+            <AnchorPane id="top-anchor" prefHeight="30.0" prefWidth="500.0" VBox.vgrow="NEVER">
                <children>
-                  <Label alignment="CENTER" layoutX="26.0" layoutY="22.0" text="Close the file?" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                  <Label id="title" alignment="CENTER" layoutX="26.0" layoutY="22.0" text="Close the file?" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+            <AnchorPane id="bottom-anchor" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="warningLabel" layoutX="26.0" layoutY="22.0" text="This file has been modified, if you don't save, all changes made to $name$ will be lost. " wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0" />
+                  <Label fx:id="warningLabel" layoutX="26.0" layoutY="22.0" text="This file has been modified, if you don't save, all changes made to $name$ will be lost. " wrapText="true" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
                   <Label layoutX="40.0" layoutY="10.0" text="&#10;" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
-                  <HBox alignment="BOTTOM_CENTER" fillHeight="false" layoutX="97.0" layoutY="97.0" maxHeight="-Infinity" prefHeight="30.0" prefWidth="360.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <HBox alignment="BOTTOM_CENTER" fillHeight="false" layoutX="97.0" layoutY="97.0" maxHeight="-Infinity" prefHeight="30.0" prefWidth="360.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#requestSave" text="Save">
+                        <Button id="save" mnemonicParsing="false" onAction="#requestSave" text="Save">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button layoutX="72.0" layoutY="10.0" mnemonicParsing="false" onAction="#requestClose" text="Close">
+                        <Button id="close" layoutX="72.0" layoutY="10.0" mnemonicParsing="false" onAction="#requestClose" text="Close">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
