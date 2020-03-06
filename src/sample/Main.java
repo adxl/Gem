@@ -44,6 +44,10 @@ public class Main extends Application {
 //	}
 
 
+	public static Stage getMainStage() {
+		return mainStage;
+	}
+
 	private void checkPassedArg() {
 		if(getPassedFile()!=null)
 		{

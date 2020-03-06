@@ -9,11 +9,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.*;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -117,7 +121,7 @@ public class Controller {
 			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
 		}
 
-		quickInit();
+		//		quickInit();
 		setDarkTheme();
 	}
 
@@ -282,7 +286,16 @@ public class Controller {
 
 	private void finalizeFileCreation(Tab tab) {
 		tabSwitchListener(tab);
-		tab.setOnCloseRequest(event->closeFile(tab.getText()));
+		tab.setOnCloseRequest(event->
+							  {
+								  try
+								  {
+									  event.consume();
+									  checkIfModified();
+								  } catch(IOException ignored)
+								  {
+								  }
+							  });
 
 		tabPane.getTabs().add(tab);
 		tabPane.getSelectionModel().select(tab);
@@ -340,6 +353,35 @@ public class Controller {
 		return stringBuilder.toString();
 	}
 
+	@FXML
+	private void showCloseConfirmation() throws IOException {
+		Tab tab=tabPane.getSelectionModel().getSelectedItem();
+
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("/sample/views/close_tab_dialog.fxml"));
+
+		final Stage stage=new Stage();
+		stage.initOwner(Main.getMainStage());
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(loader.load()));
+		stage.setAlwaysOnTop(true);
+		stage.setResizable(false);
+
+		ConfirmCloseController controller=loader.getController();
+		controller.init(this,tab.getText());
+
+		stage.show();
+	}
+
+	@FXML
+	private void checkIfModified() throws IOException {
+		if(isModified())
+		{
+			showCloseConfirmation();
+			return;
+		}
+		closeFileRequest();
+	}
+
 	private void closeFile(String title) {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 
@@ -362,8 +404,8 @@ public class Controller {
 		openTabsFiles.remove(title);
 	}
 
-	@FXML
-	private void closeFileRequest() {
+	//	@FXML
+	public void closeFileRequest() {
 		Tab selectedTab=tabPane.getSelectionModel().getSelectedItem();
 		String title=selectedTab.getText();
 		closeFile(title);
@@ -387,8 +429,8 @@ public class Controller {
 		tabPane.getSelectionModel().selectLast();
 	}
 
-	@FXML
-	private void saveFile() throws IOException {
+	//@FXML
+	public void saveFile() throws IOException {
 		String fileName=tabPane.getSelectionModel().getSelectedItem().getText();
 		if(openTabsFiles.get(fileName)==null) //saving an untitled file
 		{
@@ -591,7 +633,7 @@ public class Controller {
 		int index=checkCaretPosition();
 		if(index!=-1)
 		{
-			Selection selection = null;
+			Selection selection=null;
 			for(Selection s : currentSelections)
 			{
 				if(s.getStartPosition()==index)
