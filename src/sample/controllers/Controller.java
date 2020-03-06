@@ -579,6 +579,7 @@ public class Controller {
 		if(!isBarVisible(replaceBar))
 		{
 			find();
+			toggleBar(findBar,true);
 			toggleBar(replaceBar,true);
 		} else
 		{
