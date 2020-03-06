@@ -7,6 +7,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfirmCloseController {
 
@@ -22,10 +24,11 @@ public class ConfirmCloseController {
 	public void initialize() {
 	}
 
-	public void init(Controller controller,String fileName) {
+	public void init(Controller controller,String style,String fileName) {
 		this.controller=controller;
 		stage=(Stage)root.getScene().getWindow();
 		warningLabel.setText(warningLabel.getText().replace("$name$",fileName));
+		root.setStyle(style);
 	}
 
 	@FXML

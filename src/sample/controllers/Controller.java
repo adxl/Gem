@@ -9,13 +9,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -368,7 +366,7 @@ public class Controller {
 		stage.setResizable(false);
 
 		ConfirmCloseController controller=loader.getController();
-		controller.init(this,tab.getText());
+		controller.init(this,getCurrentStyle(),tab.getText());
 
 		stage.show();
 	}
@@ -714,6 +712,13 @@ public class Controller {
 
 	private void hidePalette() {
 		paletteContainer.setVisible(false);
+	}
+
+	private String getCurrentStyle() {
+		return "_PRIMARY:"+colorToHex(currentPalette.get("primary"))+";"+"_SECONDARY:"+colorToHex(currentPalette.get(
+				"secondary"))+";"+"_TEXT:"+colorToHex(currentPalette.get("text"))+";"+"_DETAILS:"+colorToHex(currentPalette.get("details"
+		))+
+					   ";";
 	}
 
 	@FXML
