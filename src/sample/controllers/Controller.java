@@ -453,11 +453,11 @@ public class Controller {
 		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
 		Pane replaceBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(1);
 
-		Button prevOccurenceButton=(Button)findBar.getChildren().get(1);
-		Button nextOccurenceButton=(Button)findBar.getChildren().get(2);
+		Button prevOccurrenceButton=(Button)findBar.getChildren().get(1);
+		Button nextOccurrenceButton=(Button)findBar.getChildren().get(2);
 
-		prevOccurenceButton.setOnAction(event->jumpToPreviousOccurence());
-		nextOccurenceButton.setOnAction(event->jumpToNextOccurence());
+		prevOccurrenceButton.setOnAction(event->jumpToPreviousOccurrence());
+		nextOccurrenceButton.setOnAction(event->jumpToNextOccurrence());
 
 		Button findCloseButton=(Button)findBar.getChildren().get(3);
 		findCloseButton.setOnAction(event->
@@ -495,17 +495,17 @@ public class Controller {
 			clearSelections();
 		} else
 		{
-			ArrayList<Integer> occurenceIndexes=new ArrayList<>();
+			ArrayList<Integer> occurrenceIndexes=new ArrayList<>();
 
 			String fileText=currentCodeArea.getText();
 			int length=requestedText.length();
 
 			for(int i=fileText.indexOf(requestedText);i >= 0;i=fileText.indexOf(requestedText,i+length))
-				occurenceIndexes.add(i);
+				occurrenceIndexes.add(i);
 
-			//			System.out.println(occurenceIndexes.size());
+			//			System.out.println(occurrenceIndexes.size());
 
-			if(occurenceIndexes.isEmpty()) // 0 occurences found
+			if(occurrenceIndexes.isEmpty()) // 0 occurrences found
 			{
 				findField.setStyle("-fx-background-color: rgba(255,0,0,0.2)");
 				clearSelections();
@@ -513,7 +513,7 @@ public class Controller {
 			{
 				findField.setStyle("-fx-background-color: _PRIMARY");
 				clearSelections();
-				for(Integer index : occurenceIndexes)
+				for(Integer index : occurrenceIndexes)
 				{
 					Selection selection=new SelectionImpl("s"+index,currentCodeArea);
 					currentSelections.add(selection);
@@ -524,11 +524,11 @@ public class Controller {
 		}
 	}
 
-	private void jumpToPreviousOccurence() {
+	private int jumpToPreviousOccurrence() {
 		if(!currentSelections.isEmpty())
 		{
-			int caretPos = currentCodeArea.getCaretPosition();
-			int nearestPreviousIndex = currentSelections.get(currentSelections.size()-1).getStartPosition();
+			int caretPos=currentCodeArea.getCaretPosition();
+			int nearestPreviousIndex=currentSelections.get(currentSelections.size()-1).getStartPosition();
 			for(Selection s : currentSelections)
 			{
 				if(s.getStartPosition()<caretPos)
@@ -539,13 +539,14 @@ public class Controller {
 			currentCodeArea.moveTo(nearestPreviousIndex);
 			currentCodeArea.requestFocus();
 		}
+		return currentCodeArea.getCaretPosition();
 	}
 
-	private void jumpToNextOccurence() {
+	private int jumpToNextOccurrence() {
 		if(!currentSelections.isEmpty())
 		{
-			int caretPos = currentCodeArea.getCaretPosition();
-			int nearestNextIndex = currentSelections.get(0).getStartPosition();
+			int caretPos=currentCodeArea.getCaretPosition();
+			int nearestNextIndex=currentSelections.get(0).getStartPosition();
 			for(Selection s : currentSelections)
 			{
 				if(s.getStartPosition()>caretPos)
@@ -557,6 +558,7 @@ public class Controller {
 			currentCodeArea.moveTo(nearestNextIndex);
 			currentCodeArea.requestFocus();
 		}
+		return currentCodeArea.getCaretPosition();
 	}
 
 	@FXML
@@ -565,11 +567,13 @@ public class Controller {
 		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);
 		Pane replaceBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(1);
 
-		Button replaceAllButton=(Button)replaceBar.getChildren().get(1);
-		Button replaceCloseButton=(Button)replaceBar.getChildren().get(2);
 		TextField replaceField=(TextField)replaceBar.getChildren().get(0);
+		Button replaceOneButton=(Button)replaceBar.getChildren().get(1);
+		Button replaceAllButton=(Button)replaceBar.getChildren().get(2);
+		Button replaceCloseButton=(Button)replaceBar.getChildren().get(3);
 
-		replaceAllButton.setOnAction(event->replaceText(replaceField.getText()));
+		replaceOneButton.setOnAction(event->replaceOneOccurrence(replaceField.getText()));
+		replaceAllButton.setOnAction(event->replaceAllOccurrences(replaceField.getText()));
 		replaceCloseButton.setOnAction(event->toggleBar(replaceBar,false));
 
 		if(!isBarVisible(replaceBar))
@@ -582,8 +586,46 @@ public class Controller {
 		}
 	}
 
-	private void replaceText(String replacement) {
-		System.out.println(replacement);
+	private void replaceOneOccurrence(String replacement) {
+		int index=checkCaretPosition();
+		if(index!=-1)
+		{
+			Selection selection = null;
+			for(Selection s : currentSelections)
+			{
+				if(s.getStartPosition()==index)
+				{
+					selection=s;
+					break;
+				}
+			}
+			currentCodeArea.replaceText(selection.getRange(),replacement);
+			currentCodeArea.removeSelection(selection);
+			currentSelections.remove(selection);
+			currentCodeArea.requestFocus();
+		}
+	}
+
+	private int checkCaretPosition() {
+		if(!currentSelections.isEmpty())
+		{
+			int caretPos=currentCodeArea.getCaretPosition();
+			boolean isCaretPosCorrect=false;
+
+			for(Selection selection : currentSelections)
+			{
+				if(caretPos==selection.getStartPosition())
+				{
+					isCaretPosCorrect=true;
+					break;
+				}
+			}
+			return isCaretPosCorrect ? caretPos : jumpToNextOccurrence();
+		}
+		return -1;
+	}
+
+	private void replaceAllOccurrences(String replacement) {
 		if(!currentSelections.isEmpty())
 		{
 			for(Selection selection : currentSelections)

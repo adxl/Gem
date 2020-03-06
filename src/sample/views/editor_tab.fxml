@@ -10,7 +10,7 @@
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane id="find-container" maxHeight="30.0" minHeight="0.0" prefHeight="30.0" prefWidth="200.0" VBox.vgrow="NEVER">
+            <AnchorPane id="find-container" maxHeight="30.0" minHeight="0.0" prefHeight="0.0" prefWidth="200.0" VBox.vgrow="NEVER">
                <children>
                   <TextField id="find-field" layoutY="3.0" promptText="Type to search.." AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="2.0" />
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="find-navs" text="↑" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="0.0" />
@@ -21,7 +21,7 @@
                   <Insets />
                </opaqueInsets>
             </AnchorPane>
-            <AnchorPane id="replace-container" layoutX="10.0" layoutY="10.0" maxHeight="30.0" minHeight="0.0" prefHeight="30.0" prefWidth="200.0">
+            <AnchorPane id="replace-container" layoutX="10.0" layoutY="10.0" maxHeight="30.0" minHeight="0.0" prefHeight="0.0" prefWidth="200.0">
                <children>
                   <TextField id="replace-field" layoutY="3.0" promptText="Replace with.." AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="2.0" />
                   <Button id="replace-one" alignment="CENTER" contentDisplay="CENTER" layoutX="390.0" layoutY="12.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Replace" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="2.0" />
