@@ -490,15 +490,16 @@ public class Controller {
 
 	@FXML
 	private void duplicateLine() {
-		currentCodeArea.selectLine();
+		if(currentCodeArea.getSelectedText().isEmpty())
+			currentCodeArea.selectLine();
 
-		String lineText="\n"+currentCodeArea.getSelectedText();
+		String text="\n"+currentCodeArea.getSelectedText();
 		int endIndex=currentCodeArea.getSelection().getEnd();
 
-		currentCodeArea.insertText(endIndex,lineText);
+		currentCodeArea.insertText(endIndex,text);
 		currentCodeArea.deselect();
 	}
-	
+
 	@FXML
 	private void find() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
