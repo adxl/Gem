@@ -489,6 +489,17 @@ public class Controller {
 	}
 
 	@FXML
+	private void duplicateLine() {
+		currentCodeArea.selectLine();
+
+		String lineText="\n"+currentCodeArea.getSelectedText();
+		int endIndex=currentCodeArea.getSelection().getEnd();
+
+		currentCodeArea.insertText(endIndex,lineText);
+		currentCodeArea.deselect();
+	}
+	
+	@FXML
 	private void find() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);

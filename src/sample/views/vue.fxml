@@ -102,6 +102,11 @@
                                     <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
+                               <MenuItem mnemonicParsing="false" onAction="#duplicateLine" text="Duplicate line">
+                                   <accelerator>
+                                       <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                   </accelerator>
+                               </MenuItem>
                            </items>
                         </Menu>
                             <Menu text="_Help">
