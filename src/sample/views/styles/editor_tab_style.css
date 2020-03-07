@@ -1,6 +1,7 @@
 /*INHERITED FROM style.css*/
 
 .root {
+	/* THEME */
 	_PRIMARY: #2A363B;
 	_SECONDARY: #242C32;
 	_TEXT: #CDCDCD;
@@ -44,7 +45,7 @@ AnchorPane {
 	-fx-background-color: _PRIMARY;
 }
 
-.find-navs{
+.find-navs {
 	-fx-background-color: transparent;
 	-fx-text-fill: _TEXT;
 	-fx-font-size: 13px;
@@ -82,31 +83,26 @@ AnchorPane {
 }
 
 
-
 /*  Highlighting classes : */
 
 /* >> Java classes << */
 
 .styled-text-area .java_keyword {
-	-fx-fill: blue;
+	-fx-fill: #3c3ccf;
 	-fx-font-weight: bold;
 }
 
 .styled-text-area .java_literal {
-	-fx-fill: purple;
+	-fx-fill: #803380;
 	-fx-font-weight: bold;
 }
 
-.styled-text-area .java_semicolon {
-	-fx-fill: #c27423;
-}
-
-.styled-text-area .java_comma {
+.styled-text-area .java_semicolon, .styled-text-area .java_comma {
 	-fx-fill: #c27423;
 }
 
 .styled-text-area .java_string {
-	-fx-fill: green;
+	-fx-fill: #338033;
 }
 
 .styled-text-area .java_comment {
@@ -121,29 +117,25 @@ AnchorPane {
 
 .styled-text-area .c_header {
 	-fx-font-style: italic;
-	-fx-fill: purple;
+	-fx-fill: #803380;
 }
 
 .styled-text-area .c_keyword {
-	-fx-fill: blue;
+	-fx-fill: #3c3ccf;
 	-fx-font-weight: bold;
 }
 
 .styled-text-area .c_literal {
-	-fx-fill: purple;
+	-fx-fill: #803380;
 	-fx-font-weight: bold;
 }
 
-.styled-text-area .c_semicolon {
-	-fx-fill: #c27423;
-}
-
-.styled-text-area .c_comma {
+.styled-text-area .c_semicolon, .styled-text-area .c_comma {
 	-fx-fill: #c27423;
 }
 
 .styled-text-area .c_string {
-	-fx-fill: green;
+	-fx-fill: #338033;
 }
 
 .styled-text-area .c_comment {
