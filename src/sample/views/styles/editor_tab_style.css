@@ -85,7 +85,7 @@ AnchorPane {
 
 /*  Highlighting classes : */
 
-/* >> Java classes << */
+/* Java */
 
 .styled-text-area .java_keyword {
 	-fx-fill: #3c3ccf;
@@ -109,7 +109,7 @@ AnchorPane {
 	-fx-fill: gray;
 }
 
-/* >> C classes << */
+/* C */
 
 .styled-text-area .c_directive {
 	-fx-fill: orange;
@@ -140,4 +140,18 @@ AnchorPane {
 
 .styled-text-area .c_comment {
 	-fx-fill: gray;
+}
+
+/* HTML */
+
+.styled-text-area .html_tag {
+	-fx-fill: #3c3ccf;
+}
+
+.styled-text-area .html_attribute {
+	-fx-fill: #338033;
+}
+
+.styled-text-area .html_value {
+	-fx-fill: #c27423;
 }

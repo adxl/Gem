@@ -22,6 +22,7 @@ import org.fxmisc.richtext.model.StyleSpans;
 import org.reactfx.Subscription;
 import sample.Main;
 import sample.syntax_computers.CSyntaxComputer;
+import sample.syntax_computers.HTMLSyntaxComputer;
 import sample.syntax_computers.JavaSyntaxComputer;
 import sample.syntax_computers.SyntaxComputer;
 
@@ -52,7 +53,7 @@ public class Controller {
 	private Map<CodeArea,Subscription> codeAreasSubscriptionsMap=new HashMap<>();
 	private List<Selection> currentSelections=new ArrayList<>();
 
-	private final String[] SUPPORTED_LANGUAGES=new String[] {"JAVA","C"};
+	private final String[] SUPPORTED_LANGUAGES=new String[] {"JAVA","C","HTML"};
 	private List<String> supportedLanguages;
 
 
@@ -125,13 +126,14 @@ public class Controller {
 
 	//launch application with already open files
 	private void quickInit() throws IOException {
-		openExistingFile("snippets/java_snippet_test.java");
-		openExistingFile("src/sample/Main.java");
-		openExistingFile("Gem.iml");
-		openExistingFile("snippets/c_snippet_test.c");
-		openExistingFile("README.md");
-		openExistingFile("todo.md");
-		createFile();
+		openExistingFile("snippets/html_snippet_test.html");
+//		openExistingFile("snippets/java_snippet_test.java");
+//		openExistingFile("src/sample/Main.java");
+//		openExistingFile("Gem.iml");
+//		openExistingFile("snippets/c_snippet_test.c");
+//		openExistingFile("README.md");
+//		openExistingFile("todo.md");
+//		createFile();
 		tabPane.getSelectionModel().select(0);
 	}
 
@@ -258,6 +260,9 @@ public class Controller {
 				break;
 			case "C":
 				syntaxComputer=new CSyntaxComputer();
+				break;
+			case "HTML":
+				syntaxComputer=new HTMLSyntaxComputer();
 				break;
 		}
 		assert syntaxComputer!=null;
