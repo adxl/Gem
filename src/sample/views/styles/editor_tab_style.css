@@ -148,10 +148,6 @@ AnchorPane {
 	-fx-fill: #3c3ccf;
 }
 
-.styled-text-area .html_attribute {
-	-fx-fill: #338033;
-}
-
 .styled-text-area .html_value {
-	-fx-fill: #c27423;
+	-fx-fill: #338033;
 }

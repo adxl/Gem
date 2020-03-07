@@ -16,13 +16,11 @@ public class HTMLSyntaxComputer implements SyntaxComputer {
 
 
 	private final String TAG_REGEX_PATTERN="("+String.join("|",TAGS)+")";
-	private final String ATTRIBUTE_REGEX_PATTERN="[a-z|A-Z]+=";
-	private final String VALUE_REGEX_PATTERN="\".+\"";
+	private final String VALUE_REGEX_PATTERN="=\".+\"";
 
 
 	private final String[] PATTERNS=new String[] {
 			"(?<TAG>"+TAG_REGEX_PATTERN+")",
-			"(?<ATTRIBUTE>"+ATTRIBUTE_REGEX_PATTERN+")",
 			"(?<VALUE>"+VALUE_REGEX_PATTERN+")"
 	};
 
@@ -38,8 +36,7 @@ public class HTMLSyntaxComputer implements SyntaxComputer {
 		while(matcher.find())
 		{
 			String styleClass=matcher.group("TAG")!=null ? "html_tag" :
-									  matcher.group("ATTRIBUTE")!=null ? "html_attribute" :
-											  matcher.group("VALUE")!=null ? "html_value" : null;
+									  matcher.group("VALUE")!=null ? "html_value" : null;
 			assert styleClass!=null;
 			spansBuilder.add(Collections.emptyList(),matcher.start()-lastKeywordEnd);
 			spansBuilder.add(Collections.singleton(styleClass),matcher.end()-matcher.start());
