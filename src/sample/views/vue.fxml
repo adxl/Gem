@@ -32,7 +32,7 @@
                <children>
                     <MenuBar id="menuBar" prefHeight="0.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
                         <menus>
-                            <Menu text="_File">
+                            <Menu mnemonicParsing="false" text="File">
                                 <items>
                                     <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#createFile" text="New">
                                         <accelerator>
@@ -67,14 +67,8 @@
                                         </accelerator>
                                     </MenuItem>
                                 </items>
-                           <accelerator>
-                              <KeyCodeCombination alt="DOWN" code="F" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                           </accelerator>
                             </Menu>
-                            <Menu text="_Edit">
-                           <accelerator>
-                              <KeyCodeCombination alt="DOWN" code="E" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                           </accelerator>
+                            <Menu mnemonicParsing="false" text="Edit">
                            <items>
                               <SeparatorMenuItem mnemonicParsing="false" />
                               <MenuItem mnemonicParsing="false" onAction="#cut" text="Cut">
@@ -93,10 +87,7 @@
                               </MenuItem>
                            </items>
                         </Menu>
-                            <Menu text="_Help">
-                           <accelerator>
-                              <KeyCodeCombination alt="DOWN" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                           </accelerator>
+                            <Menu mnemonicParsing="false" text="Code">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#find" text="Find">
                                  <accelerator>
@@ -121,10 +112,20 @@
                               </MenuItem>
                            </items>
                         </Menu>
-                        <Menu text="_Help">
-                           <accelerator>
-                              <KeyCodeCombination alt="DOWN" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
-                           </accelerator>
+                        <Menu mnemonicParsing="false" text="View">
+                           <items>
+                              <Menu mnemonicParsing="false" text="Change theme">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#setLightTheme" text="Light theme" />
+                                    <MenuItem mnemonicParsing="false" onAction="#setDarkTheme" text="Dark theme" />
+                                    <MenuItem mnemonicParsing="false" onAction="#setDefaultTheme" text="Default theme (Gem)" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" onAction="#showPalette" text="Custom theme..." />
+                                 </items>
+                              </Menu>
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
                            <items>
                               <MenuItem mnemonicParsing="false" text="Unspecified Action" />
                            </items>
