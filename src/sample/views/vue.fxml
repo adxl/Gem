@@ -91,7 +91,13 @@
                                     <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
-                              <SeparatorMenuItem mnemonicParsing="false" />
+                           </items>
+                        </Menu>
+                            <Menu text="_Help">
+                           <accelerator>
+                              <KeyCodeCombination alt="DOWN" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                           <items>
                               <MenuItem mnemonicParsing="false" onAction="#find" text="Find">
                                  <accelerator>
                                     <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -102,14 +108,20 @@
                                     <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
-                               <MenuItem mnemonicParsing="false" onAction="#duplicateLine" text="Duplicate line">
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                               <MenuItem mnemonicParsing="false" onAction="#selectLine" text="Select line">
                                    <accelerator>
-                                       <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                       <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                                    </accelerator>
                                </MenuItem>
+                              <MenuItem mnemonicParsing="false" onAction="#duplicateLine" text="Duplicate line">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
                            </items>
                         </Menu>
-                            <Menu text="_Help">
+                        <Menu text="_Help">
                            <accelerator>
                               <KeyCodeCombination alt="DOWN" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>

@@ -25,7 +25,7 @@ AnchorPane {
 .styled-text-area .lineno {
 	-fx-background-color: _PRIMARY;
 	-fx-text-fill: _TEXT;
-	-fx-background-radius: 0 0 0 20;
+	/*-fx-background-radius: 0 0 0 20;*/
 }
 
 .caret {

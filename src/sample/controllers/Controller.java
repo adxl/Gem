@@ -119,7 +119,7 @@ public class Controller {
 			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
 		}
 
-		//		quickInit();
+		quickInit();
 		setDarkTheme();
 	}
 
@@ -486,6 +486,11 @@ public class Controller {
 	@FXML
 	private void paste() {
 		currentCodeArea.paste();
+	}
+
+	@FXML
+	private void selectLine() {
+		currentCodeArea.selectLine();
 	}
 
 	@FXML
