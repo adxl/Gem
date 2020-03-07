@@ -164,6 +164,19 @@
 
 #tabPane .tab {
     -fx-background-color: _PRIMARY;
+    -fx-opacity: 30%;
+    -fx-background-radius: 10 10 0 0;
+}
+
+#tabPane .tab:hover {
+    -fx-background-color: _PRIMARY;
+    -fx-opacity: 100%;
+    -fx-background-radius: 10 10 0 0;
+}
+
+#tabPane .tab:selected {
+    -fx-background-color: _PRIMARY;
+    -fx-opacity: 100%;
     -fx-background-radius: 10 10 0 0;
 }
 
