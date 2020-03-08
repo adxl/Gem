@@ -6,6 +6,9 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.css.Styleable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,6 +28,8 @@ import sample.syntax_computers.CSyntaxComputer;
 import sample.syntax_computers.HTMLSyntaxComputer;
 import sample.syntax_computers.JavaSyntaxComputer;
 import sample.syntax_computers.SyntaxComputer;
+
+import javafx.collections.ListChangeListener.Change;
 
 import java.io.*;
 import java.time.Duration;
@@ -92,6 +97,8 @@ public class Controller {
 
 		supportedLanguages=new ArrayList<>(Arrays.asList(SUPPORTED_LANGUAGES));
 
+		tabPane.getTabs().addListener(Controller::tabsChanged);
+
 		textChangeListener=this::textAreaChanged;
 		findFieldListener=this::findInText;
 
@@ -120,20 +127,21 @@ public class Controller {
 			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
 		}
 
-		quickInit();
-		setDarkTheme();
+		//		quickInit();
+		//		setDarkTheme();
+		setDefaultTheme();
 	}
 
 	//launch application with already open files
 	private void quickInit() throws IOException {
 		openExistingFile("snippets/html_snippet_test.html");
-//		openExistingFile("snippets/java_snippet_test.java");
-//		openExistingFile("src/sample/Main.java");
-//		openExistingFile("Gem.iml");
-//		openExistingFile("snippets/c_snippet_test.c");
-//		openExistingFile("README.md");
-//		openExistingFile("todo.md");
-//		createFile();
+		//		openExistingFile("snippets/java_snippet_test.java");
+		//		openExistingFile("src/sample/Main.java");
+		//		openExistingFile("Gem.iml");
+		//		openExistingFile("snippets/c_snippet_test.c");
+		//		openExistingFile("README.md");
+		//		openExistingFile("todo.md");
+		//		createFile();
 		tabPane.getSelectionModel().select(0);
 	}
 
@@ -175,6 +183,50 @@ public class Controller {
 						filePath.setText("");
 					}
 				});
+	}
+
+	private static void tabsChanged(Change<? extends Tab> c) {
+		System.out.println(1);
+		while(c.next())
+		{
+			if(c.wasRemoved())
+			{
+				for(Tab removed : c.getRemoved())
+				{
+					removed.getStyleClass().removeAll("first-tab","last-tab");
+				}
+			}
+		}
+
+		ObservableList<? extends Tab> tabs=c.getList();
+		System.out.println(tabs.size());
+		if(tabs.size()==1)
+		{
+			Tab tab=tabs.get(0);
+			addStyleClassIfAbsent(tab,"first-tab");
+			addStyleClassIfAbsent(tab,"last-tab");
+		} else if(!tabs.isEmpty())
+		{
+			Tab first=tabs.get(0);
+			addStyleClassIfAbsent(first,"first-tab");
+			first.getStyleClass().remove("last-tab");
+
+			Tab last=tabs.get(tabs.size()-1);
+			addStyleClassIfAbsent(last,"last-tab");
+			last.getStyleClass().remove("first-tab");
+
+			for(Tab middle : tabs.subList(1,tabs.size()-1))
+			{
+				middle.getStyleClass().removeAll("first-tab","last-tab");
+			}
+		}
+	}
+
+	private static void addStyleClassIfAbsent(Styleable styleable,String styleClass) {
+		ObservableList<String> styleClasses = styleable.getStyleClass();
+		if (!styleClasses.contains(styleClass)) {
+			styleClasses.add(styleClass);
+		}
 	}
 
 	@Deprecated
