@@ -6,7 +6,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.css.Styleable;
 import javafx.fxml.FXML;
@@ -29,7 +29,6 @@ import sample.syntax_computers.HTMLSyntaxComputer;
 import sample.syntax_computers.JavaSyntaxComputer;
 import sample.syntax_computers.SyntaxComputer;
 
-import javafx.collections.ListChangeListener.Change;
 
 import java.io.*;
 import java.time.Duration;
@@ -186,7 +185,6 @@ public class Controller {
 	}
 
 	private static void tabsChanged(Change<? extends Tab> c) {
-		System.out.println(1);
 		while(c.next())
 		{
 			if(c.wasRemoved())
@@ -199,7 +197,6 @@ public class Controller {
 		}
 
 		ObservableList<? extends Tab> tabs=c.getList();
-		System.out.println(tabs.size());
 		if(tabs.size()==1)
 		{
 			Tab tab=tabs.get(0);
@@ -223,8 +220,9 @@ public class Controller {
 	}
 
 	private static void addStyleClassIfAbsent(Styleable styleable,String styleClass) {
-		ObservableList<String> styleClasses = styleable.getStyleClass();
-		if (!styleClasses.contains(styleClass)) {
+		ObservableList<String> styleClasses=styleable.getStyleClass();
+		if(!styleClasses.contains(styleClass))
+		{
 			styleClasses.add(styleClass);
 		}
 	}
@@ -617,8 +615,6 @@ public class Controller {
 
 			for(int i=fileText.indexOf(requestedText);i >= 0;i=fileText.indexOf(requestedText,i+length))
 				occurrenceIndexes.add(i);
-
-			//			System.out.println(occurrenceIndexes.size());
 
 			if(occurrenceIndexes.isEmpty()) // 0 occurrences found
 			{
