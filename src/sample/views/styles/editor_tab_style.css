@@ -109,6 +109,10 @@ AnchorPane {
 	-fx-fill: gray;
 }
 
+.styled-text-area .java_annotation {
+	-fx-fill: yellow;
+}
+
 /* C */
 
 .styled-text-area .c_directive {

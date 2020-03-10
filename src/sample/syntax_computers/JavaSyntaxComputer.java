@@ -22,6 +22,7 @@ public class JavaSyntaxComputer implements SyntaxComputer {
 	private final String COMMA_REGEX_PATTERN="\\,";
 	private final String STRING_REGEX_PATTERN="\"([^\"\\\\]|\\\\.)*\"";
 	private final String COMMENT_REGEX_PATTERN="//[^\n]*"+"|"+"/\\*(.|\\R)*?\\*/";
+	private final String ANNOTATION_REGEX_PATTERN="@[a-z|A-Z]+";
 
 	private final String[] PATTERNS=new String[] {
 			"(?<KEYWORD>"+KEYWORD_REGEX_PATTERN+")",
@@ -29,7 +30,8 @@ public class JavaSyntaxComputer implements SyntaxComputer {
 			"(?<SEMICOLON>"+SEMICOLON_REGEX_PATTERN+")",
 			"(?<COMMA>"+COMMA_REGEX_PATTERN+")",
 			"(?<STRING>"+STRING_REGEX_PATTERN+")",
-			"(?<COMMENT>"+COMMENT_REGEX_PATTERN+")"
+			"(?<COMMENT>"+COMMENT_REGEX_PATTERN+")",
+			"(?<ANNOTATION>"+ANNOTATION_REGEX_PATTERN+")"
 	};
 
 	private final Pattern PATTERN=Pattern.compile(String.join("|",PATTERNS));
@@ -48,7 +50,8 @@ public class JavaSyntaxComputer implements SyntaxComputer {
 											  matcher.group("SEMICOLON")!=null ? "java_semicolon" :
 													  matcher.group("COMMA")!=null ? "java_comma" :
 															  matcher.group("STRING")!=null ? "java_string" :
-																	  matcher.group("COMMENT")!=null ? "java_comment" : null;
+																	  matcher.group("COMMENT")!=null ? "java_comment" :
+																			  matcher.group("ANNOTATION")!=null ? "java_annotation" : null;
 			assert styleClass!=null;
 			spansBuilder.add(Collections.emptyList(),matcher.start()-lastKeywordEnd);
 			spansBuilder.add(Collections.singleton(styleClass),matcher.end()-matcher.start());
