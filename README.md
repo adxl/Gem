@@ -1,4 +1,5 @@
 # Gem Code Editor
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/adxl/Gem?label=version)
 <p align="center">
     <img src="resources/gems1.png" alt="">
 </p>
