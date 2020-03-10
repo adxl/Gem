@@ -1,0 +1,254 @@
+.root {
+	-fx-font-family: "DejaVu Sans";
+	_PRIMARY: #2A363B;
+	_SECONDARY: #242C32;
+	_TEXT: #CDCDCD;
+	_DETAILS: #878787;
+}
+
+#menuBarDivider {
+	-fx-background-color: _SECONDARY;
+}
+
+.menu {
+	-fx-padding: 3 5 1 5;
+}
+
+.menu-item {
+	-fx-padding: 1 5 1 5;
+}
+
+.menu .context-menu {
+	-fx-padding: 1 1 1 1;
+
+}
+
+.menu-bar {
+	-fx-padding: 2 1 2 5;
+	-fx-spacing: 1;
+}
+
+/*.menu-bar > .container > .menu:showing{*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+
+#menuBarContainer {
+	-fx-background-color: _SECONDARY;
+}
+
+.menu-bar {
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 0 0 0 10;
+}
+
+.menu-bar .label {
+	-fx-text-fill: _TEXT;
+}
+
+.menu-bar .context-menu {
+	-fx-background-color: _PRIMARY;
+}
+
+#themeButton {
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 0 0 15 0;
+}
+
+#themeButton .label {
+	-fx-text-fill: _TEXT;
+}
+
+#themeButton .arrow-button {
+	-fx-pref-width: 0;
+}
+
+#themeButton .arrow-button .arrow {
+	-fx-opacity: 0;
+}
+
+#themeButton .context-menu {
+	-fx-background-color: _PRIMARY;
+	-fx-text-fill: _TEXT;
+}
+
+#prompt {
+	-fx-background-color: _PRIMARY;
+}
+
+.split-pane {
+	-fx-background-color: _SECONDARY;
+}
+
+#openFilesAnchor {
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 0 20 20 0;
+}
+
+.split-pane > .split-pane-divider {
+	-fx-background-color: _SECONDARY; /*transparent?*/
+	-fx-padding: 0 0 0 6px;
+}
+
+#bottomBar {
+	-fx-background-color: _PRIMARY;
+}
+
+#bottomBar HBox {
+	-fx-background-color: _SECONDARY;
+	-fx-border-radius: 0;
+}
+
+#bottomBar HBox .label {
+	-fx-text-fill: _TEXT;
+}
+
+#openFilesPane, #openFilesPane .viewport {
+	-fx-background-color: transparent;
+}
+
+
+#openFilesPane > .scroll-bar {
+	-fx-background-color: transparent;
+	-fx-opacity: 30%;
+}
+
+#openFilesPane > .corner {
+	-fx-opacity: 0;
+}
+
+#openFilesPane > .scroll-bar > .track {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-background-radius: 0em;
+	-fx-border-radius: 2em;
+}
+
+#openFilesPane > .scroll-bar > .thumb {
+	-fx-background-color: _DETAILS;
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
+}
+
+#openFilesPane > .scroll-bar > .increment-button,
+#openFilesPane > .scroll-bar > .decrement-button {
+
+	-fx-background-color: transparent;
+	-fx-background-radius: 0em;
+	-fx-padding: 0 10 10 0;
+}
+
+#openFilesPane > .scroll-bar > .increment-button > .increment-arrow,
+#openFilesPane > .scroll-bar > .decrement-button > .decrement-arrow {
+	-fx-shape: " ";
+	-fx-padding: 0;
+}
+
+.split-pane .label {
+	-fx-text-fill: _TEXT;
+}
+
+#openFilesList {
+	-fx-background-color: transparent;
+}
+
+#openFilesList .label {
+	/*-fx-text-fill: _TEXT;*/
+	-fx-cursor: hand;
+	-fx-padding: 5 0 5 0;
+}
+
+#tabPane {
+	-fx-background-radius: 0 0 0 20;
+}
+
+#tabPane .tab {
+	-fx-background-color: _PRIMARY;
+	-fx-opacity: 30%;
+}
+
+#tabPane .tab:hover {
+	-fx-background-color: _PRIMARY;
+	-fx-opacity: 100%;
+}
+
+#tabPane .tab:selected {
+	-fx-background-color: _PRIMARY;
+	-fx-opacity: 100%;
+}
+
+.first-tab {
+    -fx-background-radius: 10 0 0 0;
+}
+
+.last-tab {
+    -fx-background-radius: 0 10 0 0;
+
+}
+
+#tabPane .tab .tab-label {
+	-fx-text-fill: _TEXT;
+}
+
+#tabPane .tab-header-area {
+	-fx-padding: 0;
+}
+
+#tabPane .tab-header-area .tab-header-background {
+	-fx-background-color: _SECONDARY;
+}
+
+.tab-pane {
+	shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
+	/*shape: "M 500 300 A 50 50 0 1 1 700 300 A 50 50 0 1 1 500 300 Z";*/ /*circle*/
+	/*-fx-background-radius: 0 0 0 20;*/
+}
+
+
+.tab > .tab-container > .tab-close-button {
+	-fx-background-color: _TEXT;
+
+}
+
+.tab:selected > .tab-container > .tab-close-button {
+	-fx-shape: shape;
+	-fx-scale-shape: true;
+	-fx-scale-x: 50%;
+	-fx-scale-y: 50%;
+	-fx-background-color: _TEXT;
+}
+
+#paletteAnchorPane {
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 20;
+}
+
+#paletteAnchorPane .label {
+	-fx-text-fill: _TEXT;
+}
+
+#paletteAnchorPane #paletteMainLabel {
+	-fx-font-size: 18px;
+}
+
+#paletteAnchorPane .button {
+	-fx-background-color: _SECONDARY;
+	-fx-text-fill: _TEXT;
+}
+
+.color-picker {
+	-fx-background-color: transparent;
+	-fx-color-label-visible: false;
+}
+
+
+.color-picker .arrow-button {
+	-fx-background-color: lime;
+	-fx-pref-width: 0;
+	-fx-padding: 0;
+}
+
+.color-picker .arrow {
+	-fx-opacity: 0;
+	-fx-pref-width: 0;
+}

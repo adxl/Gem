@@ -1,0 +1,39 @@
+.root {
+	_PRIMARY: #2A363B;
+	_SECONDARY: #242C32;
+	_TEXT: #CDCDCD;
+	_DETAILS: #878787;
+}
+
+#dialog-anchor-pane{
+	-fx-background-color: _SECONDARY;
+}
+
+#top-anchor{
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 0 0 15 15;
+}
+
+#title{
+	-fx-font-size: 16px;
+}
+
+#bottom-anchor{
+	-fx-background-color: _SECONDARY;
+}
+
+.label{
+	-fx-text-fill: _TEXT;
+}
+
+.button{
+	-fx-text-fill: _TEXT;
+	-fx-background-radius: 10;
+}
+
+#save{
+	-fx-background-color: _PRIMARY;
+}
+#close{
+	-fx-background-color: rgba(255,0,0,0.6);
+}

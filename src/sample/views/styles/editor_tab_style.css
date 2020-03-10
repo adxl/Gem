@@ -1,0 +1,157 @@
+/*INHERITED FROM style.css*/
+
+.root {
+	/* THEME */
+	_PRIMARY: #2A363B;
+	_SECONDARY: #242C32;
+	_TEXT: #CDCDCD;
+	_DETAILS: #878787;
+}
+
+AnchorPane {
+	-fx-background-radius: 0 0 0 20;
+	-fx-background-color: _PRIMARY;
+}
+
+.styled-text-area {
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 0 0 0 20;
+}
+
+.styled-text-area .text {
+	-fx-fill: _TEXT;
+}
+
+
+.styled-text-area .lineno {
+	-fx-background-color: _PRIMARY;
+	-fx-text-fill: _TEXT;
+	/*-fx-background-radius: 0 0 0 20;*/
+}
+
+.caret {
+	-fx-stroke: _TEXT;
+}
+
+/*AnchorPane override*/
+#find-container {
+	-fx-background-radius: 0;
+	-fx-background-color: _SECONDARY;
+}
+
+#find-field {
+	-fx-background-radius: 0 10 10 0;
+	-fx-text-fill: _TEXT;
+	-fx-background-color: _PRIMARY;
+}
+
+.find-navs {
+	-fx-background-color: transparent;
+	-fx-text-fill: _TEXT;
+	-fx-font-size: 13px;
+}
+
+#find-close {
+	-fx-background-color: transparent;
+	-fx-text-fill: _TEXT;
+	-fx-font-size: 15px;
+}
+
+#replace-container {
+	-fx-background-radius: 0;
+	-fx-background-color: _SECONDARY;
+}
+
+#replace-field {
+	-fx-background-radius: 10 10 0 0;
+	-fx-text-fill: _TEXT;
+	-fx-background-color: _PRIMARY;
+}
+
+#replace-close {
+	-fx-background-color: transparent;
+	-fx-background-radius: 20;
+	-fx-text-fill: _TEXT;
+	-fx-font-size: 15px;
+}
+
+#replace-one, #replace-all {
+	-fx-background-color: _PRIMARY;
+	-fx-background-radius: 10 10 0 0;
+	-fx-text-fill: _TEXT;
+	-fx-font-size: 12px;
+}
+
+
+/*  Highlighting classes : */
+
+/* Java */
+
+.styled-text-area .java_keyword {
+	-fx-fill: #3c3ccf;
+	-fx-font-weight: bold;
+}
+
+.styled-text-area .java_literal {
+	-fx-fill: #803380;
+	-fx-font-weight: bold;
+}
+
+.styled-text-area .java_semicolon, .styled-text-area .java_comma {
+	-fx-fill: #c27423;
+}
+
+.styled-text-area .java_string {
+	-fx-fill: #338033;
+}
+
+.styled-text-area .java_comment {
+	-fx-fill: gray;
+}
+
+.styled-text-area .java_annotation {
+	-fx-fill: yellow;
+}
+
+/* C */
+
+.styled-text-area .c_directive {
+	-fx-fill: orange;
+}
+
+.styled-text-area .c_header {
+	-fx-font-style: italic;
+	-fx-fill: #803380;
+}
+
+.styled-text-area .c_keyword {
+	-fx-fill: #3c3ccf;
+	-fx-font-weight: bold;
+}
+
+.styled-text-area .c_literal {
+	-fx-fill: #803380;
+	-fx-font-weight: bold;
+}
+
+.styled-text-area .c_semicolon, .styled-text-area .c_comma {
+	-fx-fill: #c27423;
+}
+
+.styled-text-area .c_string {
+	-fx-fill: #338033;
+}
+
+.styled-text-area .c_comment {
+	-fx-fill: gray;
+}
+
+/* HTML */
+
+.styled-text-area .html_tag {
+	-fx-fill: #3c3ccf;
+}
+
+.styled-text-area .html_value {
+	-fx-fill: #338033;
+}
