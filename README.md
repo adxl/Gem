@@ -5,7 +5,7 @@
 Gem is a modern code editor with a simple yet customizable design.  
 
 ## Download
-Check the latest version [here]()
+Check the latest version [here](https://github.com/adxl/Gem/releases/latest)
 
 ## Contributing
 Gem is an open-source project, it is written in Java and uses mainly JavaFX UI Controls
