@@ -16,4 +16,4 @@ Here is how you can do it :
 5. Push it to your repository  
 6. Create a pull request  
 
-For more detailed information check [this](https://opensource.com/article/19/7/create-pull-request-github) article.
+For more detailed information check out [this](https://opensource.com/article/19/7/create-pull-request-github) article.
