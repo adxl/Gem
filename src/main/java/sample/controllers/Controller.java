@@ -1,6 +1,5 @@
 package sample.controllers;
 
-import com.sun.istack.internal.Nullable;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -260,7 +259,7 @@ public class Controller {
 		setLabelModified(true);
 	}
 
-	private Tab generateEditorTab(String title,@Nullable String text) throws IOException {
+	private Tab generateEditorTab(String title,String text) throws IOException {
 		AnchorPane root=FXMLLoader.load(getClass().getResource("/fxml/editor_tab.fxml"));
 		CodeArea codeArea;
 
