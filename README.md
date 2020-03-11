@@ -1,6 +1,6 @@
 # Gem Code Editor
 
-![build](https://github.com/adxl/Gem/workflows/Gem%20Testing%20(Java%20CI%20with%20Maven)/badge.svg?branch=master)
+![build](https://github.com/adxl/Gem/workflows/build/badge.svg)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/adxl/Gem?label=version)
 
 
