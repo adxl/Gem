@@ -139,7 +139,7 @@ public class Controller {
 		//		openExistingFile("Gem.iml");
 		//		openExistingFile("snippets/c_snippet_test.c");
 		//		openExistingFile("README.md");
-		//		openExistingFile("todo.md");
+		//		openExistingFile("TODO.md");
 		//		createFile();
 		tabPane.getSelectionModel().select(0);
 	}
@@ -261,7 +261,7 @@ public class Controller {
 	}
 
 	private Tab generateEditorTab(String title,@Nullable String text) throws IOException {
-		AnchorPane root=FXMLLoader.load(getClass().getResource("/sample/views/editor_tab.fxml"));
+		AnchorPane root=FXMLLoader.load(getClass().getResource("/fxml/editor_tab.fxml"));
 		CodeArea codeArea;
 
 		if(text==null)
@@ -410,7 +410,7 @@ public class Controller {
 	private void showCloseConfirmation() throws IOException {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("/sample/views/close_tab_dialog.fxml"));
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/close_tab_dialog.fxml"));
 
 		final Stage stage=new Stage();
 		stage.setTitle("");

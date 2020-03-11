@@ -20,7 +20,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/vue.fxml"));
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/vue.fxml"));
 		mainStage=primaryStage;
 		mainStage.setScene(new Scene(loader.load()));
 		mainStage.setTitle("Gem");
@@ -35,7 +35,7 @@ public class Main extends Application {
 	//TEST
 //	@Override
 //	public void start(Stage primaryStage) throws Exception {
-//		FXMLLoader loader=new FXMLLoader(getClass().getResource("views/test.fxml"));
+//		FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/test.fxml"));
 //		mainStage=primaryStage;
 //		Scene scene = new Scene(loader.load());
 //		mainStage.setScene(scene);
