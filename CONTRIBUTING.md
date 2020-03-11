@@ -1,4 +1,4 @@
-## Contributing
+# How to contribute
 Gem is an open-source project, it is written in Java and uses mainly JavaFX UI Controls
 apart from the text editor which is based on [RichTextFX](https://github.com/FXMisc/RichTextFX). 
 
