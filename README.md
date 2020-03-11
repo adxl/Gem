@@ -16,6 +16,8 @@ Check out the latest version [here](https://github.com/adxl/Gem/releases/latest)
 Gem is an open-source project, it is made with JavaFX.  
 If you are willing to help improve Gem and want to contribute to the project, click [here](https://github.com/adxl/Gem/blob/master/CONTRIBUTING.md) for more information.
 
+## License
+This project is licensed under the [MIT](https://github.com/adxl/Gem/blob/master/LICENSE.md) license.
 
 
 
