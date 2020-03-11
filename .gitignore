@@ -1,7 +1,16 @@
 out/
-todo.md
-/src/sample/controllers/Test.java
-/src/sample/views/test.fxml
-/src/sample/views/styles/test.css
-/snippets/
-/README-BRANCHES.md
+target/
+
+#TESTS
+src/main/java/sample/controllers/Test.java
+src/main/resources/fxml/test.fxml
+src/main/resources/styles/test.css
+
+#CODE SNIPPETS FOR SYNTAX HIGHLIGHT TESTS
+snippets/
+
+#BRANCHES STRUCTURES
+README-BRANCHES.md
+
+#TODOs
+TODO.md
