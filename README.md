@@ -4,6 +4,8 @@
 </p>
 Gem is a modern code editor with a simple yet customizable design.  
   
+
+## Version 1.0
 This is the version 1.0 of Gem, for the latest one click [here](https://github.com/adxl/Gem/releases/latest)
 
 ## Download
