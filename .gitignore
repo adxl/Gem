@@ -1,5 +1,6 @@
 out/
 target/
+.idea/
 
 #TESTS
 src/main/java/sample/controllers/Test.java
@@ -14,3 +15,6 @@ README-BRANCHES.md
 
 #TODOs
 TODO.md
+
+#PIDs
+.attach_pid*
