@@ -1,11 +1,8 @@
-[//]: # (![build](https://github.com/adxl/Gem/workflows/build/badge.svg\))  
-[//]: # (![GitHub release (latest by date\)](https://img.shields.io/github/v/release/adxl/Gem?label=version\))
-
 <p align="center">
-    <img src="resources/gem-logo.png" alt="gem-logo">
+    <img width="10%" style="margin-bottom:0" src="resources/gem-logo.png" alt="gem-logo">
 </p>
 
-<h2 align="center">Gem</h2>
+<h1 align="center">Gem</h1>
 <p align="center">A modern code editor with a simple yet customizable design</p>
 
 <p align="center">
