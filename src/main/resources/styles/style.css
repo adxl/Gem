@@ -1,9 +1,9 @@
 .root {
 	-fx-font-family: "DejaVu Sans";
-	_PRIMARY: black;
-	_SECONDARY: black;
-	_TEXT: black;
-	_DETAILS: black;
+	_PRIMARY: #273d3e;
+	_SECONDARY: #10292c;
+	_TEXT: white;
+	_DETAILS: gray;
 }
 
 #menuBarDivider {

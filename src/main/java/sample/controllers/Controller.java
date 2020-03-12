@@ -555,6 +555,19 @@ public class Controller {
 	}
 
 	@FXML
+	private void removeLine() {
+		if(currentCodeArea.getSelectedText().isEmpty())
+		{
+			currentCodeArea.selectLine();
+			currentCodeArea.deleteText(currentCodeArea.getSelection());
+			currentCodeArea.deletePreviousChar();
+			currentCodeArea.moveTo(currentCodeArea.getCaretPosition()+1);
+			return;
+		}
+		currentCodeArea.deleteText(currentCodeArea.getSelection());
+	}
+
+	@FXML
 	private void find() {
 		Tab tab=tabPane.getSelectionModel().getSelectedItem();
 		Pane findBar=(Pane)((VBox)((AnchorPane)tab.getContent()).getChildren().get(0)).getChildren().get(0);

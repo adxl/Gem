@@ -110,6 +110,11 @@
                                     <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
+                              <MenuItem mnemonicParsing="false" onAction="#removeLine" text="Remove line">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="U" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="View">
