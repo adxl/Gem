@@ -22,12 +22,12 @@ import javafx.stage.Stage;
 import org.fxmisc.richtext.*;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.reactfx.Subscription;
+
 import sample.Main;
 import sample.syntax_computers.CSyntaxComputer;
 import sample.syntax_computers.HTMLSyntaxComputer;
 import sample.syntax_computers.JavaSyntaxComputer;
 import sample.syntax_computers.SyntaxComputer;
-
 
 import java.io.*;
 import java.time.Duration;
@@ -281,11 +281,6 @@ public class Controller {
 			codeArea.insertText(textLength,"$");
 			codeArea.deleteText(textLength,textLength+1);
 		}
-
-		//		AnchorPane.setTopAnchor(codeArea,0.0);
-		//		AnchorPane.setRightAnchor(codeArea,0.0);
-		//		AnchorPane.setBottomAnchor(codeArea,0.0);
-		//		AnchorPane.setLeftAnchor(codeArea,0.0);
 
 		VBox.setVgrow(codeArea,Priority.ALWAYS);
 		codeArea.setMaxHeight(Double.MAX_VALUE);
@@ -832,8 +827,8 @@ public class Controller {
 	private void setDefaultTheme() {
 		clearCurrentPalette();
 
-		currentPalette.put("primary",colorToRGBA("2A363BFF"));
-		currentPalette.put("secondary",colorToRGBA("242C32FF"));
+		currentPalette.put("primary",colorToRGBA("233348FF"));
+		currentPalette.put("secondary",colorToRGBA("1A2737FF"));
 		currentPalette.put("text",colorToRGBA("CDCDCDFF"));
 		currentPalette.put("details",colorToRGBA("878787FF"));
 
