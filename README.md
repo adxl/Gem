@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="10%" style="margin-bottom:0" src="resources/gem-logo.png" alt="gem-logo">
+    <img width="10%" style="margin-bottom:0" src="resources/gem-logo-light.png" alt="gem-logo">
 </p>
 
 <h1 align="center">Gem</h1>
