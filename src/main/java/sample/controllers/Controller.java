@@ -34,6 +34,7 @@ import java.time.Duration;
 import java.util.*;
 
 public class Controller {
+
 	@FXML
 	private AnchorPane appRoot;
 	@FXML
@@ -125,16 +126,15 @@ public class Controller {
 			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
 		}
 
-		//		quickInit();
-		//		setDarkTheme();
-		setDefaultTheme();
+//		quickInit();
+		setDarkTheme();
 	}
 
 	//launch application with already open files
 	private void quickInit() throws IOException {
 		openExistingFile("snippets/html_snippet_test.html");
 		//		openExistingFile("snippets/java_snippet_test.java");
-		//		openExistingFile("src/sample/Main.java");
+		//		openExistingFile("src/main/java/sample/Main.java");
 		//		openExistingFile("Gem.iml");
 		//		openExistingFile("snippets/c_snippet_test.c");
 		//		openExistingFile("README.md");
@@ -566,6 +566,29 @@ public class Controller {
 		}
 		currentCodeArea.deleteText(currentCodeArea.getSelection());
 	}
+
+	@FXML
+	private void convertSelectionToUppercase() {
+		if(!currentCodeArea.getSelectedText().isEmpty())
+		{
+			IndexRange selection=currentCodeArea.getSelection();
+			String text=currentCodeArea.getSelectedText().toUpperCase();
+			currentCodeArea.replaceSelection(text);
+			currentCodeArea.selectRange(selection.getStart(),selection.getEnd());
+		}
+	}
+
+	@FXML
+	private void convertSelectionToLowercase() {
+		if(!currentCodeArea.getSelectedText().isEmpty())
+		{
+			IndexRange selection=currentCodeArea.getSelection();
+			String text=currentCodeArea.getSelectedText().toLowerCase();
+			currentCodeArea.replaceSelection(text);
+			currentCodeArea.selectRange(selection.getStart(),selection.getEnd());
+		}
+	}
+
 
 	@FXML
 	private void find() {
