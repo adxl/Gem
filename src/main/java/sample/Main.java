@@ -49,11 +49,9 @@ public class Main extends Application {
 	}
 
 	private void checkPassedArg() {
-		if(getPassedFile()!=null)
-		{
-			File file=new File(pathArg);
+		File file = getPassedFile();
+		if(file != null)
 			setMainStageTitle(file.getName());
-		}
 	}
 
 	public static void setMainStageTitle(String title) {
