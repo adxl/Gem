@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -25,32 +26,28 @@ public class Main extends Application {
 		mainStage.setScene(new Scene(loader.load()));
 		mainStage.setTitle("Gem");
 		mainStage.setMaximized(true);
-		mainStage.setAlwaysOnTop(true);
 		mainStage.setMinHeight(200);
 		mainStage.setMinWidth(400);
+		mainStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/logo.png")));
 		mainStage.show();
 		checkPassedArg();
 	}
 
 	//TEST
-//	@Override
-//	public void start(Stage primaryStage) throws Exception {
-//		FXMLLoader loader=new FXMLLoader(getClass().getResource("/fxml/test.fxml"));
-//		mainStage=primaryStage;
-//		Scene scene = new Scene(loader.load());
-//		mainStage.setScene(scene);
-//		mainStage.setAlwaysOnTop(true);
-//		mainStage.show();
-//	}
-
+	//	@Override
+	//	public void start(Stage primaryStage) throws Exception {
+	//		Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/test.fxml")););
+	//		primaryStage.setScene(scene);
+	//		primaryStage.show();
+	//	}
 
 	public static Stage getMainStage() {
 		return mainStage;
 	}
 
 	private void checkPassedArg() {
-		File file = getPassedFile();
-		if(file != null)
+		File file=getPassedFile();
+		if(file!=null)
 			setMainStageTitle(file.getName());
 	}
 
