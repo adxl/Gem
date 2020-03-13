@@ -51,7 +51,7 @@ public class Main extends Application {
 	private void checkPassedArg() {
 		File file = getPassedFile();
 		if(file != null)
-			setMainStageTitle(file.getName);
+			setMainStageTitle(file.getName());
 	}
 
 	public static void setMainStageTitle(String title) {
