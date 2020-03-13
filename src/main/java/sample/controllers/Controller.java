@@ -969,7 +969,7 @@ public class Controller {
 		{
 			for(Label l : openFilesList.getChildren().toArray(new Label[0]))
 			{
-				if(l.getText().equals(tabName) && l.getText().charAt(l.getText().length()-1)!='⚫')
+				if(l.getText().equals(tabName) && !String.valueOf(l.getText().charAt(l.getText().length()-1)).equals("⚫"))
 				{
 					l.setText(tabName+"⚫");
 					return;
