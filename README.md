@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-    <img src="resources/gems1.png" alt="gem-screenshot">
+    <img src="resources/gems2.png" alt="gem-screenshot">
 </p>
 
 ## Download
