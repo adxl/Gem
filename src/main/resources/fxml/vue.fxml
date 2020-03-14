@@ -137,6 +137,11 @@
                                     <MenuItem mnemonicParsing="false" onAction="#setDefaultTheme" text="Default theme (Gem)" />
                                     <SeparatorMenuItem mnemonicParsing="false" />
                                     <MenuItem mnemonicParsing="false" onAction="#showPalette" text="Custom theme..." />
+                                    <MenuItem mnemonicParsing="false" onAction="#switchTheme" text="Switch theme" visible="false">
+                                       <accelerator>
+                                          <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                                       </accelerator>
+                                    </MenuItem>
                                  </items>
                               </Menu>
                            </items>

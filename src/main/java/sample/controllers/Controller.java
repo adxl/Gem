@@ -73,6 +73,7 @@ public class Controller {
 	private Map<CodeArea,Boolean> currentFilesModifiedState=new HashMap<>();
 
 	private Map<String,HashMap<Character,Integer>> currentPalette=new HashMap<>();
+	private int currentTheme;
 
 	@FXML
 	private Label fileType;
@@ -126,8 +127,9 @@ public class Controller {
 			colorPickers[i].valueProperty().addListener(event->setCustomTheme());
 		}
 
-//		quickInit();
-		setDarkTheme();
+		//		quickInit();
+		//		setDarkTheme();
+		setDefaultTheme();
 	}
 
 	//launch application with already open files
@@ -825,6 +827,7 @@ public class Controller {
 	private void setLightTheme() {
 		clearCurrentPalette();
 
+		currentTheme=0;
 		currentPalette.put("primary",colorToRGBA("F2F2F2FF"));
 		currentPalette.put("secondary",colorToRGBA("DBDBDBFF"));
 		currentPalette.put("text",colorToRGBA("343A40FF"));
@@ -844,6 +847,7 @@ public class Controller {
 	private void setDarkTheme() {
 		clearCurrentPalette();
 
+		currentTheme=1;
 		currentPalette.put("primary",colorToRGBA("15151EFF"));
 		currentPalette.put("secondary",colorToRGBA("080810FF"));
 		currentPalette.put("text",colorToRGBA("AEAEAEFF"));
@@ -863,8 +867,9 @@ public class Controller {
 	private void setDefaultTheme() {
 		clearCurrentPalette();
 
-		currentPalette.put("primary",colorToRGBA("233348FF"));
-		currentPalette.put("secondary",colorToRGBA("1A2737FF"));
+		currentTheme=2;
+		currentPalette.put("primary",colorToRGBA("40516DFF"));
+		currentPalette.put("secondary",colorToRGBA("313F52FF"));
 		currentPalette.put("text",colorToRGBA("CDCDCDFF"));
 		currentPalette.put("details",colorToRGBA("878787FF"));
 
@@ -924,6 +929,22 @@ public class Controller {
 						";";
 		appRoot.setStyle(style);
 		hidePalette();
+	}
+
+	@FXML
+	private void switchTheme() {
+		currentTheme=(currentTheme+1)%3;
+		switch(currentTheme)
+		{
+			case 0:
+				setLightTheme();
+				return;
+			case 1:
+				setDarkTheme();
+				return;
+			case 2:
+				setDefaultTheme();
+		}
 	}
 
 	private void updatePalette() {
